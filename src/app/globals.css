@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "streamdown/styles.css";
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/manrope";
 @import "@fontsource-variable/dm-sans";
@@ -13,6 +14,12 @@
 @import "@fontsource-variable/lora";
 @import "@fontsource-variable/source-serif-4";
 @import "../styles/foundation.css";
+
+@source "../../node_modules/streamdown/dist/*.js";
+@source "../../node_modules/@streamdown/code/dist/*.js";
+@source "../../node_modules/@streamdown/mermaid/dist/*.js";
+@source "../../node_modules/@streamdown/math/dist/*.js";
+@source "../../node_modules/@streamdown/cjk/dist/*.js";
 
 .site-frame { max-width: 1600px; min-height: 100dvh; margin: 0 auto; border-inline: var(--border-width) solid var(--border); }
 .docs-header { position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 32px; height: 68px; padding-right: 24px; border-bottom: var(--border-width) solid var(--border); background: var(--card); }
@@ -57,6 +64,13 @@
 .code-disclosure-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 8px calc(var(--spacing) * 5); color: var(--muted-foreground); font-family: var(--font-geist-mono); font-size: .625rem; }
 .code-disclosure pre { max-height: 380px; overflow: auto; padding: 0 calc(var(--spacing) * 5) 20px; font-family: var(--font-geist-mono); font-size: .75rem; line-height: 1.8; tab-size: 2; }
 .code-disclosure pre:focus-visible { outline-offset: -3px; }
+.syntax-highlight { --syntax-background: #fafafa; --syntax-text: #171717; --syntax-comment: #526174; --syntax-keyword: #7134a1; --syntax-string: #166534; --syntax-function: #075985; --syntax-value: #9a3412; background: var(--syntax-background); color: var(--syntax-text); border: 0; }
+.dark .syntax-highlight { --syntax-background: #0a0a0a; --syntax-text: #ededed; --syntax-comment: #a3b1c6; --syntax-keyword: #d8b4fe; --syntax-string: #86efac; --syntax-function: #7dd3fc; --syntax-value: #fdba74; }
+.syntax-highlight .token.comment, .syntax-highlight .token.prolog, .syntax-highlight .token.doctype { color: var(--syntax-comment); }
+.syntax-highlight .token.keyword, .syntax-highlight .token.atrule, .syntax-highlight .token.tag, .syntax-highlight .token.boolean { color: var(--syntax-keyword); }
+.syntax-highlight .token.string, .syntax-highlight .token.attr-value, .syntax-highlight .token.selector { color: var(--syntax-string); }
+.syntax-highlight .token.function, .syntax-highlight .token.class-name, .syntax-highlight .token.builtin, .syntax-highlight .token.property, .syntax-highlight .token.attr-name { color: var(--syntax-function); }
+.syntax-highlight .token.number, .syntax-highlight .token.variable, .syntax-highlight .token.parameter, .syntax-highlight .token.constant { color: var(--syntax-value); }
 @keyframes code-expand { from { height: 0; opacity: 0; } to { height: var(--radix-collapsible-content-height); opacity: 1; } }
 @keyframes code-collapse { from { height: var(--radix-collapsible-content-height); opacity: 1; } to { height: 0; opacity: 0; } }
 .skip-link { position: fixed; top: -100px; left: 12px; z-index: 100; padding: 10px 16px; background: var(--primary); color: var(--primary-foreground); border-radius: var(--radius); }

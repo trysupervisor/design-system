@@ -5,8 +5,9 @@ import { ChevronRightIcon, CopyIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { SyntaxCode, type CodeLanguage } from "@/components/syntax-code";
 
-export function CodeDisclosure({ title, code, language = "tsx" }: { title: string; code: string; language?: "tsx" | "css" | "sh" | "json" }) {
+export function CodeDisclosure({ title, code, language = "tsx" }: { title: string; code: string; language?: CodeLanguage }) {
   const [open, setOpen] = useState(false);
 
   async function copyCode() {
@@ -31,7 +32,7 @@ export function CodeDisclosure({ title, code, language = "tsx" }: { title: strin
             <CopyIcon />
           </Button>
         </div>
-        <pre tabIndex={0} aria-label={`${title} code`}><code>{code}</code></pre>
+        <SyntaxCode code={code} language={language} label={`${title} code`} />
       </CollapsibleContent>
     </Collapsible>
   );
