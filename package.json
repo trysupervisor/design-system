@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test": "bun test",
     "typecheck": "tsc --noEmit",
-    "registry:build": "bun scripts/build-registry.ts"
+    "registry:build": "bun scripts/build-registry.ts",
+    "test:installation": "bun scripts/test-installation.ts"
   },
   "dependencies": {
     "@ai-sdk/gateway": "^4.0.78",
