@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { registryItemSchema } from "shadcn/schema";
 import { defaultTheme, themePresets } from "../src/lib/theme-presets";
 import { hexToHslChannels, themeToRegistry } from "../src/lib/theme-registry";
+import { AI_ELEMENTS } from "../src/lib/ai-elements-catalog";
 
 const projectRoot = new URL("../", import.meta.url);
 const compositions = ["combobox", "data-table", "date-picker", "toast", "typography"];
@@ -14,7 +15,7 @@ async function jsonFile<T>(path: string): Promise<T> {
 describe("registry output", () => {
   test("publishes schema valid items for every manifest entry", async () => {
     const manifest = await jsonFile<{ items: RegistryItem[] }>("registry.json");
-    expect(manifest.items).toHaveLength(103);
+    expect(manifest.items).toHaveLength(103 + AI_ELEMENTS.length + 3);
     for (const item of manifest.items) {
       const output = await jsonFile<RegistryItem>(`public/r/${item.name}.json`);
       expect(registryItemSchema.safeParse(output).success).toBe(true);
@@ -38,6 +39,31 @@ describe("registry output", () => {
       expect(item.files?.[0].content?.length).toBeGreaterThan(40);
       expect(item.files?.[0].content).not.toContain("asChild");
       expect(item.registryDependencies.every((dependency) => !dependency.includes("http"))).toBe(true);
+    }
+  });
+
+  test("publishes the complete AI Elements catalog with the verified source", async () => {
+    expect(AI_ELEMENTS).toHaveLength(48);
+    const all = await jsonFile<RegistryItem>("public/r/ai-elements.json");
+    expect(all.registryDependencies).toHaveLength(AI_ELEMENTS.length);
+    for (const element of AI_ELEMENTS) {
+      const url = `https://ui.trysupervisor.com/r/ai-elements-${element.slug}.json`;
+      expect(all.registryDependencies).toContain(url);
+      const item = await jsonFile<RegistryItem>(`public/r/ai-elements-${element.slug}.json`);
+      expect(item.registryDependencies).toContain("https://ui.trysupervisor.com/r/ai-elements-license.json");
+      expect(item.files?.[0].target).toBe(`@components/ai-elements/${element.slug}.tsx`);
+      const source = await Bun.file(new URL(`src/components/ai-elements/${element.slug}.tsx`, projectRoot)).text();
+      expect(item.files?.[0].content).toBe(source);
+      expect(item.cssVars).toBeUndefined();
+    }
+    const license = await jsonFile<RegistryItem>("public/r/ai-elements-license.json");
+    expect(license.files?.[0].target).toBe("~/licenses/ai-elements.txt");
+    expect(license.files?.[0].content).toContain("Apache License");
+    const timing = await jsonFile<RegistryItem>("public/r/ai-elements-hover-card-timing.json");
+    expect(timing.files?.[0].target).toBe("@components/ai-elements/hover-card-timing.tsx");
+    for (const slug of ["attachments", "context", "inline-citation", "prompt-input"]) {
+      const item = await jsonFile<RegistryItem>(`public/r/ai-elements-${slug}.json`);
+      expect(item.registryDependencies).toContain("https://ui.trysupervisor.com/r/ai-elements-hover-card-timing.json");
     }
   });
 
