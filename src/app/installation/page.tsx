@@ -38,6 +38,12 @@ export default function InstallationPage() {
         <div className="mt-4"><CopyCommand command="bunx shadcn@latest add @supervisor/supervisor" /></div>
       </section>
       <section>
+        <h2 className="mb-3 text-lg font-semibold">Vercel AI Elements</h2>
+        <p className="mb-4 text-sm leading-relaxed text-muted-foreground">Browse the complete <Link className="text-foreground underline underline-offset-4" href="/ai-elements">AI Elements catalog</Link> for chat, code, voice, and workflow interfaces. These components use Vercel AI SDK types and your shadcn theme.</p>
+        <CopyCommand command="bunx shadcn@latest add https://ui.trysupervisor.com/r/ai-elements.json" />
+        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">AI Elements requires React 19, Tailwind 4, and CSS variable theming. Each catalog page also includes a command to install that component alone. Connect model calls on your server using the <a className="text-foreground underline underline-offset-4" href="https://ai-sdk.dev/docs/introduction">AI SDK</a>.</p>
+      </section>
+      <section>
         <h2 className="mb-3 text-lg font-semibold">Starting a new app</h2>
         <p className="mb-4 text-sm leading-relaxed text-muted-foreground">If shadcn is not configured yet, initialize it first and choose either primitive base. Then install the Supervisor theme.</p>
         <CopyCommand command="bunx shadcn@latest init" />

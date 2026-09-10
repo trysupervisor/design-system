@@ -58,6 +58,25 @@ The twelve bundled font families have open licenses and are served by this appli
 
 Natural language generation calls a model through Vercel AI Gateway. It returns the same validated theme format used by manual editing and imports. Generation errors appear in the interface, and manual editing remains available.
 
+## Vercel AI Elements
+
+The [AI Elements catalog](https://ui.trysupervisor.com/ai-elements) includes all 48 components in Vercel's current installable registry, with previews and usage examples for chat, code, voice, workflows, and utilities. The existing Theme Studio generator uses Vercel AI SDK for structured theme output.
+
+Install the full collection or a single component:
+
+```sh
+bunx shadcn@latest add https://ui.trysupervisor.com/r/ai-elements.json
+bunx shadcn@latest add https://ui.trysupervisor.com/r/ai-elements-message.json
+```
+
+AI Elements requires React 19, Tailwind 4, and shadcn configured with CSS variables. This requirement applies to the AI Elements collection; Supervisor themes still support Tailwind 3. Install the Supervisor theme first if you want the default styles. See the [official setup guide](https://elements.ai-sdk.dev/docs/setup) and [AI SDK documentation](https://ai-sdk.dev/docs/introduction) to connect your components to a model.
+
+The registry installs Streamdown styles through native Tailwind directives, without assuming a stylesheet location. Its package versions are pinned to match those styles. Hover cards keep the native timing of the selected shadcn base; Radix root delay options do not change Base UI trigger timing.
+
+The catalog previews use sample data. Voice input requires an explicit interaction before requesting microphone access. Model credentials belong on your server.
+
+Component source is pinned to the upstream revision recorded in `src/lib/ai-elements-catalog.ts`. Local corrections support the installed SDK and both shadcn component bases. `bun scripts/import-ai-elements.ts --metadata-only` refreshes catalog metadata without replacing reviewed source. Source updates require reviewing the upstream changes and retaining local corrections before rebuilding the registry.
+
 ## Generation configuration
 
 Copy `.env.example` to `.env.local` for local configuration. Generation is disabled locally until configured. Vercel deployments use the project OIDC identity. Local generation can use a scoped `AI_GATEWAY_API_KEY` in the ignored environment file.
@@ -86,4 +105,4 @@ Registry JSON is generated from validated theme presets, the original foundation
 
 ## Licenses
 
-Supervisor source is MIT licensed. Third party notices and font licenses are in `NOTICE.md` and `licenses`. Brand references describe theme inspiration and do not imply endorsement. Supervisor names and logos remain brand assets.
+Original Supervisor source is MIT licensed. Vercel AI Elements source retains its Apache License 2.0 notice. Third party notices and font licenses are in `NOTICE.md` and `licenses`. Brand references describe theme inspiration and do not imply endorsement. Supervisor names and logos remain brand assets.
