@@ -35,6 +35,7 @@ import {
   type ThemePalette,
 } from "@/lib/theme"
 import { themePresets } from "@/lib/theme-presets"
+import { themeToRegistry } from "@/lib/theme-registry"
 
 type PreviewMode = "light" | "dark"
 
@@ -88,8 +89,12 @@ function downloadFile(name: string, contents: string, type: string) {
   const link = document.createElement("a")
   link.href = url
   link.download = name
+  document.body.appendChild(link)
   link.click()
-  URL.revokeObjectURL(url)
+  window.setTimeout(() => {
+    link.remove()
+    URL.revokeObjectURL(url)
+  }, 1000)
 }
 
 function PresetCard({
@@ -477,8 +482,14 @@ export function ThemeStudio() {
               <Button variant="outline" onClick={saveCurrent}><Save /> Save locally</Button>
               <Button variant="outline" onClick={copyCss}>{copied ? <Check /> : <Copy />} {copied ? "Copied" : "Copy CSS"}</Button>
               <Button variant="outline" onClick={() => downloadFile(`${draft.id}.json`, themeToJson(draft), "application/json")}><Download /> Export JSON</Button>
+              <Button className="col-span-2" variant="outline" onClick={() => downloadFile(`${draft.id}.registry.json`, `${JSON.stringify(themeToRegistry(draft), null, 2)}\n`, "application/json")}><Download /> Download for shadcn</Button>
+              <div className="col-span-2 rounded-lg bg-muted/50 p-2.5 text-[10px] leading-4 text-muted-foreground">
+                <span className="font-medium text-foreground">Install in an existing app</span>
+                <code className="mt-1 block break-all">bunx shadcn@latest add ./{draft.id}.registry.json</code>
+                <span className="mt-1 block">Move the downloaded file into your app and run this command. It installs the theme and fonts through shadcn. Your components stay in place.</span>
+              </div>
               <div className="col-span-2 mt-1 rounded-lg bg-muted/50 p-2.5 text-[10px] leading-4 text-muted-foreground">
-                <span className="font-medium text-foreground">Font setup</span>
+                <span className="font-medium text-foreground">Font setup for CSS exports</span>
                 <code className="mt-1 block break-all">bun add {fontSetup.packageName}</code>
                 <code className="block break-all">{fontSetup.cssImport}</code>
                 <span className="mt-1 block">{fontSetup.usage}</span>

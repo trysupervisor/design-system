@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
-export function CodeDisclosure({ title, code, language = "tsx" }: { title: string; code: string; language?: "tsx" | "css" | "sh" }) {
+export function CodeDisclosure({ title, code, language = "tsx" }: { title: string; code: string; language?: "tsx" | "css" | "sh" | "json" }) {
   const [open, setOpen] = useState(false);
 
   async function copyCode() {
