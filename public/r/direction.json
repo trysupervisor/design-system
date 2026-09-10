@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "direction",
+  "type": "registry:ui",
+  "title": "Direction",
+  "description": "A provider for left to right and right to left layouts.",
+  "dependencies": [
+    "radix-ui"
+  ],
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-foundation.json"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/direction.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/direction.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Direction } from \"radix-ui\"\n\nfunction DirectionProvider({\n  dir,\n  direction,\n  children,\n}: Omit<React.ComponentProps<typeof Direction.DirectionProvider>, \"dir\"> & {\n  dir?: React.ComponentProps<typeof Direction.DirectionProvider>[\"dir\"]\n  direction?: React.ComponentProps<typeof Direction.DirectionProvider>[\"dir\"]\n}) {\n  return (\n    <Direction.DirectionProvider dir={direction ?? dir ?? \"ltr\"}>\n      {children}\n    </Direction.DirectionProvider>\n  )\n}\n\nconst useDirection = Direction.useDirection\n\nexport { DirectionProvider, useDirection }\n"
+    }
+  ]
+}

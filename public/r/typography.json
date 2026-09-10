@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "typography",
+  "type": "registry:component",
+  "title": "Typography",
+  "description": "Text styles for headings, paragraphs, lists, and inline code.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-foundation.json"
+  ],
+  "files": [
+    {
+      "path": "src/components/examples/registry/typography.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/typography.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"cn\";\n\nexport function TypographyH1({ className, ...props }: React.ComponentProps<\"h1\">) { return <h1 className={cn(\"scroll-m-20 text-4xl font-semibold tracking-tight\", className)} {...props} />; }\nexport function TypographyH2({ className, ...props }: React.ComponentProps<\"h2\">) { return <h2 className={cn(\"scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight\", className)} {...props} />; }\nexport function TypographyP({ className, ...props }: React.ComponentProps<\"p\">) { return <p className={cn(\"leading-7 [&:not(:first-child)]:mt-6\", className)} {...props} />; }\nexport function TypographyLead({ className, ...props }: React.ComponentProps<\"p\">) { return <p className={cn(\"text-xl text-muted-foreground\", className)} {...props} />; }\nexport function TypographyBlockquote({ className, ...props }: React.ComponentProps<\"blockquote\">) { return <blockquote className={cn(\"mt-6 border-l-2 pl-6 italic\", className)} {...props} />; }\nexport function TypographyCode({ className, ...props }: React.ComponentProps<\"code\">) { return <code className={cn(\"rounded bg-muted px-1.5 py-0.5 font-mono text-sm font-medium\", className)} {...props} />; }\n"
+    }
+  ]
+}

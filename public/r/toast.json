@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toast",
+  "type": "registry:component",
+  "title": "Toast",
+  "description": "A brief notification delivered through Sonner.",
+  "dependencies": [
+    "sonner"
+  ],
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/sonner.json",
+    "https://ui.trysupervisor.com/r/supervisor-foundation.json"
+  ],
+  "files": [
+    {
+      "path": "src/components/examples/registry/toast.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/toast.tsx",
+      "content": "export { toast } from \"sonner\";\nexport { Toaster } from \"@/components/ui/sonner\";\n"
+    }
+  ]
+}
