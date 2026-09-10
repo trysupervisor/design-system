@@ -252,9 +252,9 @@ function ThemePreview({ theme, mode }: { theme: ThemeDefinition; mode: PreviewMo
 }
 
 export function ThemeStudio() {
-  const { theme: appliedTheme, mode, ready, setMode, applyTheme, savedThemes, saveTheme, renameTheme, deleteTheme } = useTheme()
+  const { theme: appliedTheme, mode, resolvedMode, ready, setMode, applyTheme, savedThemes, saveTheme, renameTheme, deleteTheme } = useTheme()
   const [draft, setDraft] = React.useState(appliedTheme)
-  const [previewMode, setPreviewMode] = React.useState<PreviewMode>(mode === "dark" ? "dark" : "light")
+  const [previewMode, setPreviewMode] = React.useState<PreviewMode>(resolvedMode)
   const [search, setSearch] = React.useState("")
   const [category, setCategory] = React.useState<"all" | ThemeDefinition["category"]>("all")
   const [prompt, setPrompt] = React.useState("")
@@ -267,8 +267,11 @@ export function ThemeStudio() {
   React.useEffect(() => {
     if (!ready || syncedDraft.current) return
     syncedDraft.current = true
-    queueMicrotask(() => setDraft(appliedTheme))
-  }, [appliedTheme, ready])
+    queueMicrotask(() => {
+      setDraft(appliedTheme)
+      setPreviewMode(resolvedMode)
+    })
+  }, [appliedTheme, ready, resolvedMode])
 
   const presets = React.useMemo(() => {
     const query = search.trim().toLowerCase()
