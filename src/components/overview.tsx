@@ -40,6 +40,6 @@ export function Overview() {
         <div className="flex flex-wrap items-center gap-2"><Badge>Ready</Badge><Badge variant="secondary">In progress</Badge><Badge variant="outline">Draft</Badge><Button size="sm" variant="ghost" asChild><Link href="/components/badge">View badges <ArrowTopRightIcon /></Link></Button></div>
       </div>
     </div>
-    <section className="mt-12 border-t pt-9"><div className="mb-5 flex items-center justify-between gap-4"><div><h2 className="text-lg font-semibold tracking-tight">Bring it into your project.</h2><p className="mt-2 text-sm text-muted-foreground">Install the source. Keep control of every detail.</p></div><Link href="/installation" className="shrink-0 text-xs hover:underline">Installation guide <ArrowTopRightIcon className="inline size-3" /></Link></div><CopyCommand command="bunx shadcn@latest add https://ui.trysupervisor.com/r/button.json" /></section>
+    <section className="mt-12 border-t pt-9"><div className="mb-5 flex items-center justify-between gap-4"><div><h2 className="text-lg font-semibold tracking-tight">Bring it into your project.</h2><p className="mt-2 text-sm text-muted-foreground">Add the theme to your existing shadcn app.</p></div><Link href="/installation" className="shrink-0 text-xs hover:underline">Installation guide <ArrowTopRightIcon className="inline size-3" /></Link></div><CopyCommand command="bunx shadcn@latest add https://ui.trysupervisor.com/r/supervisor.json" /></section>
   </>;
 }

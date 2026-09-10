@@ -11,20 +11,48 @@ bun run dev --port 3101
 
 Open [localhost:3101](http://localhost:3101). Use Bun 1.4.2, which is also pinned in the project.
 
-## Install components
+## Install in an existing app
 
-Start with a Next.js project that has a src directory, the shadcn Radix base, and Tailwind 4, then install a component:
+Run this from a Next.js app that already has shadcn configured:
 
 ```sh
-bunx shadcn@latest init --base radix --preset radix-nova
-bunx shadcn@latest add https://ui.trysupervisor.com/r/button.json
+bunx shadcn@latest add https://ui.trysupervisor.com/r/supervisor.json
 ```
 
-Follow the [installation guide](https://ui.trysupervisor.com/installation) to import the foundation stylesheet and configure Geist fonts. The registry includes local component source and its dependencies. You can edit the installed code in your own project.
+Use shadcn's default `tailwind.cssVariables: true` setting. Components created with literal color classes cannot be recolored by a CSS variable theme; those apps must first migrate their components to shadcn's variable based theming.
+
+This is a native shadcn registry theme. The CLI merges the theme into the stylesheet selected by `components.json` and installs the free fonts. It does not replace your existing component files, require a provider, or rewrite your layout. Keep your existing dark mode switch.
+
+Radix and Base UI both work. The installer follows the app's configured aliases and supports root or `src` layouts, TypeScript or JavaScript, and Tailwind 3 or 4. Semantic colors use the HSL representation that shadcn converts for the detected Tailwind version. Older components retain their APIs; controls that predate shadcn's `data-slot` attributes receive token changes but do not use the modern slot sizing rules.
+
+Add components with the normal CLI, or use the Supervisor registry:
+
+```sh
+bunx shadcn@latest add button dialog chart
+bunx shadcn@latest add https://ui.trysupervisor.com/r/chart.json
+```
+
+Component entries resolve the official implementation for your configured shadcn style. Adding one does not reset the selected theme. If a dependency already exists and you have edited it, keep it when the CLI asks about overwriting. Supervisor compositions install into the configured UI alias.
+
+Component availability follows shadcn itself. New catalog additions such as Attachment and Questionnaire require a current shadcn style; they are not published for the legacy Tailwind 3 registry. Theme installation works independently of those components.
+
+For a new app, run `bunx shadcn@latest init` first. There is no required primitive base or preset. See the [installation guide](https://ui.trysupervisor.com/installation).
+
+To use a namespace, merge this into `components.json`:
+
+```json
+{
+  "registries": {
+    "@supervisor": "https://ui.trysupervisor.com/r/{name}.json"
+  }
+}
+```
+
+Then run `bunx shadcn@latest add @supervisor/supervisor`.
 
 ## Themes
 
-Theme Studio includes brand inspired presets and controls for both color modes, fonts, corners, borders, spacing, type size, control height, and shadows. Changes apply across the preview and persist in the browser. Saved themes stay on that device. Export CSS for an existing shadcn project or JSON to import into Theme Studio.
+Theme Studio includes brand inspired presets and controls for both color modes, fonts, corners, borders, spacing, type size, control height, and shadows. Changes apply across the preview and persist in the browser. Saved themes stay on that device. Choose Download for shadcn to export an installable registry file, including fonts and both color modes. Move the download into your app and run the command shown in Theme Studio, such as `bunx shadcn@latest add ./my-theme.registry.json`. Export JSON saves a Theme Studio document. Copy CSS provides a manual export for Tailwind 4.
 
 The twelve bundled font families have open licenses and are served by this application. Theme files accept only approved font identifiers, hexadecimal colors, and bounded numeric values. They cannot contain CSS expressions, external assets, or executable code.
 
@@ -50,10 +78,11 @@ bun run registry:build
 bun run lint
 bun run typecheck
 bun run test
+bun run test:installation
 bun run build
 ```
 
-Registry JSON is generated from the source in `src/components/ui` and the theme foundation. GitHub Actions runs these checks. Vercel builds the Next.js application from the `main` branch in `trysupervisor/design-system`.
+Registry JSON is generated from validated theme presets, the original foundation styles, and reusable compositions. Standard component entries delegate to the official shadcn registry so consumer configuration controls their implementation. All 36 presets are available as `theme-{preset.id}.json`. GitHub Actions runs registry generation, lint, type checks, unit tests, and the production build. Run the installation matrix locally before a registry release; it creates temporary consumer apps and retains their logs for inspection. Vercel builds the Next.js application from the `main` branch in `trysupervisor/design-system`.
 
 ## Licenses
 

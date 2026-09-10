@@ -2,7 +2,47 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CopyCommand } from "@/components/overview";
 import { CodeDisclosure } from "@/components/code-disclosure";
+
 export const metadata: Metadata = { title: "Installation" };
+
 export default function InstallationPage() {
-  return <><p className="eyebrow mb-4">GET STARTED</p><h1 className="page-title">Installation</h1><p className="page-description">Use a Next.js project with a src directory, Tailwind CSS 4, and the shadcn Radix base. The registry installs source files into your project, ready to edit.</p><div className="mt-10 space-y-10"><section><h2 className="mb-3 text-lg font-semibold">1. Initialize shadcn</h2><p className="mb-4 text-sm leading-relaxed text-muted-foreground">If your project already uses shadcn with the Radix base, continue to the next step. This registry uses Radix components.</p><CopyCommand command="bunx shadcn@latest init --base radix --preset radix-nova" /></section><section><h2 className="mb-3 text-lg font-semibold">2. Add a component</h2><p className="mb-4 text-sm leading-relaxed text-muted-foreground">Each registry item includes the dependencies and shared foundation it needs.</p><CopyCommand command="bunx shadcn@latest add https://ui.trysupervisor.com/r/button.json" /><p className="mt-4 text-sm text-muted-foreground">Replace button with a component name, such as dialog, input, or chart.</p></section><section><h2 className="mb-3 text-lg font-semibold">3. Load the foundation and fonts</h2><p className="mb-4 text-sm leading-relaxed text-muted-foreground">The registry writes src/styles/supervisor.css. Import it from src/app/globals.css after Tailwind, and set the Geist font variables in your root layout.</p><div className="panel overflow-hidden"><CodeDisclosure language="css" title="Foundation import" code={'@import "tailwindcss";\n@import "../styles/supervisor.css";'} /><CodeDisclosure title="Font setup" code={'import { GeistSans } from "geist/font/sans";\nimport { GeistMono } from "geist/font/mono";\n\nexport default function Layout({ children }: { children: React.ReactNode }) {\n  return (\n    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>\n      <body>{children}</body>\n    </html>\n  );\n}'} /></div></section><section><h2 className="mb-3 text-lg font-semibold">4. Make it yours</h2><p className="text-sm leading-relaxed text-muted-foreground">Open <Link className="text-foreground underline underline-offset-4" href="/themes">Theme Studio</Link>, choose a preset or describe a theme, then export the CSS. Paste the exported CSS after your existing theme definitions. Its :root and .dark rules replace the current colors, spacing, borders, and radius. Theme Studio also provides the package and import needed for the selected font.</p><p className="mt-4 text-sm leading-relaxed text-muted-foreground">Keep the license notices installed with the components. Brand presets use free font alternatives and independent styles. They do not include brand logos or proprietary font files.</p></section></div></>;
+  return <>
+    <p className="eyebrow mb-4">GET STARTED</p>
+    <h1 className="page-title">Installation</h1>
+    <p className="page-description">Add Supervisor to an existing Next.js app with shadcn. Keep your component APIs, aliases, and folder structure. Install themes and components with the standard shadcn CLI.</p>
+    <div className="mt-10 space-y-10">
+      <section>
+        <h2 className="mb-3 text-lg font-semibold">1. Install the theme</h2>
+        <p className="mb-4 text-sm leading-relaxed text-muted-foreground">Run this from the app that contains your components.json. The CLI updates its configured stylesheet and installs the free fonts. Existing components stay in place. No provider or layout change is needed.</p>
+        <CopyCommand command="bunx shadcn@latest add https://ui.trysupervisor.com/r/supervisor.json" />
+        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Use the default <code>tailwind.cssVariables: true</code> setting in components.json. Apps with literal color classes need to migrate those components to shadcn variable based theming first.</p>
+        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">The theme supports Radix and Base UI, TypeScript and JavaScript, root and src layouts, and custom aliases. It uses native shadcn color variables for Tailwind 3 and 4. Keep your existing dark mode switch.</p>
+      </section>
+      <section>
+        <h2 className="mb-3 text-lg font-semibold">2. Add components as you need them</h2>
+        <p className="mb-4 text-sm leading-relaxed text-muted-foreground">Continue using shadcn normally. Its CLI chooses the implementation for your configured style and primitive base. Keep an existing component when the CLI asks about overwriting it.</p>
+        <CopyCommand command="bunx shadcn@latest add button dialog chart" />
+        <p className="my-4 text-sm leading-relaxed text-muted-foreground">Supervisor registry URLs also work. Adding a component leaves your selected theme unchanged.</p>
+        <CopyCommand command="bunx shadcn@latest add https://ui.trysupervisor.com/r/chart.json" />
+      </section>
+      <section>
+        <h2 className="mb-3 text-lg font-semibold">3. Install a preset or your own theme</h2>
+        <p className="mb-4 text-sm leading-relaxed text-muted-foreground">Open <Link className="text-foreground underline underline-offset-4" href="/themes">Theme Studio</Link>, choose a preset or describe a theme, and select Download for shadcn. Move that file into your app, then run the command shown with it.</p>
+        <CopyCommand command="bunx shadcn@latest add ./my-theme.registry.json" />
+        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">The download contains both color modes, fonts, radius, borders, spacing, control sizing, and shadows. It works through the same registry schema as the default theme. Export JSON saves a Theme Studio document; Download for shadcn creates the installable registry file.</p>
+      </section>
+      <section>
+        <h2 className="mb-3 text-lg font-semibold">Optional registry shortcut</h2>
+        <p className="mb-4 text-sm leading-relaxed text-muted-foreground">Merge this entry into the registries object in components.json to use the Supervisor namespace.</p>
+        <div className="panel overflow-hidden"><CodeDisclosure language="json" title="Registry configuration" code={'"registries": {\n  "@supervisor": "https://ui.trysupervisor.com/r/{name}.json"\n}'} /></div>
+        <div className="mt-4"><CopyCommand command="bunx shadcn@latest add @supervisor/supervisor" /></div>
+      </section>
+      <section>
+        <h2 className="mb-3 text-lg font-semibold">Starting a new app</h2>
+        <p className="mb-4 text-sm leading-relaxed text-muted-foreground">If shadcn is not configured yet, initialize it first and choose either primitive base. Then install the Supervisor theme.</p>
+        <CopyCommand command="bunx shadcn@latest init" />
+        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Keep the included license notices. Brand presets use independent styles and free font alternatives. Source is available in the <a className="text-foreground underline underline-offset-4" href="https://github.com/trysupervisor/design-system">public repository</a>.</p>
+      </section>
+    </div>
+  </>;
 }

@@ -79,7 +79,8 @@ export function ComponentDocs({ slug }: { slug: string }) {
 
       <section className="component-docs-section">
         <h2>Install</h2>
-        <p>Run this command from a project configured for shadcn.</p>
+        <p>Run this command from a project configured for shadcn. The installer follows your component base and aliases.</p>
+        <p>Install the <Link href="/installation">Supervisor theme</Link> first to use these styles. Preview examples use Radix; Base UI apps keep their native component APIs.</p>
         <pre className="install-command"><code>{`bunx shadcn@latest add https://ui.trysupervisor.com/r/${slug}.json`}</code></pre>
       </section>
 
