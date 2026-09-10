@@ -4,19 +4,18 @@
   "type": "registry:component",
   "title": "Data Table",
   "description": "A table pattern with sorting, selection, and row actions.",
+  "registryDependencies": [
+    "button",
+    "table"
+  ],
   "dependencies": [
     "lucide-react"
-  ],
-  "registryDependencies": [
-    "https://ui.trysupervisor.com/r/button.json",
-    "https://ui.trysupervisor.com/r/supervisor-foundation.json",
-    "https://ui.trysupervisor.com/r/table.json"
   ],
   "files": [
     {
       "path": "src/components/examples/registry/data-table.tsx",
       "type": "registry:ui",
-      "target": "components/ui/data-table.tsx",
+      "target": "@ui/data-table.tsx",
       "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { ArrowDownIcon, ArrowUpDownIcon, ArrowUpIcon } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from \"@/components/ui/table\";\n\nexport type DataTableColumn<Row> = {\n  key: keyof Row & string;\n  label: string;\n  align?: \"left\" | \"right\";\n  sortable?: boolean;\n  render?: (value: Row[keyof Row], row: Row) => React.ReactNode;\n};\n\nexport function DataTable<Row extends Record<string, unknown>>({ rows, columns, getRowId, emptyMessage = \"No results.\" }: { rows: Row[]; columns: DataTableColumn<Row>[]; getRowId: (row: Row) => React.Key; emptyMessage?: string }) {\n  const [sort, setSort] = React.useState<{ key: keyof Row & string; direction: \"ascending\" | \"descending\" }>();\n  const sortedRows = React.useMemo(() => {\n    if (!sort) return rows;\n    return [...rows].sort((left, right) => {\n      const a = left[sort.key];\n      const b = right[sort.key];\n      const result = String(a ?? \"\").localeCompare(String(b ?? \"\"), undefined, { numeric: true });\n      return sort.direction === \"ascending\" ? result : result * -1;\n    });\n  }, [rows, sort]);\n\n  function changeSort(key: keyof Row & string) {\n    setSort((current) => current?.key === key && current.direction === \"ascending\" ? { key, direction: \"descending\" } : { key, direction: \"ascending\" });\n  }\n\n  return (\n    <Table>\n      <TableHeader>\n        <TableRow>{columns.map((column) => <TableHead key={column.key} className={column.align === \"right\" ? \"text-right\" : undefined}>{column.sortable ? <Button variant=\"ghost\" size=\"sm\" onClick={() => changeSort(column.key)} aria-label={`Sort by ${column.label}`}>{column.label}{sort?.key !== column.key ? <ArrowUpDownIcon /> : sort.direction === \"ascending\" ? <ArrowUpIcon /> : <ArrowDownIcon />}</Button> : column.label}</TableHead>)}</TableRow>\n      </TableHeader>\n      <TableBody>\n        {sortedRows.length ? sortedRows.map((row) => <TableRow key={getRowId(row)}>{columns.map((column) => <TableCell key={column.key} className={column.align === \"right\" ? \"text-right\" : undefined}>{column.render ? column.render(row[column.key], row) : String(row[column.key] ?? \"\")}</TableCell>)}</TableRow>) : <TableRow><TableCell colSpan={columns.length} className=\"h-24 text-center text-muted-foreground\">{emptyMessage}</TableCell></TableRow>}\n      </TableBody>\n    </Table>\n  );\n}\n"
     }
   ]

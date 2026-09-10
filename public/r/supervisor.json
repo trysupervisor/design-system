@@ -1,0 +1,187 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "supervisor",
+  "type": "registry:theme",
+  "title": "Geist",
+  "description": "Geist colors, typography, spacing, borders, and shadows for shadcn.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-foundation.json"
+  ],
+  "dependencies": [
+    "@fontsource-variable/geist",
+    "@fontsource-variable/geist-mono"
+  ],
+  "cssVars": {
+    "theme": {
+      "font-sans": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+      "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
+      "shadow-sm": "var(--theme-shadow)"
+    },
+    "light": {
+      "radius": "0.375rem",
+      "background": "0 0% 98.03922%",
+      "foreground": "0 0% 9.01961%",
+      "card": "0 0% 100%",
+      "card-foreground": "0 0% 9.01961%",
+      "popover": "0 0% 100%",
+      "popover-foreground": "0 0% 9.01961%",
+      "primary": "0 0% 9.01961%",
+      "primary-foreground": "0 0% 100%",
+      "secondary": "0 0% 94.5098%",
+      "secondary-foreground": "0 0% 9.01961%",
+      "muted": "0 0% 96.07843%",
+      "muted-foreground": "0 0% 40.78431%",
+      "accent": "0 0% 93.33333%",
+      "accent-foreground": "0 0% 9.01961%",
+      "destructive": "0 64.7541% 47.84314%",
+      "destructive-foreground": "0 0% 100%",
+      "border": "0 0% 89.80392%",
+      "input": "0 0% 85.09804%",
+      "ring": "0 0% 45.09804%",
+      "chart-1": "212.34568 100% 47.64706%",
+      "chart-2": "148 48.3871% 42.54902%",
+      "chart-3": "27.62376 82.78689% 52.15686%",
+      "chart-4": "258.31169 89.53488% 66.27451%",
+      "chart-5": "332.47059 78.7037% 57.64706%",
+      "sidebar": "0 0% 98.03922%",
+      "sidebar-foreground": "0 0% 9.01961%",
+      "sidebar-primary": "0 0% 9.01961%",
+      "sidebar-primary-foreground": "0 0% 100%",
+      "sidebar-accent": "0 0% 93.33333%",
+      "sidebar-accent-foreground": "0 0% 9.01961%",
+      "sidebar-border": "0 0% 89.80392%",
+      "sidebar-ring": "0 0% 45.09804%",
+      "sidebar-background": "0 0% 98.03922%"
+    },
+    "dark": {
+      "radius": "0.375rem",
+      "background": "0 0% 0%",
+      "foreground": "0 0% 92.94118%",
+      "card": "0 0% 3.92157%",
+      "card-foreground": "0 0% 92.94118%",
+      "popover": "0 0% 6.66667%",
+      "popover-foreground": "0 0% 92.94118%",
+      "primary": "0 0% 92.94118%",
+      "primary-foreground": "0 0% 3.92157%",
+      "secondary": "0 0% 10.19608%",
+      "secondary-foreground": "0 0% 92.94118%",
+      "muted": "0 0% 9.01961%",
+      "muted-foreground": "0 0% 63.13725%",
+      "accent": "0 0% 14.11765%",
+      "accent-foreground": "0 0% 92.94118%",
+      "destructive": "0 100% 70%",
+      "destructive-foreground": "0 0% 9.01961%",
+      "border": "0 0% 16.07843%",
+      "input": "0 0% 21.17647%",
+      "ring": "0 0% 63.13725%",
+      "chart-1": "212.34568 100% 47.64706%",
+      "chart-2": "148 48.3871% 42.54902%",
+      "chart-3": "27.62376 82.78689% 52.15686%",
+      "chart-4": "258.31169 89.53488% 66.27451%",
+      "chart-5": "332.47059 78.7037% 57.64706%",
+      "sidebar": "0 0% 3.92157%",
+      "sidebar-foreground": "0 0% 92.94118%",
+      "sidebar-primary": "0 0% 92.94118%",
+      "sidebar-primary-foreground": "0 0% 9.01961%",
+      "sidebar-accent": "0 0% 12.15686%",
+      "sidebar-accent-foreground": "0 0% 92.94118%",
+      "sidebar-border": "0 0% 16.07843%",
+      "sidebar-ring": "0 0% 63.13725%",
+      "sidebar-background": "0 0% 3.92157%"
+    }
+  },
+  "css": {
+    "@import \"@fontsource-variable/geist\"": {},
+    "@import \"@fontsource-variable/geist-mono\"": {},
+    ":root": {
+      "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+      "--spacing": "0.25rem",
+      "--border-width": "1px",
+      "--control-height": "2.25rem",
+      "--text-scale": "1",
+      "--shadow-color": "#000000",
+      "--shadow-opacity": "0",
+      "--shadow-x": "0px",
+      "--shadow-y": "0px",
+      "--shadow-blur": "0px",
+      "--shadow-spread": "0px",
+      "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+    },
+    ".dark": {
+      "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+      "--spacing": "0.25rem",
+      "--border-width": "1px",
+      "--control-height": "2.25rem",
+      "--text-scale": "1",
+      "--shadow-color": "#000000",
+      "--shadow-opacity": "0",
+      "--shadow-x": "0px",
+      "--shadow-y": "0px",
+      "--shadow-blur": "0px",
+      "--shadow-spread": "0px",
+      "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+    }
+  },
+  "tailwind": {
+    "config": {
+      "theme": {
+        "extend": {
+          "fontFamily": {
+            "sans": [
+              "var(--app-font)"
+            ],
+            "mono": [
+              "Geist Mono Variable",
+              "monospace"
+            ]
+          },
+          "borderRadius": {
+            "sm": "calc(var(--radius) * .6)",
+            "md": "calc(var(--radius) * .8)",
+            "lg": "var(--radius)",
+            "xl": "calc(var(--radius) * 1.4)"
+          },
+          "spacing": {
+            "1": "calc(var(--spacing) * 1)",
+            "2": "calc(var(--spacing) * 2)",
+            "3": "calc(var(--spacing) * 3)",
+            "4": "calc(var(--spacing) * 4)",
+            "5": "calc(var(--spacing) * 5)",
+            "6": "calc(var(--spacing) * 6)",
+            "7": "calc(var(--spacing) * 7)",
+            "8": "calc(var(--spacing) * 8)",
+            "9": "calc(var(--spacing) * 9)",
+            "10": "calc(var(--spacing) * 10)",
+            "11": "calc(var(--spacing) * 11)",
+            "12": "calc(var(--spacing) * 12)",
+            "14": "calc(var(--spacing) * 14)",
+            "16": "calc(var(--spacing) * 16)",
+            "20": "calc(var(--spacing) * 20)",
+            "24": "calc(var(--spacing) * 24)",
+            "28": "calc(var(--spacing) * 28)",
+            "32": "calc(var(--spacing) * 32)",
+            "36": "calc(var(--spacing) * 36)",
+            "40": "calc(var(--spacing) * 40)",
+            "44": "calc(var(--spacing) * 44)",
+            "48": "calc(var(--spacing) * 48)",
+            "52": "calc(var(--spacing) * 52)",
+            "56": "calc(var(--spacing) * 56)",
+            "60": "calc(var(--spacing) * 60)",
+            "64": "calc(var(--spacing) * 64)",
+            "72": "calc(var(--spacing) * 72)",
+            "80": "calc(var(--spacing) * 80)",
+            "96": "calc(var(--spacing) * 96)",
+            "0.5": "calc(var(--spacing) * 0.5)",
+            "1.5": "calc(var(--spacing) * 1.5)",
+            "2.5": "calc(var(--spacing) * 2.5)",
+            "3.5": "calc(var(--spacing) * 3.5)"
+          },
+          "boxShadow": {
+            "sm": "var(--theme-shadow)"
+          }
+        }
+      }
+    }
+  },
+  "docs": "Theme installed in your configured stylesheet. Existing components and their APIs are preserved. Use your existing dark mode switch."
+}

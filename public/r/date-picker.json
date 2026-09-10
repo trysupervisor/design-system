@@ -4,22 +4,21 @@
   "type": "registry:component",
   "title": "Date Picker",
   "description": "A date field composed from a popover and calendar.",
+  "registryDependencies": [
+    "button",
+    "calendar",
+    "popover"
+  ],
   "dependencies": [
     "cn",
     "lucide-react"
-  ],
-  "registryDependencies": [
-    "https://ui.trysupervisor.com/r/button.json",
-    "https://ui.trysupervisor.com/r/calendar.json",
-    "https://ui.trysupervisor.com/r/popover.json",
-    "https://ui.trysupervisor.com/r/supervisor-foundation.json"
   ],
   "files": [
     {
       "path": "src/components/examples/registry/date-picker.tsx",
       "type": "registry:ui",
-      "target": "components/ui/date-picker.tsx",
-      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { CalendarIcon } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Calendar } from \"@/components/ui/calendar\";\nimport { Popover, PopoverContent, PopoverTrigger } from \"@/components/ui/popover\";\nimport { cn } from \"cn\";\n\nexport function DatePicker({ value, onValueChange, placeholder = \"Choose a date\", className }: { value?: Date; onValueChange?: (date: Date | undefined) => void; placeholder?: string; className?: string }) {\n  const [internalDate, setInternalDate] = React.useState<Date | undefined>(value);\n  const date = value ?? internalDate;\n\n  function select(nextDate: Date | undefined) {\n    setInternalDate(nextDate);\n    onValueChange?.(nextDate);\n  }\n\n  return (\n    <Popover>\n      <PopoverTrigger asChild>\n        <Button variant=\"outline\" className={cn(\"justify-start font-normal\", className)}>\n          <CalendarIcon />\n          {date ? date.toLocaleDateString(undefined, { dateStyle: \"long\" }) : placeholder}\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent className=\"w-auto p-0\" align=\"start\">\n        <Calendar mode=\"single\" selected={date} onSelect={select} defaultMonth={date} />\n      </PopoverContent>\n    </Popover>\n  );\n}\n"
+      "target": "@ui/date-picker.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { CalendarIcon } from \"lucide-react\";\nimport { buttonVariants } from \"@/components/ui/button\";\nimport { Calendar } from \"@/components/ui/calendar\";\nimport { Popover, PopoverContent, PopoverTrigger } from \"@/components/ui/popover\";\nimport { cn } from \"cn\";\n\nexport function DatePicker(props: { value?: Date; onValueChange?: (date: Date | undefined) => void; placeholder?: string; className?: string }) {\n  const { value, onValueChange, placeholder = \"Choose a date\", className } = props;\n  const controlled = Object.prototype.hasOwnProperty.call(props, \"value\");\n  const [internalDate, setInternalDate] = React.useState<Date | undefined>(value);\n  const date = controlled ? value : internalDate;\n\n  function select(nextDate: Date | undefined) {\n    if (!controlled) setInternalDate(nextDate);\n    onValueChange?.(nextDate);\n  }\n\n  return (\n    <Popover>\n      <PopoverTrigger data-slot=\"button\" data-variant=\"outline\" data-size=\"default\" className={cn(buttonVariants({ variant: \"outline\" }), \"justify-start font-normal\", className)}>\n        <CalendarIcon />\n        {date ? date.toLocaleDateString(undefined, { dateStyle: \"long\" }) : placeholder}\n      </PopoverTrigger>\n      <PopoverContent className=\"w-auto p-0\" align=\"start\">\n        <Calendar mode=\"single\" selected={date} onSelect={select} defaultMonth={date} />\n      </PopoverContent>\n    </Popover>\n  );\n}\n"
     }
   ]
 }

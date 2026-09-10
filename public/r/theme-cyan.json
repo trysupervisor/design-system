@@ -1,0 +1,187 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme-cyan",
+  "type": "registry:theme",
+  "title": "Cyan",
+  "description": "Cyan colors, typography, spacing, borders, and shadows for shadcn.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-foundation.json"
+  ],
+  "dependencies": [
+    "@fontsource-variable/plus-jakarta-sans",
+    "@fontsource-variable/geist-mono"
+  ],
+  "cssVars": {
+    "theme": {
+      "font-sans": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+      "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
+      "shadow-sm": "var(--theme-shadow)"
+    },
+    "light": {
+      "radius": "0.52rem",
+      "background": "186 62.5% 96.86275%",
+      "foreground": "0 0% 9.01961%",
+      "card": "186 45.45455% 95.68627%",
+      "card-foreground": "0 0% 9.01961%",
+      "popover": "186 50% 96.07843%",
+      "popover-foreground": "0 0% 9.01961%",
+      "primary": "189.13043 100% 27.05882%",
+      "primary-foreground": "0 0% 100%",
+      "secondary": "186.66667 21.95122% 91.96078%",
+      "secondary-foreground": "0 0% 9.01961%",
+      "muted": "186.66667 21.95122% 91.96078%",
+      "muted-foreground": "180 1.44928% 40.58824%",
+      "accent": "186.92308 41.93548% 87.84314%",
+      "accent-foreground": "0 0% 9.01961%",
+      "destructive": "357.07317 68.90756% 46.66667%",
+      "destructive-foreground": "0 0% 100%",
+      "border": "187.5 10.81081% 85.4902%",
+      "input": "187.5 8.33333% 81.17647%",
+      "ring": "189.13043 100% 27.05882%",
+      "chart-1": "189.13043 100% 27.05882%",
+      "chart-2": "221.21212 83.19328% 53.33333%",
+      "chart-3": "32.1327 94.61883% 43.72549%",
+      "chart-4": "161.37931 93.54839% 30.39216%",
+      "chart-5": "271.47541 81.33333% 55.88235%",
+      "sidebar": "186 31.25% 93.72549%",
+      "sidebar-foreground": "0 0% 9.01961%",
+      "sidebar-primary": "189.13043 100% 27.05882%",
+      "sidebar-primary-foreground": "0 0% 100%",
+      "sidebar-accent": "186.92308 41.93548% 87.84314%",
+      "sidebar-accent-foreground": "0 0% 9.01961%",
+      "sidebar-border": "187.5 10.81081% 85.4902%",
+      "sidebar-ring": "189.13043 100% 27.05882%",
+      "sidebar-background": "186 31.25% 93.72549%"
+    },
+    "dark": {
+      "radius": "0.52rem",
+      "background": "190 56.25% 6.27451%",
+      "foreground": "0 0% 94.90196%",
+      "card": "190 37.5% 9.41176%",
+      "card-foreground": "0 0% 94.90196%",
+      "popover": "190.58824 30.90909% 10.78431%",
+      "popover-foreground": "0 0% 94.90196%",
+      "primary": "189.23077 78.94737% 51.56863%",
+      "primary-foreground": "0 0% 0%",
+      "secondary": "191.25 20.51282% 15.29412%",
+      "secondary-foreground": "0 0% 94.90196%",
+      "muted": "191.25 20.51282% 15.29412%",
+      "muted-foreground": "192 3.26797% 70%",
+      "accent": "189.47368 68.6747% 16.27451%",
+      "accent-foreground": "0 0% 94.90196%",
+      "destructive": "0 85.14851% 60.39216%",
+      "destructive-foreground": "0 0% 0%",
+      "border": "188 13.27434% 22.15686%",
+      "input": "188.57143 10.29412% 26.66667%",
+      "ring": "189.23077 78.94737% 51.56863%",
+      "chart-1": "189.23077 78.94737% 51.56863%",
+      "chart-2": "213.11688 93.90244% 67.84314%",
+      "chart-3": "43.25581 96.41256% 56.27451%",
+      "chart-4": "158.11321 64.37247% 51.56863%",
+      "chart-5": "270 95.2381% 75.29412%",
+      "sidebar": "190.58824 26.98413% 12.35294%",
+      "sidebar-foreground": "0 0% 94.90196%",
+      "sidebar-primary": "189.23077 78.94737% 51.56863%",
+      "sidebar-primary-foreground": "0 0% 0%",
+      "sidebar-accent": "189.47368 68.6747% 16.27451%",
+      "sidebar-accent-foreground": "0 0% 94.90196%",
+      "sidebar-border": "188 13.27434% 22.15686%",
+      "sidebar-ring": "189.23077 78.94737% 51.56863%",
+      "sidebar-background": "190.58824 26.98413% 12.35294%"
+    }
+  },
+  "css": {
+    "@import \"@fontsource-variable/plus-jakarta-sans\"": {},
+    "@import \"@fontsource-variable/geist-mono\"": {},
+    ":root": {
+      "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+      "--spacing": "0.25rem",
+      "--border-width": "1px",
+      "--control-height": "2rem",
+      "--text-scale": "1",
+      "--shadow-color": "#000000",
+      "--shadow-opacity": "0.12",
+      "--shadow-x": "0px",
+      "--shadow-y": "4px",
+      "--shadow-blur": "12px",
+      "--shadow-spread": "0px",
+      "--theme-shadow": "0px 4px 12px 0px rgba(0, 0, 0, 0.12)"
+    },
+    ".dark": {
+      "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+      "--spacing": "0.25rem",
+      "--border-width": "1px",
+      "--control-height": "2rem",
+      "--text-scale": "1",
+      "--shadow-color": "#000000",
+      "--shadow-opacity": "0.12",
+      "--shadow-x": "0px",
+      "--shadow-y": "4px",
+      "--shadow-blur": "12px",
+      "--shadow-spread": "0px",
+      "--theme-shadow": "0px 4px 12px 0px rgba(0, 0, 0, 0.12)"
+    }
+  },
+  "tailwind": {
+    "config": {
+      "theme": {
+        "extend": {
+          "fontFamily": {
+            "sans": [
+              "var(--app-font)"
+            ],
+            "mono": [
+              "Geist Mono Variable",
+              "monospace"
+            ]
+          },
+          "borderRadius": {
+            "sm": "calc(var(--radius) * .6)",
+            "md": "calc(var(--radius) * .8)",
+            "lg": "var(--radius)",
+            "xl": "calc(var(--radius) * 1.4)"
+          },
+          "spacing": {
+            "1": "calc(var(--spacing) * 1)",
+            "2": "calc(var(--spacing) * 2)",
+            "3": "calc(var(--spacing) * 3)",
+            "4": "calc(var(--spacing) * 4)",
+            "5": "calc(var(--spacing) * 5)",
+            "6": "calc(var(--spacing) * 6)",
+            "7": "calc(var(--spacing) * 7)",
+            "8": "calc(var(--spacing) * 8)",
+            "9": "calc(var(--spacing) * 9)",
+            "10": "calc(var(--spacing) * 10)",
+            "11": "calc(var(--spacing) * 11)",
+            "12": "calc(var(--spacing) * 12)",
+            "14": "calc(var(--spacing) * 14)",
+            "16": "calc(var(--spacing) * 16)",
+            "20": "calc(var(--spacing) * 20)",
+            "24": "calc(var(--spacing) * 24)",
+            "28": "calc(var(--spacing) * 28)",
+            "32": "calc(var(--spacing) * 32)",
+            "36": "calc(var(--spacing) * 36)",
+            "40": "calc(var(--spacing) * 40)",
+            "44": "calc(var(--spacing) * 44)",
+            "48": "calc(var(--spacing) * 48)",
+            "52": "calc(var(--spacing) * 52)",
+            "56": "calc(var(--spacing) * 56)",
+            "60": "calc(var(--spacing) * 60)",
+            "64": "calc(var(--spacing) * 64)",
+            "72": "calc(var(--spacing) * 72)",
+            "80": "calc(var(--spacing) * 80)",
+            "96": "calc(var(--spacing) * 96)",
+            "0.5": "calc(var(--spacing) * 0.5)",
+            "1.5": "calc(var(--spacing) * 1.5)",
+            "2.5": "calc(var(--spacing) * 2.5)",
+            "3.5": "calc(var(--spacing) * 3.5)"
+          },
+          "boxShadow": {
+            "sm": "var(--theme-shadow)"
+          }
+        }
+      }
+    }
+  },
+  "docs": "Theme installed in your configured stylesheet. Existing components and their APIs are preserved. Use your existing dark mode switch."
+}

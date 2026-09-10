@@ -1,202 +1,114 @@
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { basename, dirname, join, relative } from "node:path";
+import postcss, { type Container, type Rule, type AtRule } from "postcss";
+import { registryItemSchema } from "shadcn/schema";
 import { COMPONENTS, getComponent } from "../src/lib/component-catalog";
+import { defaultTheme, themePresets } from "../src/lib/theme-presets";
+import { REGISTRY_URL, themeToRegistry } from "../src/lib/theme-registry";
 
 const projectRoot = join(import.meta.dir, "..");
-const uiRoot = join(projectRoot, "src/components/ui");
 const outputRoot = join(projectRoot, "public/r");
 const schema = "https://ui.shadcn.com/schema/registry-item.json";
-const registryBaseUrl = (process.env.REGISTRY_BASE_URL ?? "https://ui.trysupervisor.com/r").replace(/\/$/, "");
-if (!/^https?:\/\//.test(registryBaseUrl)) {
-  throw new Error("REGISTRY_BASE_URL must use HTTP or HTTPS");
-}
-const registryUrl = (name: string) => `${registryBaseUrl}/${name}.json`;
+const registryBaseUrl = (process.env.REGISTRY_BASE_URL ?? REGISTRY_URL).replace(/\/$/, "");
+if (!/^https?:\/\//.test(registryBaseUrl)) throw new Error("REGISTRY_BASE_URL must use HTTP or HTTPS");
+const semanticColors = new Set(Object.keys(themeToRegistry(defaultTheme).cssVars.light).filter((key) => key !== "radius"));
 
-type RegistryFile = {
-  path: string;
-  type: "registry:ui" | "registry:style" | "registry:file" | "registry:hook";
-  target: string;
-  content?: string;
-};
-
+type RegistryFile = { path: string; type: "registry:ui" | "registry:file"; target: string; content: string };
+type CssRules = { [key: string]: string | CssRules };
 type RegistryItem = {
   name: string;
-  type: "registry:ui" | "registry:style" | "registry:component";
+  type: "registry:ui" | "registry:style" | "registry:component" | "registry:theme";
   title: string;
   description: string;
   dependencies?: string[];
   registryDependencies?: string[];
   files?: RegistryFile[];
+  css?: CssRules;
 };
 
-const compositionDependencies: Record<string, string[]> = {
-  combobox: ["command", "popover"],
-  "data-table": ["table"],
-  "date-picker": ["button", "calendar", "popover"],
-  toast: ["sonner"],
-  typography: ["supervisor-foundation"],
-};
-
-function unique(values: string[]) {
-  return [...new Set(values)].sort();
-}
-
-function importedModules(source: string) {
-  return [...source.matchAll(/from\s+["']([^"']+)["']/g)].map((match) => match[1]);
-}
-
-function dependencyData(source: string) {
-  const dependencies: string[] = [];
-  const registryDependencies = ["supervisor-foundation"];
-
-  for (const specifier of importedModules(source)) {
-    if (specifier.startsWith("@/components/ui/")) {
-      registryDependencies.push(specifier.split("/").at(-1) as string);
-      continue;
+function cssRules(container: Container): CssRules {
+  const rules: CssRules = {};
+  for (const node of container.nodes ?? []) {
+    if (node.type === "decl") {
+      const variables = [...node.value.matchAll(/var\(--([a-z0-9-]+)/g)];
+      if (variables.some((match) => semanticColors.has(match[1]))) continue;
+      rules[node.prop] = node.value + (node.important ? " !important" : "");
+    } else if (node.type === "rule" || node.type === "atrule") {
+      const child = node as Rule | AtRule;
+      if (child.type === "atrule" && ["theme", "custom-variant"].includes(child.name)) continue;
+      if (child.type === "rule" && [":root", ".dark"].includes(child.selector)) continue;
+      const key = child.type === "rule" ? child.selector : `@${child.name}${child.params ? ` ${child.params}` : ""}`;
+      const contents = cssRules(child);
+      if (Object.keys(contents).length) rules[key] = contents;
     }
-    if (specifier.startsWith("@/") || specifier.startsWith(".") || specifier === "react") {
-      continue;
-    }
-    const packageName = specifier.startsWith("@")
-      ? specifier.split("/").slice(0, 2).join("/")
-      : specifier.split("/")[0];
-    dependencies.push(packageName);
   }
-
-  return {
-    dependencies: unique(dependencies),
-    registryDependencies: unique(registryDependencies).map(registryUrl),
-  };
+  return rules;
 }
 
 async function sourceFile(path: string, type: RegistryFile["type"], target: string): Promise<RegistryFile> {
-  return {
-    path: relative(projectRoot, path),
-    type,
-    target,
-    content: await readFile(path, "utf8"),
-  };
+  return { path: relative(projectRoot, path), type, target, content: await readFile(path, "utf8") };
 }
 
 async function buildFoundation(): Promise<RegistryItem> {
-  const foundationPath = join(projectRoot, "src/styles/foundation.css");
-  const files = [
-    await sourceFile(foundationPath, "registry:style", "src/styles/supervisor.css"),
-    await sourceFile(join(projectRoot, "licenses/shadcn-ui.txt"), "registry:file", "licenses/shadcn-ui.txt"),
-    await sourceFile(join(projectRoot, "LICENSE"), "registry:file", "licenses/supervisor-ui.txt"),
-  ];
-
   return {
     name: "supervisor-foundation",
     type: "registry:style",
     title: "Supervisor foundation",
-    description: "Theme tokens, type rules, motion, and shared component details.",
-    dependencies: ["geist", "tw-animate-css"],
-    files,
+    description: "Shared component rules for Supervisor themes.",
+    css: cssRules(postcss.parse(await readFile(join(projectRoot, "src/styles/foundation.css"), "utf8"))),
+    files: [
+      await sourceFile(join(projectRoot, "licenses/shadcn-ui.txt"), "registry:file", "~/licenses/shadcn-ui.txt"),
+      await sourceFile(join(projectRoot, "LICENSE"), "registry:file", "~/licenses/supervisor-ui.txt"),
+    ],
   };
 }
 
-async function buildSourceItem(fileName: string): Promise<RegistryItem> {
-  const name = basename(fileName, ".tsx");
-  const filePath = join(uiRoot, fileName);
-  const source = await readFile(filePath, "utf8");
-  const catalogItem = getComponent(name);
-  const files = [await sourceFile(filePath, "registry:ui", `components/ui/${fileName}`)];
-  const dependencyInfo = dependencyData(source);
-
-  if (name === "sidebar") {
-    const hookPath = join(projectRoot, "src/hooks/use-mobile.ts");
-    files.push(await sourceFile(hookPath, "registry:hook", "hooks/use-mobile.ts"));
-  }
-
-  return {
-    name,
-    type: "registry:ui",
-    title: catalogItem?.name ?? name,
-    description: catalogItem?.description ?? `Supervisor ${name} component.`,
-    dependencies: dependencyInfo.dependencies,
-    registryDependencies: dependencyInfo.registryDependencies,
-    files,
-  };
-}
-
-async function buildCompositionItem(name: string, dependencies: string[]): Promise<RegistryItem> {
-  const catalogItem = getComponent(name);
-  if (!catalogItem) {
-    throw new Error(`Missing catalog entry for ${name}`);
-  }
+async function buildComposition(name: string): Promise<RegistryItem> {
+  const component = getComponent(name)!;
   const filePath = join(projectRoot, "src/components/examples/registry", `${name}.tsx`);
   const source = await readFile(filePath, "utf8");
-  const dependencyInfo = dependencyData(source);
+  const imports = [...source.matchAll(/from\s+["']([^"']+)["']/g)].map((match) => match[1]);
+  const registryDependencies = [...new Set(imports.filter((path) => path.startsWith("@/components/ui/")).map((path) => basename(path)))].sort();
+  const dependencies = [...new Set(imports.filter((path) => !path.startsWith(".") && !path.startsWith("@/") && path !== "react").map((path) => path.startsWith("@") ? path.split("/").slice(0, 2).join("/") : path.split("/")[0]))].sort();
   return {
     name,
     type: "registry:component",
-    title: catalogItem.name,
-    description: catalogItem.description,
-    dependencies: dependencyInfo.dependencies,
-    registryDependencies: unique([
-      ...dependencyInfo.registryDependencies,
-      ...dependencies.map(registryUrl),
-    ]),
-    files: [await sourceFile(filePath, "registry:ui", `components/ui/${name}.tsx`)],
-  };
-}
-
-function outputItem(item: RegistryItem) {
-  return {
-    $schema: schema,
-    ...item,
+    title: component.name,
+    description: component.description,
+    registryDependencies,
+    dependencies,
+    files: [await sourceFile(filePath, "registry:ui", `@ui/${name}.tsx`)],
   };
 }
 
 async function main() {
-  const uiFiles = (await readdir(uiRoot)).filter((file) => file.endsWith(".tsx")).sort();
-  const sourceItems = await Promise.all(uiFiles.map(buildSourceItem));
-  const sourceNames = new Set(sourceItems.map((item) => item.name));
-
+  const compositions = ["combobox", "data-table", "date-picker", "toast", "typography"];
+  const uiFiles = (await readdir(join(projectRoot, "src/components/ui"))).filter((file) => file.endsWith(".tsx")).sort();
+  const nativeItems: RegistryItem[] = uiFiles.map((file) => {
+    const name = basename(file, ".tsx");
+    const component = getComponent(name);
+    return { name, type: "registry:ui", title: component?.name ?? name, description: component?.description ?? `The shadcn ${name} component.`, registryDependencies: [name] };
+  });
+  const items: RegistryItem[] = [
+    await buildFoundation(),
+    themeToRegistry(defaultTheme, registryBaseUrl, "supervisor"),
+    ...themePresets.map((theme) => themeToRegistry(theme, registryBaseUrl)),
+    ...nativeItems,
+    ...await Promise.all(compositions.map(buildComposition)),
+  ].sort((left, right) => left.name.localeCompare(right.name));
   for (const component of COMPONENTS) {
-    if (!sourceNames.has(component.slug) && !compositionDependencies[component.slug]) {
-      throw new Error(`No registry source or composition for ${component.slug}`);
-    }
+    if (!items.some((item) => item.name === component.slug)) throw new Error(`Missing registry item ${component.slug}`);
   }
-
-  const foundation = await buildFoundation();
-  const compositionItems = await Promise.all(
-    Object.entries(compositionDependencies).map(([name, dependencies]) =>
-      buildCompositionItem(name, dependencies),
-    ),
-  );
-  const items = [foundation, ...sourceItems, ...compositionItems].sort((left, right) =>
-    left.name.localeCompare(right.name),
-  );
-
-  const authoringManifest = {
-    $schema: "https://ui.shadcn.com/schema/registry.json",
-    name: "supervisor",
-    homepage: "https://ui.trysupervisor.com",
-    items: items.map((item) => ({
-      ...item,
-      files: item.files?.map((file) => ({ path: file.path, type: file.type, target: file.target })),
-    })),
-  };
-
+  for (const item of items) registryItemSchema.parse(item);
+  const registry = { $schema: "https://ui.shadcn.com/schema/registry.json", name: "supervisor", homepage: "https://ui.trysupervisor.com", items };
   await mkdir(outputRoot, { recursive: true });
-  await writeFile(join(projectRoot, "registry.json"), `${JSON.stringify(authoringManifest, null, 2)}\n`);
-  await writeFile(
-    join(outputRoot, "index.json"),
-    `${JSON.stringify({ ...authoringManifest, items: items.map(outputItem) }, null, 2)}\n`,
-  );
-
-  await Promise.all(
-    items.map(async (item) => {
-      const destination = join(outputRoot, `${item.name}.json`);
-      if (dirname(destination) !== outputRoot) {
-        throw new Error(`Unsafe registry item name: ${item.name}`);
-      }
-      await writeFile(destination, `${JSON.stringify(outputItem(item), null, 2)}\n`);
-    }),
-  );
-
+  await writeFile(join(projectRoot, "registry.json"), `${JSON.stringify(registry, null, 2)}\n`);
+  await writeFile(join(outputRoot, "index.json"), `${JSON.stringify(registry, null, 2)}\n`);
+  await Promise.all(items.map(async (item) => {
+    const destination = join(outputRoot, `${item.name}.json`);
+    if (dirname(destination) !== outputRoot) throw new Error(`Unsafe registry item name: ${item.name}`);
+    await writeFile(destination, `${JSON.stringify({ $schema: schema, ...item }, null, 2)}\n`);
+  }));
   console.log(`Built ${items.length} registry items in ${relative(projectRoot, outputRoot)}`);
 }
 
