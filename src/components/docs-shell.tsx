@@ -12,6 +12,7 @@ import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, Comma
 import { Toaster } from "@/components/ui/sonner";
 import { useTheme } from "@/components/theme-provider";
 import { COMPONENTS } from "@/lib/component-catalog";
+import { AI_ELEMENTS } from "@/lib/ai-elements-catalog";
 
 const pages = [
   { name: "Introduction", href: "/" },
@@ -19,6 +20,7 @@ const pages = [
   { name: "Foundations", href: "/foundations" },
   { name: "Themes", href: "/themes" },
   { name: "Charts", href: "/charts" },
+  { name: "AI Elements", href: "/ai-elements" },
   { name: "All components", href: "/components" },
 ];
 
@@ -41,6 +43,7 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
   }, []);
   function navigate(href: string) { setSearchOpen(false); setMobileOpen(false); router.push(href); }
   const matching = COMPONENTS.filter(component => `${component.name} ${component.description}`.toLowerCase().includes(query.toLowerCase()));
+  const matchingElements = AI_ELEMENTS.filter(component => `${component.name} ${component.description} ${component.category}`.toLowerCase().includes(query.toLowerCase()));
   const sidebar = <>
     <div className="px-4 pt-5 pb-3"><div className="relative"><MagnifyingGlassIcon className="pointer-events-none absolute top-1/2 left-3 size-3.5 -translate-y-1/2 text-muted-foreground" /><Input className="pl-9 text-xs" aria-label="Filter components" placeholder="Filter components..." value={query} onChange={event => setQuery(event.target.value)} /></div></div>
     <nav className="docs-navigation" aria-label="Documentation">
@@ -48,7 +51,9 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
       {pages.map(page => <Link key={page.href} href={page.href} onClick={() => setMobileOpen(false)} aria-current={pathname === page.href ? "page" : undefined} className="docs-nav-link"><span>{page.name}</span>{page.href === "/themes" && <span className="nav-dot" />}{page.href === "/charts" && <span className="nav-small">6</span>}</Link>)}
       <div className="nav-group-label mt-7">Components <span className="ml-auto font-mono text-[10px]">{COMPONENTS.length}</span></div>
       {matching.map(component => <Link key={component.slug} href={`/components/${component.slug}`} onClick={() => setMobileOpen(false)} aria-current={pathname === `/components/${component.slug}` ? "page" : undefined} className="docs-nav-link">{component.name}</Link>)}
-      {!matching.length && <p className="px-3 py-6 text-xs text-muted-foreground">No matching components.</p>}
+      <div className="nav-group-label mt-7">AI Elements <span className="ml-auto font-mono text-[10px]">{AI_ELEMENTS.length}</span></div>
+      {matchingElements.map(component => <Link key={component.slug} href={`/ai-elements/${component.slug}`} onClick={() => setMobileOpen(false)} aria-current={pathname === `/ai-elements/${component.slug}` ? "page" : undefined} className="docs-nav-link">{component.name}</Link>)}
+      {!matching.length && !matchingElements.length && <p className="px-3 py-6 text-xs text-muted-foreground">No matching components.</p>}
     </nav>
     <div className="sidebar-foot"><span className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground" />Built with shadcn/ui</span><span className="font-mono">v0.1</span></div>
   </>;
@@ -61,7 +66,7 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
     </header>
     <aside className="docs-sidebar">{sidebar}</aside>
     <div className="docs-main"><main id="main-content" className={`docs-content ${pathname === "/themes" ? "docs-content-wide" : ""}`}>{children}</main><footer className="docs-footer"><span>Supervisor Design System</span><div className="flex items-center gap-5"><Link href="/installation">Start building <ArrowTopRightIcon className="inline size-3" /></Link><Link href="/themes">Make it yours <Component1Icon className="inline size-3" /></Link></div></footer></div>
-    <CommandDialog open={searchOpen} onOpenChange={setSearchOpen} title="Search the design system" description="Find a component, theme, or guide."><Command><CommandInput aria-label="Search the design system" placeholder="Search components and pages..." /><CommandList><CommandEmpty>No matching results.</CommandEmpty><CommandGroup heading="Pages">{pages.map(page => <CommandItem key={page.href} onSelect={() => navigate(page.href)}>{page.name}</CommandItem>)}</CommandGroup><CommandGroup heading="Components">{COMPONENTS.map(component => <CommandItem key={component.slug} onSelect={() => navigate(`/components/${component.slug}`)}>{component.name}{pathname === `/components/${component.slug}` && <CheckIcon className="ml-auto" />}</CommandItem>)}</CommandGroup></CommandList></Command></CommandDialog>
+    <CommandDialog open={searchOpen} onOpenChange={setSearchOpen} title="Search the design system" description="Find a component, theme, or guide."><Command><CommandInput aria-label="Search the design system" placeholder="Search components and pages..." /><CommandList><CommandEmpty>No matching results.</CommandEmpty><CommandGroup heading="Pages">{pages.map(page => <CommandItem key={page.href} onSelect={() => navigate(page.href)}>{page.name}</CommandItem>)}</CommandGroup><CommandGroup heading="Components">{COMPONENTS.map(component => <CommandItem key={component.slug} onSelect={() => navigate(`/components/${component.slug}`)}>{component.name}{pathname === `/components/${component.slug}` && <CheckIcon className="ml-auto" />}</CommandItem>)}</CommandGroup><CommandGroup heading="AI Elements">{AI_ELEMENTS.map(component => <CommandItem key={`ai-${component.slug}`} value={`AI Elements ${component.name}`} onSelect={() => navigate(`/ai-elements/${component.slug}`)}>{component.name}{pathname === `/ai-elements/${component.slug}` && <CheckIcon className="ml-auto" />}</CommandItem>)}</CommandGroup></CommandList></Command></CommandDialog>
     <Toaster position="bottom-right" theme={resolvedMode} />
   </div>;
 }

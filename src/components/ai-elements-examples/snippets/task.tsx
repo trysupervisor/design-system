@@ -1,0 +1,9 @@
+"use client";
+
+import { CodeDisclosure } from "@/components/code-disclosure";
+
+const code = "// Modified for Supervisor previews. License: Apache 2.0.\n\"use client\";\n\nimport { AtomIcon } from \"lucide-react\";\nimport {\n  Task,\n  TaskContent,\n  TaskItem,\n  TaskItemFile,\n  TaskTrigger,\n} from \"@/components/ai-elements/task\";\nimport { nanoid } from \"nanoid\";\nimport type { ReactNode } from \"react\";\n\nconst Example = () => {\n  const tasks: { key: string; value: ReactNode }[] = [\n    { key: nanoid(), value: 'Searching \"app/page.tsx, components structure\"' },\n    {\n      key: nanoid(),\n      value: (\n        <span className=\"inline-flex items-center gap-1\" key=\"read-page-tsx\">\n          Read\n          <TaskItemFile>\n            <AtomIcon className=\"size-4\" color=\"#149ECA\" />\n            <span>page.tsx</span>\n          </TaskItemFile>\n        </span>\n      ),\n    },\n    { key: nanoid(), value: \"Scanning 52 files\" },\n    { key: nanoid(), value: \"Scanning 2 files\" },\n    {\n      key: nanoid(),\n      value: (\n        <span className=\"inline-flex items-center gap-1\" key=\"read-layout-tsx\">\n          Reading files\n          <TaskItemFile>\n            <AtomIcon className=\"size-4\" color=\"#149ECA\" />\n            <span>layout.tsx</span>\n          </TaskItemFile>\n        </span>\n      ),\n    },\n  ];\n\n  return (\n    <div style={{ height: \"200px\" }}>\n      <Task className=\"w-full\">\n        <TaskTrigger title=\"Found project files\" />\n        <TaskContent>\n          {tasks.map((task) => (\n            <TaskItem key={task.key}>{task.value}</TaskItem>\n          ))}\n        </TaskContent>\n      </Task>\n    </div>\n  );\n};\n\nexport default Example;";
+
+export default function AIElementSnippet({ title }: { title: string }) {
+  return <CodeDisclosure title={title} code={code} />;
+}

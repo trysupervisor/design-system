@@ -1,0 +1,9 @@
+"use client";
+
+import { CodeDisclosure } from "@/components/code-disclosure";
+
+const code = "// Modified for Supervisor previews. License: Apache 2.0.\n\"use client\";\n\nimport {\n  FileTree,\n  FileTreeFile,\n  FileTreeFolder,\n} from \"@/components/ai-elements/file-tree\";\nimport { useState } from \"react\";\n\nconst Example = () => {\n  const [selectedPath, setSelectedPath] = useState<string | undefined>();\n\n  return (\n    <FileTree\n      defaultExpanded={new Set([\"src\", \"src/components\"])}\n      onSelect={setSelectedPath}\n      selectedPath={selectedPath}\n    >\n      <FileTreeFolder name=\"src\" path=\"src\">\n        <FileTreeFolder name=\"components\" path=\"src/components\">\n          <FileTreeFile name=\"button.tsx\" path=\"src/components/button.tsx\" />\n          <FileTreeFile name=\"input.tsx\" path=\"src/components/input.tsx\" />\n          <FileTreeFile name=\"modal.tsx\" path=\"src/components/modal.tsx\" />\n        </FileTreeFolder>\n        <FileTreeFolder name=\"hooks\" path=\"src/hooks\">\n          <FileTreeFile name=\"use-auth.ts\" path=\"src/hooks/use-auth.ts\" />\n          <FileTreeFile name=\"use-theme.ts\" path=\"src/hooks/use-theme.ts\" />\n        </FileTreeFolder>\n        <FileTreeFolder name=\"lib\" path=\"src/lib\">\n          <FileTreeFile name=\"utils.ts\" path=\"src/lib/utils.ts\" />\n        </FileTreeFolder>\n        <FileTreeFile name=\"app.tsx\" path=\"src/app.tsx\" />\n        <FileTreeFile name=\"main.tsx\" path=\"src/main.tsx\" />\n      </FileTreeFolder>\n      <FileTreeFile name=\"package.json\" path=\"package.json\" />\n      <FileTreeFile name=\"tsconfig.json\" path=\"tsconfig.json\" />\n      <FileTreeFile name=\"README.md\" path=\"README.md\" />\n    </FileTree>\n  );\n};\n\nexport default Example;";
+
+export default function AIElementSnippet({ title }: { title: string }) {
+  return <CodeDisclosure title={title} code={code} />;
+}

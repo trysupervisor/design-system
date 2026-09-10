@@ -1,0 +1,9 @@
+"use client";
+
+import { CodeDisclosure } from "@/components/code-disclosure";
+
+const code = "\"use client\";\n\nimport { useState } from \"react\";\nimport { SpeechInput } from \"@/components/ai-elements/speech-input\";\nimport { Button } from \"@/components/ui/button\";\n\nexport default function SpeechInputPreview() {\n  const [transcript, setTranscript] = useState(\"\");\n  const [capturedBytes, setCapturedBytes] = useState<number | null>(null);\n  return (\n    <div className=\"mx-auto flex max-w-md flex-col items-center gap-4 text-center\">\n      <SpeechInput\n        aria-describedby=\"speech-preview-note\"\n        aria-label=\"Record a local audio sample\"\n        captureMode=\"recording\"\n        onAudioRecorded={async (audio) => {\n          setCapturedBytes(audio.size);\n          return \"\";\n        }}\n        size=\"icon\"\n        variant=\"outline\"\n      />\n      <p id=\"speech-preview-note\" className=\"text-xs leading-relaxed text-muted-foreground\">Activate the control to record a local sample. This preview reports the captured size without transcribing or uploading audio.</p>\n      <div className=\"min-h-16 w-full rounded-md border bg-muted/30 p-4 text-left text-sm\" aria-live=\"polite\">\n        <p>{capturedBytes === null ? \"No audio captured yet.\" : `${capturedBytes.toLocaleString()} bytes captured locally.`}</p>\n        {transcript ? <p className=\"mt-2 text-muted-foreground\">Sample transcript: {transcript}</p> : null}\n      </div>\n      <Button size=\"sm\" variant=\"outline\" onClick={() => setTranscript(\"Schedule the design review for Thursday morning.\")}>Load sample transcript</Button>\n    </div>\n  );\n}";
+
+export default function AIElementSnippet({ title }: { title: string }) {
+  return <CodeDisclosure title={title} code={code} />;
+}
