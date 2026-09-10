@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-elements-shimmer",
+  "type": "registry:component",
+  "title": "Shimmer",
+  "description": "Animates text during loading or progressive reveal.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/ai-elements-license.json"
+  ],
+  "dependencies": [
+    "cn@^0.2.6",
+    "motion@^12.26.2"
+  ],
+  "files": [
+    {
+      "path": "src/components/ai-elements/shimmer.tsx",
+      "type": "registry:ui",
+      "target": "@components/ai-elements/shimmer.tsx",
+      "content": "// Modified for Supervisor compatibility. License: Apache 2.0.\n\"use client\";\n\nimport { cn } from \"cn\";\nimport { useAnimate } from \"motion/react\";\nimport type { CSSProperties, ElementType } from \"react\";\nimport { memo, useEffect, useMemo } from \"react\";\n\nexport interface TextShimmerProps {\n  children: string;\n  as?: ElementType;\n  className?: string;\n  duration?: number;\n  spread?: number;\n}\n\nconst ShimmerComponent = ({\n  children,\n  as: Component = \"p\",\n  className,\n  duration = 2,\n  spread = 2,\n}: TextShimmerProps) => {\n  const [scope, animate] = useAnimate();\n\n  useEffect(() => {\n    const animation = animate(scope.current, { backgroundPosition: [\"100% center\", \"0% center\"] }, {\n      duration,\n      ease: \"linear\",\n      repeat: Number.POSITIVE_INFINITY,\n    });\n    return () => animation.stop();\n  }, [animate, duration, scope, Component]);\n\n  const dynamicSpread = useMemo(\n    () => (children?.length ?? 0) * spread,\n    [children, spread]\n  );\n\n  return (\n    <Component\n      ref={scope}\n      className={cn(\n        \"relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent\",\n        \"[--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]\",\n        className\n      )}\n      style={\n        {\n          \"--spread\": `${dynamicSpread}px`,\n          backgroundPosition: \"100% center\",\n          backgroundImage:\n            \"var(--bg), linear-gradient(var(--color-muted-foreground), var(--color-muted-foreground))\",\n        } as CSSProperties\n      }\n    >\n      {children}\n    </Component>\n  );\n};\n\nexport const Shimmer = memo(ShimmerComponent);\n"
+    }
+  ]
+}

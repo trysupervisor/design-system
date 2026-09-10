@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-elements-connection",
+  "type": "registry:component",
+  "title": "Connection",
+  "description": "Draws an animated connection while linking React Flow nodes.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/ai-elements-license.json"
+  ],
+  "dependencies": [
+    "@xyflow/react@^12.10.0"
+  ],
+  "files": [
+    {
+      "path": "src/components/ai-elements/connection.tsx",
+      "type": "registry:ui",
+      "target": "@components/ai-elements/connection.tsx",
+      "content": "// Modified for Supervisor compatibility. License: Apache 2.0.\nimport type { ConnectionLineComponent } from \"@xyflow/react\";\n\nconst HALF = 0.5;\n\nexport const Connection: ConnectionLineComponent = ({\n  fromX,\n  fromY,\n  toX,\n  toY,\n}) => (\n  <g>\n    <path\n      className=\"animated\"\n      d={`M${fromX},${fromY} C ${fromX + (toX - fromX) * HALF},${fromY} ${fromX + (toX - fromX) * HALF},${toY} ${toX},${toY}`}\n      fill=\"none\"\n      stroke=\"var(--color-ring)\"\n      strokeWidth={1}\n    />\n    <circle\n      cx={toX}\n      cy={toY}\n      fill=\"#fff\"\n      r={3}\n      stroke=\"var(--color-ring)\"\n      strokeWidth={1}\n    />\n  </g>\n);\n"
+    }
+  ]
+}

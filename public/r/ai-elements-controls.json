@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-elements-controls",
+  "type": "registry:component",
+  "title": "Controls",
+  "description": "Adds zoom and fit controls to a React Flow canvas.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/ai-elements-license.json"
+  ],
+  "dependencies": [
+    "@xyflow/react@^12.10.0",
+    "cn@^0.2.6"
+  ],
+  "files": [
+    {
+      "path": "src/components/ai-elements/controls.tsx",
+      "type": "registry:ui",
+      "target": "@components/ai-elements/controls.tsx",
+      "content": "// Modified for Supervisor compatibility. License: Apache 2.0.\n\"use client\";\n\nimport { cn } from \"cn\";\nimport { Controls as ControlsPrimitive } from \"@xyflow/react\";\nimport type { ComponentProps } from \"react\";\n\nexport type ControlsProps = ComponentProps<typeof ControlsPrimitive>;\n\nexport const Controls = ({ className, ...props }: ControlsProps) => (\n  <ControlsPrimitive\n    className={cn(\n      \"gap-px overflow-hidden rounded-md border bg-card p-1 shadow-none!\",\n      \"[&>button]:rounded-md [&>button]:border-none! [&>button]:bg-transparent! [&>button]:hover:bg-secondary!\",\n      className\n    )}\n    {...props}\n  />\n);\n"
+    }
+  ]
+}

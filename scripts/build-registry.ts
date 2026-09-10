@@ -5,13 +5,19 @@ import { registryItemSchema } from "shadcn/schema";
 import { COMPONENTS, getComponent } from "../src/lib/component-catalog";
 import { defaultTheme, themePresets } from "../src/lib/theme-presets";
 import { REGISTRY_URL, themeToRegistry } from "../src/lib/theme-registry";
+import { AI_ELEMENTS } from "../src/lib/ai-elements-catalog";
+import ts from "typescript";
+import { streamdownRegistryCss } from "./streamdown-css";
 
 const projectRoot = join(import.meta.dir, "..");
 const outputRoot = join(projectRoot, "public/r");
 const schema = "https://ui.shadcn.com/schema/registry-item.json";
+const packageManifest = JSON.parse(await readFile(join(projectRoot, "package.json"), "utf8")) as { dependencies: Record<string, string> };
 const registryBaseUrl = (process.env.REGISTRY_BASE_URL ?? REGISTRY_URL).replace(/\/$/, "");
 if (!/^https?:\/\//.test(registryBaseUrl)) throw new Error("REGISTRY_BASE_URL must use HTTP or HTTPS");
 const semanticColors = new Set(Object.keys(themeToRegistry(defaultTheme).cssVars.light).filter((key) => key !== "radius"));
+const aiElementSupport = [{ slug: "hover-card-timing", name: "Hover card timing", description: "Shared hover timing for either shadcn component base." }];
+const streamdownCss = await streamdownRegistryCss();
 
 type RegistryFile = { path: string; type: "registry:ui" | "registry:file"; target: string; content: string };
 type CssRules = { [key: string]: string | CssRules };
@@ -81,6 +87,49 @@ async function buildComposition(name: string): Promise<RegistryItem> {
   };
 }
 
+async function buildAIElement(element: { slug: string; name: string; description: string }): Promise<RegistryItem> {
+  const path = join(projectRoot, "src/components/ai-elements", `${element.slug}.tsx`);
+  const source = await readFile(path, "utf8");
+  const imports: string[] = [];
+  const syntax = ts.createSourceFile(path, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  function visit(node: ts.Node) {
+    if ((ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) && node.moduleSpecifier && ts.isStringLiteral(node.moduleSpecifier)) {
+      imports.push(node.moduleSpecifier.text);
+    } else if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword && node.arguments[0] && ts.isStringLiteral(node.arguments[0])) {
+      imports.push(node.arguments[0].text);
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(syntax);
+  const registryDependencies = new Set([`${registryBaseUrl}/ai-elements-license.json`]);
+  const dependencies = new Set<string>();
+  for (const specifier of imports) {
+    if (specifier.startsWith("@/components/ui/")) {
+      registryDependencies.add(basename(specifier));
+    } else if (specifier.startsWith("@/components/ai-elements/") || specifier.startsWith("./")) {
+      const name = basename(specifier).replace(/\.tsx?$/, "");
+      if (![...AI_ELEMENTS, ...aiElementSupport].some((item) => item.slug === name)) throw new Error(`Unknown AI Element dependency ${specifier}`);
+      registryDependencies.add(`${registryBaseUrl}/ai-elements-${name}.json`);
+    } else if (!specifier.startsWith("@/")) {
+      const name = specifier.startsWith("@") ? specifier.split("/").slice(0, 2).join("/") : specifier.split("/")[0];
+      if (["react", "react-dom", "next"].includes(name)) continue;
+      const version = packageManifest.dependencies[name];
+      if (!version) throw new Error(`Unlisted AI Element package ${name}`);
+      dependencies.add(`${name}@${version}`);
+    }
+  }
+  return {
+    name: `ai-elements-${element.slug}`,
+    type: "registry:component",
+    title: element.name,
+    description: element.description,
+    registryDependencies: [...registryDependencies].sort(),
+    dependencies: [...dependencies].sort(),
+    ...(["message", "reasoning"].includes(element.slug) ? { css: streamdownCss } : {}),
+    files: [await sourceFile(path, "registry:ui", `@components/ai-elements/${element.slug}.tsx`)],
+  };
+}
+
 async function main() {
   const compositions = ["combobox", "data-table", "date-picker", "toast", "typography"];
   const uiFiles = (await readdir(join(projectRoot, "src/components/ui"))).filter((file) => file.endsWith(".tsx")).sort();
@@ -95,6 +144,21 @@ async function main() {
     ...themePresets.map((theme) => themeToRegistry(theme, registryBaseUrl)),
     ...nativeItems,
     ...await Promise.all(compositions.map(buildComposition)),
+    {
+      name: "ai-elements-license",
+      type: "registry:style" as const,
+      title: "AI Elements license",
+      description: "License notice for the Vercel AI Elements components.",
+      files: [await sourceFile(join(projectRoot, "licenses/ai-elements.txt"), "registry:file", "~/licenses/ai-elements.txt")],
+    },
+    ...await Promise.all([...AI_ELEMENTS, ...aiElementSupport].map(buildAIElement)),
+    {
+      name: "ai-elements",
+      type: "registry:component" as const,
+      title: "Vercel AI Elements",
+      description: "The complete Vercel AI Elements component catalog for shadcn.",
+      registryDependencies: AI_ELEMENTS.map((element) => `${registryBaseUrl}/ai-elements-${element.slug}.json`),
+    },
   ].sort((left, right) => left.name.localeCompare(right.name));
   for (const component of COMPONENTS) {
     if (!items.some((item) => item.name === component.slug)) throw new Error(`Missing registry item ${component.slug}`);

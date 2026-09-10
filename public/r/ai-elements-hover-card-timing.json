@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-elements-hover-card-timing",
+  "type": "registry:component",
+  "title": "Hover card timing",
+  "description": "Shared hover timing for either shadcn component base.",
+  "registryDependencies": [
+    "hover-card",
+    "https://ui.trysupervisor.com/r/ai-elements-license.json"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "src/components/ai-elements/hover-card-timing.tsx",
+      "type": "registry:ui",
+      "target": "@components/ai-elements/hover-card-timing.tsx",
+      "content": "// Modified for Supervisor compatibility. License: Apache 2.0.\n\"use client\";\n\nimport { HoverCard } from \"@/components/ui/hover-card\";\nimport type { ComponentProps } from \"react\";\n\nexport type TimedHoverCardProps = Omit<ComponentProps<typeof HoverCard>, \"openDelay\" | \"closeDelay\"> & {\n  openDelay?: number;\n  closeDelay?: number;\n};\n\nexport function TimedHoverCard({ openDelay = 0, closeDelay = 0, ...props }: TimedHoverCardProps) {\n  // Radix reads root delays. Base UI retains its native trigger timing.\n  const nativeProps = { ...props, openDelay, closeDelay };\n  return <HoverCard {...nativeProps} />;\n}\n"
+    }
+  ]
+}

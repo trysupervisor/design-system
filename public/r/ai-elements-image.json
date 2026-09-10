@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-elements-image",
+  "type": "registry:component",
+  "title": "Image",
+  "description": "Displays images returned by the AI SDK.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/ai-elements-license.json"
+  ],
+  "dependencies": [
+    "ai@^7.0.97",
+    "cn@^0.2.6"
+  ],
+  "files": [
+    {
+      "path": "src/components/ai-elements/image.tsx",
+      "type": "registry:ui",
+      "target": "@components/ai-elements/image.tsx",
+      "content": "// Modified for Supervisor compatibility. License: Apache 2.0.\nimport { cn } from \"cn\";\nimport NextImage from \"next/image\";\nimport type { Experimental_GeneratedImage } from \"ai\";\n\nexport type ImageProps = Experimental_GeneratedImage & {\n  className?: string;\n  alt?: string;\n};\n\nexport const Image = ({\n  base64,\n  mediaType,\n  alt = \"\",\n  className,\n}: ImageProps) => (\n  <NextImage\n    alt={alt}\n    width={1024}\n    height={1024}\n    unoptimized\n    className={cn(\n      \"h-auto max-w-full overflow-hidden rounded-md\",\n      className\n    )}\n    src={`data:${mediaType};base64,${base64}`}\n  />\n);\n"
+    }
+  ]
+}
