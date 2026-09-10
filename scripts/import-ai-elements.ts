@@ -282,7 +282,12 @@ async function main() {
     );
   }
   await writeFile(catalogPath, catalogSource(imported));
-  await writeFile(licensePath, await fetchText(`${upstreamRawUrl}/LICENSE`));
+  const [notice, license] = await Promise.all([
+    fetchText(`${upstreamRawUrl}/LICENSE`),
+    fetchText("https://www.apache.org/licenses/LICENSE-2.0.txt"),
+  ]);
+  if (!license.includes("END OF TERMS AND CONDITIONS")) throw new Error("Incomplete Apache license text");
+  await writeFile(licensePath, `${notice.trimEnd()}\n\n${license.trimEnd()}\n`);
   console.log(`${metadataOnly ? "Updated metadata for" : "Imported"} ${imported.length} official AI Elements`);
 }
 

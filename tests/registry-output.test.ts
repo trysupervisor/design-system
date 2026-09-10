@@ -59,6 +59,8 @@ describe("registry output", () => {
     const license = await jsonFile<RegistryItem>("public/r/ai-elements-license.json");
     expect(license.files?.[0].target).toBe("~/licenses/ai-elements.txt");
     expect(license.files?.[0].content).toContain("Apache License");
+    expect(license.files?.[0].content).toContain("Copyright 2023 Vercel, Inc.");
+    expect(license.files?.[0].content).toContain("END OF TERMS AND CONDITIONS");
     const timing = await jsonFile<RegistryItem>("public/r/ai-elements-hover-card-timing.json");
     expect(timing.files?.[0].target).toBe("@components/ai-elements/hover-card-timing.tsx");
     for (const slug of ["attachments", "context", "inline-citation", "prompt-input"]) {
