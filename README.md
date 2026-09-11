@@ -56,13 +56,23 @@ Theme Studio includes brand inspired presets and controls for both color modes, 
 
 ### Ledger
 
-Ledger is a compact theme and runtime kit for tables, search, selection, animated detail panels, and an interactive chart. Install the palette, provider, components, tokens, and styles with one command:
+Ledger applies native San Francisco typography, neutral surfaces, continuous corners, measured spacing, and shared motion to the component catalog. It also includes tables, animated search, detail panels, and an interactive chart. Install the palette, runtime, components, tokens, and styles with one command:
 
 ```sh
 bunx shadcn@latest add https://ui.trysupervisor.com/r/theme-ledger.json
 ```
 
 The [Ledger guide](https://ui.trysupervisor.com/themes/ledger) has a working example, token rules, keyboard controls, reduced motion behavior, and copyable Next.js code. Copy CSS and Export JSON in Theme Studio contain palette settings only. Use the registry command for the components and chart behavior.
+
+Use `mountLedgerTheme(document.documentElement)` from the installed `ledger-runtime` module in a client effect and import `ledger.css` to apply the theme across an app. Its cleanup restores owned styles. Existing shadcn components, AI Elements, menus, and dialogs inherit the recipe. `LedgerProvider` creates a light Ledger section inside another theme. Keep a scoped toaster inside that provider.
+
+The chart collection includes 21 families adapted from the Supervisor widget library. Each family has a copyable example, range controls for sample data, inspection, and an accessible data table. Install the complete collection with:
+
+```sh
+bunx shadcn@latest add https://ui.trysupervisor.com/r/supervisor-charts.json
+```
+
+Import components from `@/components/ui/chart-cartesian` or `@/components/ui/chart-specialty`. Pass `data` to use application data. Pass `expandedData` as well to enable the second range. Adjust imports to match the UI alias in `components.json`.
 
 The thirteen bundled font families have open licenses and are served by this application. A separate System Sans option uses the device font with Inter as a fallback. Theme files accept only approved font identifiers, hexadecimal colors, and bounded numeric values. They cannot contain CSS expressions, external assets, or executable code.
 
