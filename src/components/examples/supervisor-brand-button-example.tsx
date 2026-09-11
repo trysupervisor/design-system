@@ -16,7 +16,10 @@ export default function Example() {
 
   return (
     <SupervisorBrandButton disabled={saved} onClick={() => setSaved(true)}>
-      {saved ? "Saved" : "Save changes"}
+      <span data-supervisor-brand-label="">
+        <span data-supervisor-brand-state="active" aria-hidden={saved}>Save changes</span>
+        <span data-supervisor-brand-state="selected" aria-hidden={!saved}>Saved</span>
+      </span>
       <ArrowUpRightIcon aria-hidden="true" data-supervisor-brand-arrow="" />
     </SupervisorBrandButton>
   )
@@ -31,7 +34,13 @@ export function SupervisorBrandButtonExample() {
       <div className="component-frame">
         <div className="component-preview flex-col gap-4">
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <SupervisorBrandButton disabled={activated} onClick={() => setActivated(true)}>{activated ? "Selected" : "Get started"}<ArrowUpRightIcon aria-hidden="true" data-supervisor-brand-arrow="" /></SupervisorBrandButton>
+            <SupervisorBrandButton disabled={activated} onClick={() => setActivated(true)}>
+              <span data-supervisor-brand-label="">
+                <span data-supervisor-brand-state="active" aria-hidden={activated}>Get started</span>
+                <span data-supervisor-brand-state="selected" aria-hidden={!activated}>Selected</span>
+              </span>
+              <ArrowUpRightIcon aria-hidden="true" data-supervisor-brand-arrow="" />
+            </SupervisorBrandButton>
             <SupervisorBrandButton disabled>Unavailable<ArrowUpRightIcon aria-hidden="true" data-supervisor-brand-arrow="" /></SupervisorBrandButton>
           </div>
           <div className="flex min-h-5 items-center gap-2 text-xs text-muted-foreground"><p role="status">{activated ? "The selected action now uses the disabled state." : "Try the hover, focus, and pressed states."}</p>{activated ? <button type="button" className="underline underline-offset-4" onClick={() => setActivated(false)}>Reset</button> : null}</div>
