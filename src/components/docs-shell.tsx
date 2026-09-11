@@ -13,6 +13,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { useTheme } from "@/components/theme-provider";
 import { COMPONENTS } from "@/lib/component-catalog";
 import { AI_ELEMENTS } from "@/lib/ai-elements-catalog";
+import { CHART_COUNT } from "@/lib/chart-metadata";
 
 const pages = [
   { name: "Introduction", href: "/" },
@@ -48,7 +49,7 @@ export function DocsShell({ children }: { children: React.ReactNode }) {
     <div className="px-4 pt-5 pb-3"><div className="relative"><MagnifyingGlassIcon className="pointer-events-none absolute top-1/2 left-3 size-3.5 -translate-y-1/2 text-muted-foreground" /><Input className="pl-9 text-xs" aria-label="Filter components" placeholder="Filter components..." value={query} onChange={event => setQuery(event.target.value)} /></div></div>
     <nav className="docs-navigation" aria-label="Documentation">
       <div className="nav-group-label">Get started</div>
-      {pages.map(page => <Link key={page.href} href={page.href} onClick={() => setMobileOpen(false)} aria-current={pathname === page.href ? "page" : undefined} className="docs-nav-link"><span>{page.name}</span>{page.href === "/themes" && <span className="nav-dot" />}{page.href === "/charts" && <span className="nav-small">6</span>}</Link>)}
+      {pages.map(page => <Link key={page.href} href={page.href} onClick={() => setMobileOpen(false)} aria-current={pathname === page.href ? "page" : undefined} className="docs-nav-link"><span>{page.name}</span>{page.href === "/themes" && <span className="nav-dot" />}{page.href === "/charts" && <span className="nav-small">{CHART_COUNT}</span>}</Link>)}
       <div className="nav-group-label mt-7">Components <span className="ml-auto font-mono text-[10px]">{COMPONENTS.length}</span></div>
       {matching.map(component => <Link key={component.slug} href={`/components/${component.slug}`} onClick={() => setMobileOpen(false)} aria-current={pathname === `/components/${component.slug}` ? "page" : undefined} className="docs-nav-link">{component.name}</Link>)}
       <div className="nav-group-label mt-7">AI Elements <span className="ml-auto font-mono text-[10px]">{AI_ELEMENTS.length}</span></div>
