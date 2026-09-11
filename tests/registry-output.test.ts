@@ -15,7 +15,7 @@ async function jsonFile<T>(path: string): Promise<T> {
 describe("registry output", () => {
   test("publishes schema valid items for every manifest entry", async () => {
     const manifest = await jsonFile<{ items: RegistryItem[] }>("registry.json");
-    expect(manifest.items).toHaveLength(104 + AI_ELEMENTS.length + 3);
+    expect(manifest.items).toHaveLength(105 + AI_ELEMENTS.length + 3);
     for (const item of manifest.items) {
       const output = await jsonFile<RegistryItem>(`public/r/${item.name}.json`);
       expect(registryItemSchema.safeParse(output).success).toBe(true);
@@ -40,6 +40,19 @@ describe("registry output", () => {
     expect(item.files?.[0].content).toContain('import "./supervisor-brand-button.css"');
     expect(item.files?.[1].content).toContain("[data-supervisor-brand]");
     expect(item.files?.[2].content).toContain("MIT License");
+  });
+
+  test("installs Device source and image notices without redistributing PNGs", async () => {
+    const item = registryItemSchema.parse(await jsonFile<unknown>("public/r/device.json"));
+    expect(item.type).toBe("registry:component");
+    expect(item.registryDependencies ?? []).not.toContain("device");
+    expect(item.files?.map((file) => file.target)).toEqual(["@ui/device.tsx", "@ui/device-frames.ts", "@ui/device.css", "~/licenses/device-frames.txt", "~/licenses/supervisor-ui.txt"]);
+    expect(item.files?.[0].content).toContain('from "./device-frames"');
+    expect(item.files?.[0].content).toContain('import "./device.css"');
+    expect(item.files?.[0].content).toContain("unoptimized");
+    expect(item.files?.[3].content).toContain("not included in this package");
+    expect(JSON.stringify(item)).not.toContain("data:image/png;base64");
+    expect(item.files?.some((file) => file.target?.endsWith(".png"))).toBe(false);
   });
 
   test("honors configured aliases for compositions", async () => {

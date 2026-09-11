@@ -3,9 +3,10 @@ import { COMPONENTS, COMPONENT_CATEGORIES, COMPONENT_GROUPS } from "../src/lib/c
 import { COMPONENT_SNIPPETS } from "../src/components/examples/component-snippets";
 
 describe("component catalog", () => {
-  test("contains every current documented shadcn component", () => {
-    expect(COMPONENTS).toHaveLength(64);
-    expect(new Set(COMPONENTS.map((component) => component.slug)).size).toBe(64);
+  test("contains the shadcn catalog and Supervisor components", () => {
+    expect(COMPONENTS).toHaveLength(65);
+    expect(new Set(COMPONENTS.map((component) => component.slug)).size).toBe(65);
+    expect(COMPONENTS.map((component) => component.slug)).toContain("device");
     expect(COMPONENTS.map((component) => component.slug)).toContain("attachment");
     expect(COMPONENTS.map((component) => component.slug)).toContain("questionnaire");
     expect(COMPONENTS.map((component) => component.slug)).toContain("typography");
