@@ -3,6 +3,7 @@ import { registryItemSchema } from "shadcn/schema";
 import { defaultTheme, themePresets } from "../src/lib/theme-presets";
 import { hexToHslChannels, themeToRegistry } from "../src/lib/theme-registry";
 import { AI_ELEMENTS } from "../src/lib/ai-elements-catalog";
+import { ledgerVariables } from "../src/components/examples/registry/ledger-tokens";
 
 const projectRoot = new URL("../", import.meta.url);
 const compositions = ["combobox", "data-table", "date-picker", "toast", "typography"];
@@ -15,7 +16,7 @@ async function jsonFile<T>(path: string): Promise<T> {
 describe("registry output", () => {
   test("publishes schema valid items for every manifest entry", async () => {
     const manifest = await jsonFile<{ items: RegistryItem[] }>("registry.json");
-    expect(manifest.items).toHaveLength(72 + themePresets.length + AI_ELEMENTS.length);
+    expect(manifest.items).toHaveLength(73 + themePresets.length + AI_ELEMENTS.length);
     for (const item of manifest.items) {
       const output = await jsonFile<RegistryItem>(`public/r/${item.name}.json`);
       expect(registryItemSchema.safeParse(output).success).toBe(true);
@@ -117,9 +118,63 @@ describe("registry output", () => {
       expect(item.cssVars.light.radius).toBe(`${preset.radius}rem`);
       expect(item.css[":root"]["--border-width"]).toBe(`${preset.borderWidth}px`);
       expect(item.cssVars.dark.primary).toBe(hexToHslChannels(preset.dark.primary));
-      const fontCount = preset.headingFont && preset.headingFont !== preset.font ? 3 : 2;
-      expect(item.dependencies.length).toBe(fontCount);
-      expect(Object.keys(item.css).filter((key) => key.startsWith("@import"))).toHaveLength(fontCount);
+      if (preset.recipe === "ledger") {
+        expect(item.registryDependencies).toEqual([
+          "https://ui.trysupervisor.com/r/ledger-runtime.json",
+          "https://ui.trysupervisor.com/r/supervisor-foundation.json",
+        ]);
+        expect(item.dependencies).toEqual([]);
+        expect(Object.keys(item.css).filter((key) => key.startsWith("@import"))).toHaveLength(0);
+        for (const [name, value] of Object.entries(ledgerVariables)) {
+          expect(item.css[":root"][name]).toBe(value);
+        }
+      } else {
+        const fontCount = preset.headingFont && preset.headingFont !== preset.font ? 3 : 2;
+        expect(item.dependencies.length).toBe(fontCount);
+        expect(Object.keys(item.css).filter((key) => key.startsWith("@import"))).toHaveLength(fontCount);
+      }
+    }
+  });
+
+  test("publishes the complete portable Ledger runtime", async () => {
+    const item = registryItemSchema.parse(await jsonFile<unknown>("public/r/ledger-runtime.json"));
+    expect(item.type).toBe("registry:component");
+    expect(item.files?.map((file) => file.target)).toEqual([
+      "@ui/ledger.tsx",
+      "@ui/ledger-chart.tsx",
+      "@ui/ledger-tokens.ts",
+      "@ui/ledger.css",
+      "~/licenses/supervisor-ui.txt",
+    ]);
+    expect(item.dependencies).toContain("figma-squircle@1.1.0");
+    expect(item.dependencies).toContain("motion@^12.26.2");
+    expect(item.files?.[4].content).toContain("MIT License");
+
+    const sourceFiles = item.files?.filter((file) => file.target?.startsWith("@ui/")) ?? [];
+    const targetStems = new Set(sourceFiles.map((file) => file.target!.replace(/^@ui\//, "").replace(/\.(?:tsx?|css)$/, "")));
+    const installedPackages = new Set((item.dependencies ?? []).map((dependency) => {
+      if (dependency.startsWith("@")) return dependency.slice(0, dependency.indexOf("@", 1));
+      return dependency.split("@")[0];
+    }));
+
+    for (const file of sourceFiles.filter((file) => file.target?.endsWith(".ts") || file.target?.endsWith(".tsx"))) {
+      const imports = [...(file.content ?? "").matchAll(/(?:from\s+|import\s*)["']([^"']+)["']/g)].map((match) => match[1]);
+      for (const specifier of imports) {
+        if (specifier.startsWith("./")) {
+          expect(targetStems).toContain(specifier.slice(2).replace(/\.(?:tsx?|css)$/, ""));
+        } else if (specifier.startsWith("@/components/ui/")) {
+          expect(item.registryDependencies).toContain(specifier.split("/").at(-1));
+        } else if (specifier.startsWith("@/")) {
+          throw new Error(`Application import escaped the Ledger runtime: ${specifier}`);
+        } else {
+          const packageName = specifier.startsWith("@")
+            ? specifier.split("/").slice(0, 2).join("/")
+            : specifier.split("/")[0];
+          if (!["react", "react-dom"].includes(packageName)) expect(installedPackages).toContain(packageName);
+        }
+      }
+      expect(file.content).not.toContain('from "next/');
+      expect(file.content).not.toContain('from "@/lib/theme');
     }
   });
 
