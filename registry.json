@@ -2097,6 +2097,20 @@
           "border-width": "var(--border-width)",
           "border-radius": "var(--radius)"
         },
+        ":is([data-slot=\"input\"], [data-slot=\"textarea\"], [data-slot=\"input-group\"])": {
+          "border-width": "max(1px, var(--border-width))"
+        },
+        ":is([data-slot=\"input\"], [data-slot=\"textarea\"], [data-slot=\"input-group\"]):focus-within": {
+          "outline": "none",
+          "box-shadow": "none"
+        },
+        ":is([data-slot=\"input\"], [data-slot=\"textarea\"], [data-slot=\"input-group\"]):not([aria-invalid=\"true\"]):not(:has([aria-invalid=\"true\"])):focus-within": {
+          "border-color": "currentColor"
+        },
+        "[data-slot=\"input-group-control\"]:focus": {
+          "outline": "none",
+          "box-shadow": "none"
+        },
         "[data-slot=\"card\"]": {
           "box-shadow": "var(--theme-shadow)"
         },
