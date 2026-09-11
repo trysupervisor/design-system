@@ -1,4 +1,12 @@
-import { FONT_OPTIONS, parseTheme, shadowToCss, themeVariables, type ThemeDefinition } from "./theme";
+import {
+  FONT_OPTIONS,
+  LEDGER_NATIVE_MONO,
+  LEDGER_NATIVE_SANS,
+  parseTheme,
+  shadowToCss,
+  themeVariables,
+  type ThemeDefinition,
+} from "./theme";
 
 export const REGISTRY_URL = "https://ui.trysupervisor.com/r";
 
@@ -21,16 +29,20 @@ export function hexToHslChannels(hex: string) {
 
 export function themeToRegistry(themeInput: ThemeDefinition, baseUrl = REGISTRY_URL, name?: string) {
   const theme = parseTheme(themeInput);
+  const isLedger = theme.recipe === "ledger";
+  const usesLedgerNativeSans = isLedger && theme.font === "system-sans";
   const font = FONT_OPTIONS.find((option) => option.id === theme.font)!;
-  const family = theme.font === "geist" ? '"Geist Variable", ui-sans-serif, system-ui, sans-serif' : font.cssFamily;
-  const fontPackage = theme.font === "geist" ? "@fontsource-variable/geist" : font.packageName;
+  const family = usesLedgerNativeSans ? LEDGER_NATIVE_SANS : theme.font === "geist" ? '"Geist Variable", ui-sans-serif, system-ui, sans-serif' : font.cssFamily;
+  const monoFamily = isLedger ? LEDGER_NATIVE_MONO : '"Geist Mono Variable", ui-monospace, monospace';
+  const fontPackage = usesLedgerNativeSans ? undefined : theme.font === "geist" ? "@fontsource-variable/geist" : font.packageName;
+  const monoPackage = isLedger ? undefined : "@fontsource-variable/geist-mono";
   const palette = (mode: "light" | "dark") => {
     const variables: Record<string, string> = {};
     const rules: Record<string, string> = {};
     for (const [key, value] of Object.entries(themeVariables(theme, mode))) {
       const token = key.slice(2);
-      if (token === "font-sans") continue;
-      if (/^#[0-9a-f]{6}$/i.test(value) && token !== "shadow-color") {
+      if (token === "font-sans" || token === "font-mono") continue;
+      if (/^#[0-9a-f]{6}$/i.test(value) && token !== "shadow-color" && !token.startsWith("ledger-")) {
         variables[token] = hexToHslChannels(value);
       } else if (token === "radius") {
         variables[token] = value;
@@ -39,6 +51,7 @@ export function themeToRegistry(themeInput: ThemeDefinition, baseUrl = REGISTRY_
       }
     }
     rules["--app-font"] = family;
+    if (isLedger) rules["--ledger-font-heading"] = family;
     variables["sidebar-background"] = variables.sidebar;
     rules["--theme-shadow"] = shadowToCss(theme.shadow);
     return { variables, rules };
@@ -51,19 +64,32 @@ export function themeToRegistry(themeInput: ThemeDefinition, baseUrl = REGISTRY_
     type: "registry:theme" as const,
     title: theme.name,
     description: `${theme.name} colors, typography, spacing, borders, and shadows for shadcn.`,
-    registryDependencies: [`${baseUrl}/supervisor-foundation.json`],
-    dependencies: [fontPackage, "@fontsource-variable/geist-mono"],
+    registryDependencies: [
+      ...(isLedger ? [`${baseUrl}/ledger-runtime.json`] : []),
+      `${baseUrl}/supervisor-foundation.json`,
+    ],
+    dependencies: [fontPackage, monoPackage].filter((dependency): dependency is string => Boolean(dependency)),
     cssVars: {
-      theme: { "font-sans": family, "font-mono": '"Geist Mono Variable", ui-monospace, monospace', "shadow-sm": "var(--theme-shadow)" },
+      theme: { "font-sans": family, "font-mono": monoFamily, "shadow-sm": "var(--theme-shadow)" },
       light: light.variables,
       dark: dark.variables,
     },
-    css: { [`@import "${fontPackage}"`]: {}, '@import "@fontsource-variable/geist-mono"': {}, ":root": light.rules, ".dark": dark.rules },
+    css: {
+      ...(fontPackage ? { [`@import "${fontPackage}"`]: {} } : {}),
+      ...(monoPackage ? { '@import "@fontsource-variable/geist-mono"': {} } : {}),
+      ":root": light.rules,
+      ".dark": dark.rules,
+    },
     tailwind: {
       config: {
         theme: {
           extend: {
-            fontFamily: { sans: ["var(--app-font)"], mono: ["Geist Mono Variable", "monospace"] },
+            fontFamily: {
+              sans: ["var(--app-font)"],
+              mono: isLedger
+                ? ["SFMono-Regular", "Menlo", "Consolas", "Liberation Mono", "monospace"]
+                : ["Geist Mono Variable", "monospace"],
+            },
             borderRadius: { sm: "calc(var(--radius) * .6)", md: "calc(var(--radius) * .8)", lg: "var(--radius)", xl: "calc(var(--radius) * 1.4)" },
             spacing: Object.fromEntries([0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96].map((size) => [String(size), `calc(var(--spacing) * ${size})`])),
             boxShadow: { sm: "var(--theme-shadow)" },
@@ -71,6 +97,8 @@ export function themeToRegistry(themeInput: ThemeDefinition, baseUrl = REGISTRY_
         },
       },
     },
-    docs: "Theme installed in your configured stylesheet. Existing components and their APIs are preserved. Use your existing dark mode switch.",
+    docs: isLedger
+      ? "Ledger runtime and Supervisor foundation are installed with this theme. Existing components and their APIs are preserved. Use your existing dark mode switch."
+      : "Theme installed in your configured stylesheet. Existing components and their APIs are preserved. Use your existing dark mode switch.",
   };
 }

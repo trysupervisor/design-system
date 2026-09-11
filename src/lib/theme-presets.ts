@@ -1,4 +1,5 @@
 import { brandThemePresets } from "./brand-theme-presets"
+import { ledgerTheme } from "./ledger-theme"
 import {
   parseTheme,
   type ThemeDefinition,
@@ -234,7 +235,7 @@ const presetSeeds: PresetSeed[] = [
   { id: "mint-studio", name: "Mint Studio", category: "colorful", accent: "#087A5B", darkAccent: "#4ADEA7", lightBackground: "#F2FBF7", darkBackground: "#081511", font: "plus-jakarta-sans", radius: 0.72 },
 ]
 
-export const themePresets = [geistDefault, ...brandThemePresets, ...presetSeeds.map(createPreset)]
+export const themePresets = [geistDefault, ledgerTheme, ...brandThemePresets, ...presetSeeds.map(createPreset)]
 
 export const defaultTheme = themePresets[0]
 

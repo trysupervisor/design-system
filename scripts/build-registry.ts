@@ -51,6 +51,25 @@ function cssRules(container: Container): CssRules {
   return rules;
 }
 
+function moduleSpecifiers(path: string, source: string) {
+  const imports: string[] = [];
+  const syntax = ts.createSourceFile(path, source, ts.ScriptTarget.Latest, true, path.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
+  function visit(node: ts.Node) {
+    if ((ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) && node.moduleSpecifier && ts.isStringLiteral(node.moduleSpecifier)) {
+      imports.push(node.moduleSpecifier.text);
+    } else if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword && node.arguments[0] && ts.isStringLiteral(node.arguments[0])) {
+      imports.push(node.arguments[0].text);
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(syntax);
+  return imports;
+}
+
+function packageName(specifier: string) {
+  return specifier.startsWith("@") ? specifier.split("/").slice(0, 2).join("/") : specifier.split("/")[0];
+}
+
 async function sourceFile(path: string, type: RegistryFile["type"], target: string): Promise<RegistryFile> {
   return { path: relative(projectRoot, path), type, target, content: await readFile(path, "utf8") };
 }
@@ -87,20 +106,53 @@ async function buildComposition(name: string): Promise<RegistryItem> {
   };
 }
 
+async function buildLedgerRuntime(): Promise<RegistryItem> {
+  const sourceRoot = join(projectRoot, "src/components/examples/registry");
+  const names = ["ledger.tsx", "ledger-chart.tsx", "ledger-tokens.ts", "ledger.css"];
+  const paths = names.map((name) => join(sourceRoot, name));
+  const sources = await Promise.all(paths.map((path) => readFile(path, "utf8")));
+  const registryDependencies = new Set<string>();
+  const dependencies = new Set<string>();
+
+  for (const [index, path] of paths.entries()) {
+    if (path.endsWith(".css")) continue;
+    for (const specifier of moduleSpecifiers(path, sources[index])) {
+      if (specifier.startsWith(".")) {
+        const dependency = join(dirname(path), specifier);
+        const resolved = paths.some((candidate) => candidate === dependency || candidate.replace(/\.(?:tsx?|css)$/, "") === dependency);
+        if (!resolved) throw new Error(`Missing Ledger runtime file for ${specifier}`);
+      } else if (specifier.startsWith("@/components/ui/")) {
+        registryDependencies.add(basename(specifier));
+      } else if (specifier.startsWith("@/")) {
+        throw new Error(`Ledger runtime cannot import application module ${specifier}`);
+      } else {
+        const name = packageName(specifier);
+        if (["react", "react-dom"].includes(name)) continue;
+        const version = packageManifest.dependencies[name];
+        if (!version) throw new Error(`Unlisted Ledger runtime package ${name}`);
+        dependencies.add(`${name}@${version}`);
+      }
+    }
+  }
+
+  return {
+    name: "ledger-runtime",
+    type: "registry:component",
+    title: "Ledger runtime",
+    description: "Reusable Ledger tables, charts, tokens, and styles.",
+    registryDependencies: [...registryDependencies].sort(),
+    dependencies: [...dependencies].sort(),
+    files: [
+      ...await Promise.all(paths.map((path, index) => sourceFile(path, "registry:ui", `@ui/${names[index]}`))),
+      await sourceFile(join(projectRoot, "LICENSE"), "registry:file", "~/licenses/supervisor-ui.txt"),
+    ],
+  };
+}
+
 async function buildAIElement(element: { slug: string; name: string; description: string }): Promise<RegistryItem> {
   const path = join(projectRoot, "src/components/ai-elements", `${element.slug}.tsx`);
   const source = await readFile(path, "utf8");
-  const imports: string[] = [];
-  const syntax = ts.createSourceFile(path, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
-  function visit(node: ts.Node) {
-    if ((ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) && node.moduleSpecifier && ts.isStringLiteral(node.moduleSpecifier)) {
-      imports.push(node.moduleSpecifier.text);
-    } else if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword && node.arguments[0] && ts.isStringLiteral(node.arguments[0])) {
-      imports.push(node.arguments[0].text);
-    }
-    ts.forEachChild(node, visit);
-  }
-  visit(syntax);
+  const imports = moduleSpecifiers(path, source);
   const registryDependencies = new Set([`${registryBaseUrl}/ai-elements-license.json`]);
   const dependencies = new Set<string>();
   for (const specifier of imports) {
@@ -111,7 +163,7 @@ async function buildAIElement(element: { slug: string; name: string; description
       if (![...AI_ELEMENTS, ...aiElementSupport].some((item) => item.slug === name)) throw new Error(`Unknown AI Element dependency ${specifier}`);
       registryDependencies.add(`${registryBaseUrl}/ai-elements-${name}.json`);
     } else if (!specifier.startsWith("@/")) {
-      const name = specifier.startsWith("@") ? specifier.split("/").slice(0, 2).join("/") : specifier.split("/")[0];
+      const name = packageName(specifier);
       if (["react", "react-dom", "next"].includes(name)) continue;
       const version = packageManifest.dependencies[name];
       if (!version) throw new Error(`Unlisted AI Element package ${name}`);
@@ -140,6 +192,7 @@ async function main() {
   });
   const items: RegistryItem[] = [
     await buildFoundation(),
+    await buildLedgerRuntime(),
     themeToRegistry(defaultTheme, registryBaseUrl, "supervisor"),
     ...themePresets.map((theme) => themeToRegistry(theme, registryBaseUrl)),
     ...nativeItems,

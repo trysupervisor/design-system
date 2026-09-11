@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { ledgerVariables } from "@/components/examples/registry/ledger-tokens"
 
 import {
   CUSTOM_THEMES_STORAGE_KEY,
@@ -92,6 +93,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.dataset.theme = theme.id
     root.classList.toggle("dark", resolvedMode === "dark")
     root.style.colorScheme = resolvedMode
+    if (theme.recipe !== "ledger") {
+      for (const name of Object.keys(ledgerVariables)) root.style.removeProperty(name)
+    }
     const variables = themeVariables(theme, resolvedMode)
     for (const [name, value] of Object.entries(variables)) root.style.setProperty(name, value)
   }, [resolvedMode, theme])
