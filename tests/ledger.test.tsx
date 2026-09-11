@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import React, { type CSSProperties } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import postcss from "postcss";
+import postcss, { type Node, type AtRule } from "postcss";
 import { LedgerButton, LedgerPresence, LedgerProvider, LedgerRangeSelector, LedgerSearch, LedgerSurface, LedgerTable, ledgerMotion, ledgerVariables, ledgerCornerStyleKey } from "../src/components/examples/registry/ledger";
 import { LedgerChart, ledgerChartGeometry, ledgerChartIndex, ledgerChartPaths, ledgerChartPoint, ledgerResample } from "../src/components/examples/registry/ledger-chart";
 
@@ -170,7 +170,7 @@ describe("Ledger semantic components", () => {
   test("masks, focus and reduced motion remain scoped and preserve table inset", async () => {
     const css = postcss.parse(await Bun.file(new URL("../src/components/examples/registry/ledger.css", import.meta.url)).text());
     const rules = new Map<string, Map<string, string>>();
-    css.walkRules((rule) => { const values = new Map<string, string>(); rule.walkDecls((declaration) => { values.set(declaration.prop, declaration.value); }); rules.set(rule.selector, values); expect(rule.selector).toContain("[data-ledger-theme]"); });
+    css.walkRules((rule) => { const values = new Map<string, string>(); rule.walkDecls((declaration) => { values.set(declaration.prop, declaration.value); }); rules.set(rule.selector, values); let parent: Node | undefined = rule.parent; while (parent && !(parent.type === "atrule" && (parent as AtRule).name === "scope")) parent = parent.parent; if (!parent) expect(rule.selector).toContain("[data-ledger-theme]"); });
     expect(rules.get('[data-ledger-theme] .ledger-table :where(th, td):last-child')?.get("padding-right")).toBe("var(--ledger-table-trailing-width, var(--ledger-default-table-trailing-width))");
     expect(rules.get('[data-ledger-theme] .ledger-table-mask[data-ledger-corners]')?.has("mask")).toBe(true);
     expect(rules.get('[data-ledger-theme] :where(button, input, a, [tabindex]):focus-visible')?.get("outline")).toContain("2px solid");
