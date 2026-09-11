@@ -14,6 +14,7 @@
   "cssVars": {
     "theme": {
       "font-sans": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+      "font-heading": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
       "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
       "shadow-sm": "var(--theme-shadow)"
     },
@@ -95,10 +96,14 @@
     "@import \"@fontsource-variable/geist-mono\"": {},
     ":root": {
       "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+      "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+      "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
       "--spacing": "0.25rem",
+      "--input-radius": "0.75rem",
       "--button-radius": "3rem",
       "--button-weight": "400",
       "--border-width": "1px",
+      "--panel-border-width": "1px",
       "--control-height": "2.75rem",
       "--text-scale": "1",
       "--shadow-color": "#000000",
@@ -111,10 +116,14 @@
     },
     ".dark": {
       "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+      "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+      "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
       "--spacing": "0.25rem",
+      "--input-radius": "0.75rem",
       "--button-radius": "3rem",
       "--button-weight": "400",
       "--border-width": "1px",
+      "--panel-border-width": "1px",
       "--control-height": "2.75rem",
       "--text-scale": "1",
       "--shadow-color": "#000000",
@@ -133,6 +142,9 @@
           "fontFamily": {
             "sans": [
               "var(--app-font)"
+            ],
+            "heading": [
+              "var(--heading-font)"
             ],
             "mono": [
               "Geist Mono Variable",

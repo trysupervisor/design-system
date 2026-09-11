@@ -1823,6 +1823,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -1904,10 +1905,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -1920,10 +1925,14 @@
         },
         ".dark": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -1942,6 +1951,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -2061,9 +2073,13 @@
             "outline-offset": "3px"
           }
         },
+        ":is(h1, h2, h3, h4, h5, h6, [data-slot=\"card-title\"])": {
+          "font-family": "var(--heading-font, var(--app-font))"
+        },
         "[data-slot=\"button\"]": {
           "height": "var(--control-height)",
           "border-radius": "var(--button-radius, var(--radius))",
+          "font-family": "var(--button-font, var(--app-font))",
           "font-weight": "var(--button-weight, 500)",
           "font-size": ".8125rem",
           "box-shadow": "var(--theme-shadow)"
@@ -2089,7 +2105,7 @@
         },
         "[data-slot=\"input\"], [data-slot=\"select-trigger\"], [data-slot=\"native-select\"]": {
           "height": "var(--control-height)",
-          "border-radius": "var(--radius)",
+          "border-radius": "var(--input-radius, var(--radius))",
           "border-width": "var(--border-width)",
           "font-size": ".8125rem"
         },
@@ -2098,20 +2114,23 @@
           "border-radius": "var(--radius)"
         },
         ":is([data-slot=\"input\"], [data-slot=\"textarea\"], [data-slot=\"input-group\"])": {
-          "border-width": "max(1px, var(--border-width))"
+          "border-width": "max(1px, var(--border-width))",
+          "border-radius": "var(--input-radius, var(--radius))"
         },
-        ":is([data-slot=\"input\"], [data-slot=\"textarea\"], [data-slot=\"input-group\"]):focus-within": {
+        ":is([data-slot=\"input\"], [data-slot=\"textarea\"], [data-slot=\"input-group\"], [data-slot=\"select-trigger\"], [data-slot=\"native-select\"], select):focus-within": {
           "outline": "none",
           "box-shadow": "none"
         },
-        ":is([data-slot=\"input\"], [data-slot=\"textarea\"], [data-slot=\"input-group\"]):not([aria-invalid=\"true\"]):not(:has([aria-invalid=\"true\"])):focus-within": {
-          "border-color": "currentColor"
+        ":is([data-slot=\"input\"], [data-slot=\"textarea\"], [data-slot=\"input-group\"], [data-slot=\"select-trigger\"], [data-slot=\"native-select\"], select):not([aria-invalid]:not([aria-invalid=\"false\"])):not(:has([aria-invalid]:not([aria-invalid=\"false\"]))):not([data-invalid]):not(:has([data-invalid])):focus-within": {
+          "border-color": "currentColor",
+          "box-shadow": "inset 0 0 0 1px currentColor"
         },
         "[data-slot=\"input-group-control\"]:focus": {
           "outline": "none",
           "box-shadow": "none"
         },
         "[data-slot=\"card\"]": {
+          "border-width": "var(--panel-border-width, var(--border-width))",
           "box-shadow": "var(--theme-shadow)"
         },
         "[data-slot=\"badge\"]": {
@@ -2200,6 +2219,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -2281,10 +2301,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.42rem",
           "--button-radius": "0.42rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2297,10 +2321,14 @@
         },
         ".dark": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.42rem",
           "--button-radius": "0.42rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2319,6 +2347,214 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
+                ],
+                "mono": [
+                  "Geist Mono Variable",
+                  "monospace"
+                ]
+              },
+              "borderRadius": {
+                "sm": "calc(var(--radius) * .6)",
+                "md": "calc(var(--radius) * .8)",
+                "lg": "var(--radius)",
+                "xl": "calc(var(--radius) * 1.4)"
+              },
+              "spacing": {
+                "1": "calc(var(--spacing) * 1)",
+                "2": "calc(var(--spacing) * 2)",
+                "3": "calc(var(--spacing) * 3)",
+                "4": "calc(var(--spacing) * 4)",
+                "5": "calc(var(--spacing) * 5)",
+                "6": "calc(var(--spacing) * 6)",
+                "7": "calc(var(--spacing) * 7)",
+                "8": "calc(var(--spacing) * 8)",
+                "9": "calc(var(--spacing) * 9)",
+                "10": "calc(var(--spacing) * 10)",
+                "11": "calc(var(--spacing) * 11)",
+                "12": "calc(var(--spacing) * 12)",
+                "14": "calc(var(--spacing) * 14)",
+                "16": "calc(var(--spacing) * 16)",
+                "20": "calc(var(--spacing) * 20)",
+                "24": "calc(var(--spacing) * 24)",
+                "28": "calc(var(--spacing) * 28)",
+                "32": "calc(var(--spacing) * 32)",
+                "36": "calc(var(--spacing) * 36)",
+                "40": "calc(var(--spacing) * 40)",
+                "44": "calc(var(--spacing) * 44)",
+                "48": "calc(var(--spacing) * 48)",
+                "52": "calc(var(--spacing) * 52)",
+                "56": "calc(var(--spacing) * 56)",
+                "60": "calc(var(--spacing) * 60)",
+                "64": "calc(var(--spacing) * 64)",
+                "72": "calc(var(--spacing) * 72)",
+                "80": "calc(var(--spacing) * 80)",
+                "96": "calc(var(--spacing) * 96)",
+                "0.5": "calc(var(--spacing) * 0.5)",
+                "1.5": "calc(var(--spacing) * 1.5)",
+                "2.5": "calc(var(--spacing) * 2.5)",
+                "3.5": "calc(var(--spacing) * 3.5)"
+              },
+              "boxShadow": {
+                "sm": "var(--theme-shadow)"
+              }
+            }
+          }
+        }
+      },
+      "docs": "Theme installed in your configured stylesheet. Existing components and their APIs are preserved. Use your existing dark mode switch."
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "theme-anthropic",
+      "type": "registry:theme",
+      "title": "Anthropic",
+      "description": "Anthropic colors, typography, spacing, borders, and shadows for shadcn.",
+      "registryDependencies": [
+        "https://ui.trysupervisor.com/r/supervisor-foundation.json"
+      ],
+      "dependencies": [
+        "@fontsource-variable/public-sans",
+        "@fontsource-variable/source-serif-4",
+        "@fontsource-variable/geist-mono"
+      ],
+      "cssVars": {
+        "theme": {
+          "font-sans": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
+          "shadow-sm": "var(--theme-shadow)"
+        },
+        "light": {
+          "radius": "1rem",
+          "background": "48 33.33333% 97.05882%",
+          "foreground": "60 2.5641% 7.64706%",
+          "card": "36.52174 29.11392% 84.5098%",
+          "card-foreground": "60 2.5641% 7.64706%",
+          "popover": "48 33.33333% 97.05882%",
+          "popover-foreground": "60 2.5641% 7.64706%",
+          "primary": "60 2.5641% 7.64706%",
+          "primary-foreground": "48 33.33333% 97.05882%",
+          "secondary": "48 25% 92.15686%",
+          "secondary-foreground": "60 2.5641% 7.64706%",
+          "muted": "48 25% 92.15686%",
+          "muted-foreground": "51.42857 3.62694% 37.84314%",
+          "accent": "36.52174 29.11392% 84.5098%",
+          "accent-foreground": "60 2.5641% 7.64706%",
+          "destructive": "0 51.96507% 44.90196%",
+          "destructive-foreground": "0 0% 100%",
+          "border": "46.15385 13.68421% 81.37255%",
+          "input": "45 6.59341% 64.31373%",
+          "ring": "60 2.5641% 7.64706%",
+          "chart-1": "14.76923 63.1068% 59.60784%",
+          "chart-2": "60 2.5641% 7.64706%",
+          "chart-3": "75 9.80392% 40%",
+          "chart-4": "33.44262 24.11067% 49.60784%",
+          "chart-5": "38.82353 18.47826% 63.92157%",
+          "sidebar": "48 25% 92.15686%",
+          "sidebar-foreground": "60 2.5641% 7.64706%",
+          "sidebar-primary": "60 2.5641% 7.64706%",
+          "sidebar-primary-foreground": "48 33.33333% 97.05882%",
+          "sidebar-accent": "36.52174 29.11392% 84.5098%",
+          "sidebar-accent-foreground": "60 2.5641% 7.64706%",
+          "sidebar-border": "46.15385 13.68421% 81.37255%",
+          "sidebar-ring": "60 2.5641% 7.64706%",
+          "sidebar-background": "48 25% 92.15686%"
+        },
+        "dark": {
+          "radius": "1rem",
+          "background": "45 6.89655% 11.37255%",
+          "foreground": "48 33.33333% 97.05882%",
+          "card": "42.85714 7.86517% 17.45098%",
+          "card-foreground": "48 33.33333% 97.05882%",
+          "popover": "50 8.10811% 14.5098%",
+          "popover-foreground": "48 33.33333% 97.05882%",
+          "primary": "48 33.33333% 97.05882%",
+          "primary-foreground": "60 2.5641% 7.64706%",
+          "secondary": "42.85714 8.64198% 15.88235%",
+          "secondary-foreground": "48 33.33333% 97.05882%",
+          "muted": "42.85714 8.64198% 15.88235%",
+          "muted-foreground": "44 11.2782% 73.92157%",
+          "accent": "38.57143 12.2807% 22.35294%",
+          "accent-foreground": "48 33.33333% 97.05882%",
+          "destructive": "5.09434 77.94118% 73.33333%",
+          "destructive-foreground": "60 2.5641% 7.64706%",
+          "border": "42.85714 9.45946% 29.01961%",
+          "input": "43.33333 8.10811% 43.52941%",
+          "ring": "48 33.33333% 97.05882%",
+          "chart-1": "15.70093 67.2956% 68.82353%",
+          "chart-2": "48 33.33333% 97.05882%",
+          "chart-3": "71.53846 14.77273% 65.4902%",
+          "chart-4": "34.83871 35.22727% 65.4902%",
+          "chart-5": "38.82353 18.47826% 63.92157%",
+          "sidebar": "50 8.82353% 13.33333%",
+          "sidebar-foreground": "48 33.33333% 97.05882%",
+          "sidebar-primary": "48 33.33333% 97.05882%",
+          "sidebar-primary-foreground": "60 2.5641% 7.64706%",
+          "sidebar-accent": "38.57143 12.2807% 22.35294%",
+          "sidebar-accent-foreground": "48 33.33333% 97.05882%",
+          "sidebar-border": "42.85714 9.45946% 29.01961%",
+          "sidebar-ring": "48 33.33333% 97.05882%",
+          "sidebar-background": "50 8.82353% 13.33333%"
+        }
+      },
+      "css": {
+        "@import \"@fontsource-variable/public-sans\"": {},
+        "@import \"@fontsource-variable/source-serif-4\"": {},
+        "@import \"@fontsource-variable/geist-mono\"": {},
+        ":root": {
+          "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
+          "--button-radius": "0.5rem",
+          "--button-weight": "400",
+          "--border-width": "1px",
+          "--panel-border-width": "0px",
+          "--control-height": "2.25rem",
+          "--text-scale": "1",
+          "--shadow-color": "#000000",
+          "--shadow-opacity": "0",
+          "--shadow-x": "0px",
+          "--shadow-y": "0px",
+          "--shadow-blur": "0px",
+          "--shadow-spread": "0px",
+          "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+        },
+        ".dark": {
+          "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
+          "--button-radius": "0.5rem",
+          "--button-weight": "400",
+          "--border-width": "1px",
+          "--panel-border-width": "0px",
+          "--control-height": "2.25rem",
+          "--text-scale": "1",
+          "--shadow-color": "#000000",
+          "--shadow-opacity": "0",
+          "--shadow-x": "0px",
+          "--shadow-y": "0px",
+          "--shadow-blur": "0px",
+          "--shadow-spread": "0px",
+          "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+        }
+      },
+      "tailwind": {
+        "config": {
+          "theme": {
+            "extend": {
+              "fontFamily": {
+                "sans": [
+                  "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -2391,6 +2627,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "font-heading": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -2472,10 +2709,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.75rem",
           "--button-radius": "3rem",
           "--button-weight": "400",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.75rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2488,10 +2729,14 @@
         },
         ".dark": {
           "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.75rem",
           "--button-radius": "3rem",
           "--button-weight": "400",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.75rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2510,6 +2755,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -2582,6 +2830,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -2663,10 +2912,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.22rem",
+          "--input-radius": "0rem",
           "--button-radius": "0rem",
           "--button-weight": "500",
           "--border-width": "1.5px",
+          "--panel-border-width": "1.5px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2679,10 +2932,14 @@
         },
         ".dark": {
           "--app-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.22rem",
+          "--input-radius": "0rem",
           "--button-radius": "0rem",
           "--button-weight": "500",
           "--border-width": "1.5px",
+          "--panel-border-width": "1.5px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2701,6 +2958,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -2773,6 +3033,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -2854,10 +3115,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.18rem",
           "--button-radius": "0.18rem",
           "--button-weight": "500",
           "--border-width": "1.25px",
+          "--panel-border-width": "1.25px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2870,10 +3135,14 @@
         },
         ".dark": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.18rem",
           "--button-radius": "0.18rem",
           "--button-weight": "500",
           "--border-width": "1.25px",
+          "--panel-border-width": "1.25px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2892,6 +3161,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -2964,6 +3236,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -3045,10 +3318,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.58rem",
           "--button-radius": "0.58rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3061,10 +3338,14 @@
         },
         ".dark": {
           "--app-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.58rem",
           "--button-radius": "0.58rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3083,6 +3364,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -3155,6 +3439,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -3236,10 +3521,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.45rem",
           "--button-radius": "0.45rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3252,10 +3541,14 @@
         },
         ".dark": {
           "--app-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.45rem",
           "--button-radius": "0.45rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3274,6 +3567,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -3346,6 +3642,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -3427,10 +3724,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.195rem",
+          "--input-radius": "0.18rem",
           "--button-radius": "0.18rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "1.8rem",
           "--text-scale": "0.9",
           "--shadow-color": "#000000",
@@ -3443,10 +3744,14 @@
         },
         ".dark": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.195rem",
+          "--input-radius": "0.18rem",
           "--button-radius": "0.18rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "1.8rem",
           "--text-scale": "0.9",
           "--shadow-color": "#000000",
@@ -3465,6 +3770,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -3537,6 +3845,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -3618,10 +3927,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.52rem",
           "--button-radius": "0.52rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3634,10 +3947,14 @@
         },
         ".dark": {
           "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.52rem",
           "--button-radius": "0.52rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3656,6 +3973,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -3728,6 +4048,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -3809,10 +4130,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "0.5rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3825,10 +4150,14 @@
         },
         ".dark": {
           "--app-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "0.5rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3847,6 +4176,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -3919,6 +4251,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Lora Variable\", Lora, Georgia, serif",
+          "font-heading": "\"Lora Variable\", Lora, Georgia, serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -4000,10 +4333,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--heading-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--button-font": "\"Lora Variable\", Lora, Georgia, serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.1rem",
           "--button-radius": "0.1rem",
           "--button-weight": "500",
           "--border-width": "1.25px",
+          "--panel-border-width": "1.25px",
           "--control-height": "2rem",
           "--text-scale": "1.025",
           "--shadow-color": "#000000",
@@ -4016,10 +4353,14 @@
         },
         ".dark": {
           "--app-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--heading-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--button-font": "\"Lora Variable\", Lora, Georgia, serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.1rem",
           "--button-radius": "0.1rem",
           "--button-weight": "500",
           "--border-width": "1.25px",
+          "--panel-border-width": "1.25px",
           "--control-height": "2rem",
           "--text-scale": "1.025",
           "--shadow-color": "#000000",
@@ -4038,6 +4379,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -4110,6 +4454,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -4191,10 +4536,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4207,10 +4556,14 @@
         },
         ".dark": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4229,6 +4582,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -4301,6 +4657,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -4382,10 +4739,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.275rem",
+          "--input-radius": "0rem",
           "--button-radius": "0rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4398,10 +4759,14 @@
         },
         ".dark": {
           "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.275rem",
+          "--input-radius": "0rem",
           "--button-radius": "0rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4420,6 +4785,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -4492,6 +4860,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -4573,10 +4942,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4589,10 +4962,14 @@
         },
         ".dark": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4611,6 +4988,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -4683,6 +5063,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -4764,10 +5145,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#1F2328",
@@ -4780,10 +5165,14 @@
         },
         ".dark": {
           "--app-font": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#1F2328",
@@ -4802,6 +5191,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -4874,6 +5266,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -4955,10 +5348,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.4rem",
           "--button-radius": "0.4rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4971,10 +5368,14 @@
         },
         ".dark": {
           "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.4rem",
           "--button-radius": "0.4rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4993,6 +5394,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -5065,6 +5469,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -5146,10 +5551,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.88rem",
           "--button-radius": "0.88rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5162,10 +5571,14 @@
         },
         ".dark": {
           "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.88rem",
           "--button-radius": "0.88rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5184,6 +5597,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -5256,6 +5672,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -5337,10 +5754,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5353,10 +5774,14 @@
         },
         ".dark": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5375,6 +5800,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -5447,6 +5875,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -5528,10 +5957,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.72rem",
           "--button-radius": "0.72rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5544,10 +5977,14 @@
         },
         ".dark": {
           "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.72rem",
           "--button-radius": "0.72rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5566,6 +6003,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -5638,6 +6078,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "font-heading": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -5719,10 +6160,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--button-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.18rem",
           "--button-radius": "0.18rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1.05",
           "--shadow-color": "#000000",
@@ -5735,10 +6180,14 @@
         },
         ".dark": {
           "--app-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--button-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.18rem",
           "--button-radius": "0.18rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1.05",
           "--shadow-color": "#000000",
@@ -5757,6 +6206,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -5829,11 +6281,12 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
         "light": {
-          "radius": "0.25rem",
+          "radius": "0.5rem",
           "background": "0 0% 100%",
           "foreground": "0 0% 7.84314%",
           "card": "0 0% 96.07843%",
@@ -5869,12 +6322,12 @@
           "sidebar-background": "0 0% 96.07843%"
         },
         "dark": {
-          "radius": "0.25rem",
+          "radius": "0.5rem",
           "background": "0 0% 0%",
           "foreground": "0 0% 100%",
-          "card": "0 0% 8.62745%",
+          "card": "0 0% 13.72549%",
           "card-foreground": "0 0% 100%",
-          "popover": "0 0% 13.72549%",
+          "popover": "0 0% 8.62745%",
           "popover-foreground": "0 0% 100%",
           "primary": "357 92.43697% 46.66667%",
           "primary-foreground": "0 0% 100%",
@@ -5887,7 +6340,7 @@
           "destructive": "356.96629 81.65138% 57.2549%",
           "destructive-foreground": "0 0% 0%",
           "border": "0 0% 20%",
-          "input": "0 0% 50.19608%",
+          "input": "0 0% 37.64706%",
           "ring": "0 0% 100%",
           "chart-1": "357 92.43697% 46.66667%",
           "chart-2": "356.84211 92.43243% 36.27451%",
@@ -5910,10 +6363,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.25rem",
           "--button-radius": "0.25rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "0px",
           "--control-height": "2.5rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5926,10 +6383,14 @@
         },
         ".dark": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.25rem",
           "--button-radius": "0.25rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "0px",
           "--control-height": "2.5rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5948,6 +6409,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -6020,6 +6484,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "font-heading": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -6101,10 +6566,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--button-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
           "--spacing": "0.23rem",
+          "--input-radius": "0rem",
           "--button-radius": "0rem",
           "--button-weight": "500",
           "--border-width": "1.5px",
+          "--panel-border-width": "1.5px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6117,10 +6586,14 @@
         },
         ".dark": {
           "--app-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--button-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
           "--spacing": "0.23rem",
+          "--input-radius": "0rem",
           "--button-radius": "0rem",
           "--button-weight": "500",
           "--border-width": "1.5px",
+          "--panel-border-width": "1.5px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6139,6 +6612,212 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
+                ],
+                "mono": [
+                  "Geist Mono Variable",
+                  "monospace"
+                ]
+              },
+              "borderRadius": {
+                "sm": "calc(var(--radius) * .6)",
+                "md": "calc(var(--radius) * .8)",
+                "lg": "var(--radius)",
+                "xl": "calc(var(--radius) * 1.4)"
+              },
+              "spacing": {
+                "1": "calc(var(--spacing) * 1)",
+                "2": "calc(var(--spacing) * 2)",
+                "3": "calc(var(--spacing) * 3)",
+                "4": "calc(var(--spacing) * 4)",
+                "5": "calc(var(--spacing) * 5)",
+                "6": "calc(var(--spacing) * 6)",
+                "7": "calc(var(--spacing) * 7)",
+                "8": "calc(var(--spacing) * 8)",
+                "9": "calc(var(--spacing) * 9)",
+                "10": "calc(var(--spacing) * 10)",
+                "11": "calc(var(--spacing) * 11)",
+                "12": "calc(var(--spacing) * 12)",
+                "14": "calc(var(--spacing) * 14)",
+                "16": "calc(var(--spacing) * 16)",
+                "20": "calc(var(--spacing) * 20)",
+                "24": "calc(var(--spacing) * 24)",
+                "28": "calc(var(--spacing) * 28)",
+                "32": "calc(var(--spacing) * 32)",
+                "36": "calc(var(--spacing) * 36)",
+                "40": "calc(var(--spacing) * 40)",
+                "44": "calc(var(--spacing) * 44)",
+                "48": "calc(var(--spacing) * 48)",
+                "52": "calc(var(--spacing) * 52)",
+                "56": "calc(var(--spacing) * 56)",
+                "60": "calc(var(--spacing) * 60)",
+                "64": "calc(var(--spacing) * 64)",
+                "72": "calc(var(--spacing) * 72)",
+                "80": "calc(var(--spacing) * 80)",
+                "96": "calc(var(--spacing) * 96)",
+                "0.5": "calc(var(--spacing) * 0.5)",
+                "1.5": "calc(var(--spacing) * 1.5)",
+                "2.5": "calc(var(--spacing) * 2.5)",
+                "3.5": "calc(var(--spacing) * 3.5)"
+              },
+              "boxShadow": {
+                "sm": "var(--theme-shadow)"
+              }
+            }
+          }
+        }
+      },
+      "docs": "Theme installed in your configured stylesheet. Existing components and their APIs are preserved. Use your existing dark mode switch."
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "theme-nixtla",
+      "type": "registry:theme",
+      "title": "Nixtla",
+      "description": "Nixtla colors, typography, spacing, borders, and shadows for shadcn.",
+      "registryDependencies": [
+        "https://ui.trysupervisor.com/r/supervisor-foundation.json"
+      ],
+      "dependencies": [
+        "@fontsource-variable/ibm-plex-sans",
+        "@fontsource-variable/geist-mono"
+      ],
+      "cssVars": {
+        "theme": {
+          "font-sans": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
+          "shadow-sm": "var(--theme-shadow)"
+        },
+        "light": {
+          "radius": "0rem",
+          "background": "40 25% 95.29412%",
+          "foreground": "0 1.49254% 13.13725%",
+          "card": "40 25% 95.29412%",
+          "card-foreground": "0 1.49254% 13.13725%",
+          "popover": "0 0% 100%",
+          "popover-foreground": "0 1.49254% 13.13725%",
+          "primary": "0 1.49254% 13.13725%",
+          "primary-foreground": "40 25% 95.29412%",
+          "secondary": "40 17.64706% 90%",
+          "secondary-foreground": "0 1.49254% 13.13725%",
+          "muted": "40 17.64706% 90%",
+          "muted-foreground": "45 4.25532% 36.86275%",
+          "accent": "43.63636 15.06849% 85.68627%",
+          "accent-foreground": "0 1.49254% 13.13725%",
+          "destructive": "0 56.60377% 41.56863%",
+          "destructive-foreground": "0 0% 100%",
+          "border": "0 1.49254% 13.13725%",
+          "input": "0 1.49254% 13.13725%",
+          "ring": "0 1.49254% 13.13725%",
+          "chart-1": "229.52381 31.9797% 38.62745%",
+          "chart-2": "0 1.49254% 13.13725%",
+          "chart-3": "102.85714 3.22581% 42.54902%",
+          "chart-4": "33.6 19.84127% 50.58824%",
+          "chart-5": "38.18182 5.02283% 57.05882%",
+          "sidebar": "40 25% 95.29412%",
+          "sidebar-foreground": "0 1.49254% 13.13725%",
+          "sidebar-primary": "0 1.49254% 13.13725%",
+          "sidebar-primary-foreground": "40 25% 95.29412%",
+          "sidebar-accent": "43.63636 15.06849% 85.68627%",
+          "sidebar-accent-foreground": "0 1.49254% 13.13725%",
+          "sidebar-border": "0 1.49254% 13.13725%",
+          "sidebar-ring": "0 1.49254% 13.13725%",
+          "sidebar-background": "40 25% 95.29412%"
+        },
+        "dark": {
+          "radius": "0rem",
+          "background": "0 1.49254% 13.13725%",
+          "foreground": "40 25% 95.29412%",
+          "card": "30 2.5% 15.68627%",
+          "card-foreground": "40 25% 95.29412%",
+          "popover": "40 3.0303% 19.41176%",
+          "popover-foreground": "40 25% 95.29412%",
+          "primary": "40 25% 95.29412%",
+          "primary-foreground": "0 1.49254% 13.13725%",
+          "secondary": "40 3.0303% 19.41176%",
+          "secondary-foreground": "40 25% 95.29412%",
+          "muted": "40 3.0303% 19.41176%",
+          "muted-foreground": "41.53846 9.48905% 73.13725%",
+          "accent": "40 4.6875% 25.09804%",
+          "accent-foreground": "40 25% 95.29412%",
+          "destructive": "0 74.81481% 73.52941%",
+          "destructive-foreground": "0 1.49254% 13.13725%",
+          "border": "40 25% 95.29412%",
+          "input": "40 25% 95.29412%",
+          "ring": "40 25% 95.29412%",
+          "chart-1": "230 53.22581% 75.68627%",
+          "chart-2": "40 25% 95.29412%",
+          "chart-3": "105 7.05882% 66.66667%",
+          "chart-4": "35.17241 33.72093% 66.27451%",
+          "chart-5": "38.18182 5.02283% 57.05882%",
+          "sidebar": "0 1.49254% 13.13725%",
+          "sidebar-foreground": "40 25% 95.29412%",
+          "sidebar-primary": "40 25% 95.29412%",
+          "sidebar-primary-foreground": "0 1.49254% 13.13725%",
+          "sidebar-accent": "40 4.6875% 25.09804%",
+          "sidebar-accent-foreground": "40 25% 95.29412%",
+          "sidebar-border": "40 25% 95.29412%",
+          "sidebar-ring": "40 25% 95.29412%",
+          "sidebar-background": "0 1.49254% 13.13725%"
+        }
+      },
+      "css": {
+        "@import \"@fontsource-variable/ibm-plex-sans\"": {},
+        "@import \"@fontsource-variable/geist-mono\"": {},
+        ":root": {
+          "--app-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Mono Variable\", ui-monospace, monospace",
+          "--spacing": "0.25rem",
+          "--input-radius": "0rem",
+          "--button-radius": "0rem",
+          "--button-weight": "500",
+          "--border-width": "1px",
+          "--panel-border-width": "1px",
+          "--control-height": "3rem",
+          "--text-scale": "1",
+          "--shadow-color": "#000000",
+          "--shadow-opacity": "0",
+          "--shadow-x": "0px",
+          "--shadow-y": "0px",
+          "--shadow-blur": "0px",
+          "--shadow-spread": "0px",
+          "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+        },
+        ".dark": {
+          "--app-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Mono Variable\", ui-monospace, monospace",
+          "--spacing": "0.25rem",
+          "--input-radius": "0rem",
+          "--button-radius": "0rem",
+          "--button-weight": "500",
+          "--border-width": "1px",
+          "--panel-border-width": "1px",
+          "--control-height": "3rem",
+          "--text-scale": "1",
+          "--shadow-color": "#000000",
+          "--shadow-opacity": "0",
+          "--shadow-x": "0px",
+          "--shadow-y": "0px",
+          "--shadow-blur": "0px",
+          "--shadow-spread": "0px",
+          "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+        }
+      },
+      "tailwind": {
+        "config": {
+          "theme": {
+            "extend": {
+              "fontFamily": {
+                "sans": [
+                  "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -6211,6 +6890,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "font-heading": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -6292,10 +6972,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6308,10 +6992,14 @@
         },
         ".dark": {
           "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6330,6 +7018,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -6402,47 +7093,48 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
         "light": {
-          "radius": "0.75rem",
+          "radius": "0.375rem",
           "background": "0 0% 100%",
-          "foreground": "0 0% 5.09804%",
-          "card": "240 6.66667% 97.05882%",
-          "card-foreground": "0 0% 5.09804%",
+          "foreground": "0 0% 0%",
+          "card": "0 0% 97.64706%",
+          "card-foreground": "0 0% 0%",
           "popover": "0 0% 100%",
-          "popover-foreground": "0 0% 5.09804%",
-          "primary": "0 0% 5.09804%",
+          "popover-foreground": "0 0% 0%",
+          "primary": "0 0% 0%",
           "primary-foreground": "0 0% 100%",
           "secondary": "0 0% 95.68627%",
-          "secondary-foreground": "0 0% 5.09804%",
+          "secondary-foreground": "0 0% 0%",
           "muted": "0 0% 95.68627%",
           "muted-foreground": "0 0% 36.47059%",
           "accent": "0 0% 92.54902%",
-          "accent-foreground": "0 0% 5.09804%",
+          "accent-foreground": "0 0% 0%",
           "destructive": "0 73.70892% 41.76471%",
           "destructive-foreground": "0 0% 100%",
-          "border": "0 0% 89.80392%",
-          "input": "0 0% 85.09804%",
-          "ring": "0 0% 5.09804%",
+          "border": "0 0% 87.84314%",
+          "input": "0 0% 87.84314%",
+          "ring": "0 0% 0%",
           "chart-1": "0 0% 5.09804%",
           "chart-2": "0 0% 36.47059%",
           "chart-3": "0 0% 56.07843%",
           "chart-4": "0 0% 70.58824%",
           "chart-5": "0 0% 83.52941%",
           "sidebar": "0 0% 97.64706%",
-          "sidebar-foreground": "0 0% 5.09804%",
-          "sidebar-primary": "0 0% 5.09804%",
+          "sidebar-foreground": "0 0% 0%",
+          "sidebar-primary": "0 0% 0%",
           "sidebar-primary-foreground": "0 0% 100%",
           "sidebar-accent": "0 0% 92.54902%",
-          "sidebar-accent-foreground": "0 0% 5.09804%",
-          "sidebar-border": "0 0% 89.80392%",
-          "sidebar-ring": "0 0% 5.09804%",
+          "sidebar-accent-foreground": "0 0% 0%",
+          "sidebar-border": "0 0% 87.84314%",
+          "sidebar-ring": "0 0% 0%",
           "sidebar-background": "0 0% 97.64706%"
         },
         "dark": {
-          "radius": "0.75rem",
+          "radius": "0.375rem",
           "background": "0 0% 12.94118%",
           "foreground": "0 0% 92.54902%",
           "card": "0 0% 9.01961%",
@@ -6483,11 +7175,15 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
-          "--button-radius": "3rem",
-          "--button-weight": "600",
+          "--input-radius": "1.5rem",
+          "--button-radius": "2.5rem",
+          "--button-weight": "500",
           "--border-width": "1px",
-          "--control-height": "2.5rem",
+          "--panel-border-width": "0px",
+          "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
           "--shadow-opacity": "0",
@@ -6499,11 +7195,15 @@
         },
         ".dark": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
-          "--button-radius": "3rem",
-          "--button-weight": "600",
+          "--input-radius": "1.5rem",
+          "--button-radius": "2.5rem",
+          "--button-weight": "500",
           "--border-width": "1px",
-          "--control-height": "2.5rem",
+          "--panel-border-width": "0px",
+          "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
           "--shadow-opacity": "0",
@@ -6521,6 +7221,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -6593,6 +7296,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -6674,10 +7378,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.65rem",
           "--button-radius": "0.65rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6690,10 +7398,14 @@
         },
         ".dark": {
           "--app-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.65rem",
           "--button-radius": "0.65rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6712,6 +7424,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -6784,6 +7499,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -6865,10 +7581,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "1rem",
           "--button-radius": "1rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6881,10 +7601,14 @@
         },
         ".dark": {
           "--app-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "1rem",
           "--button-radius": "1rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6903,6 +7627,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -6975,6 +7702,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -7056,10 +7784,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.8rem",
           "--button-radius": "0.8rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7072,10 +7804,14 @@
         },
         ".dark": {
           "--app-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.8rem",
           "--button-radius": "0.8rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7094,6 +7830,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -7166,6 +7905,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -7247,10 +7987,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "1.15rem",
           "--button-radius": "1.15rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7263,10 +8007,14 @@
         },
         ".dark": {
           "--app-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "1.15rem",
           "--button-radius": "1.15rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7285,6 +8033,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -7357,6 +8108,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Lora Variable\", Lora, Georgia, serif",
+          "font-heading": "\"Lora Variable\", Lora, Georgia, serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -7438,10 +8190,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--heading-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--button-font": "\"Lora Variable\", Lora, Georgia, serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.7rem",
           "--button-radius": "0.7rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7454,10 +8210,14 @@
         },
         ".dark": {
           "--app-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--heading-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--button-font": "\"Lora Variable\", Lora, Georgia, serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.7rem",
           "--button-radius": "0.7rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7476,6 +8236,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -7548,6 +8311,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -7629,10 +8393,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.2875rem",
+          "--input-radius": "1.4rem",
           "--button-radius": "1.4rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.35rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7645,10 +8413,14 @@
         },
         ".dark": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.2875rem",
+          "--input-radius": "1.4rem",
           "--button-radius": "1.4rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.35rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7667,6 +8439,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -7739,6 +8514,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -7820,10 +8596,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "3rem",
           "--button-weight": "700",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "3rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7836,10 +8616,14 @@
         },
         ".dark": {
           "--app-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "3rem",
           "--button-weight": "700",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "3rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7858,6 +8642,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -7930,6 +8717,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -8011,10 +8799,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.7rem",
           "--button-radius": "0.7rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8027,10 +8819,14 @@
         },
         ".dark": {
           "--app-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.7rem",
           "--button-radius": "0.7rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8049,6 +8845,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -8121,6 +8920,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "font-heading": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -8202,10 +9002,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.1875rem",
           "--button-radius": "0.3125rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.75rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8218,10 +9022,14 @@
         },
         ".dark": {
           "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.1875rem",
           "--button-radius": "0.3125rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.75rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8240,6 +9048,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -8312,6 +9123,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -8393,10 +9205,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.3rem",
           "--button-radius": "0.3rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8409,10 +9225,14 @@
         },
         ".dark": {
           "--app-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.3rem",
           "--button-radius": "0.3rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8431,6 +9251,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -8503,6 +9326,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -8584,10 +9408,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.14rem",
           "--button-radius": "0.14rem",
           "--button-weight": "500",
           "--border-width": "1.25px",
+          "--panel-border-width": "1.25px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8600,10 +9428,14 @@
         },
         ".dark": {
           "--app-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.14rem",
           "--button-radius": "0.14rem",
           "--button-weight": "500",
           "--border-width": "1.25px",
+          "--panel-border-width": "1.25px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8622,6 +9454,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -8694,6 +9529,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -8775,10 +9611,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8791,10 +9631,14 @@
         },
         ".dark": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8813,6 +9657,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -8885,6 +9732,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -8966,10 +9814,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.55rem",
           "--button-radius": "0.55rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8982,10 +9834,14 @@
         },
         ".dark": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.55rem",
           "--button-radius": "0.55rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -9004,6 +9860,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",

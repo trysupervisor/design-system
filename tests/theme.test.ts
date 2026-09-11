@@ -51,7 +51,7 @@ describe("theme presets", () => {
     expect(themeToRegistry(spotify).css[":root"]["--button-weight"]).toBe("700")
     expect(themeToRegistry(spotify).cssVars.light.radius).toBe("0.5rem")
     expect(themeVariables(spotify, "dark")["--button-radius"]).toBe("3rem")
-    expect(themePresets.find((theme) => theme.id === "openai-forest")?.light.primary).toBe("#0D0D0D")
+    expect(themePresets.find((theme) => theme.id === "openai-forest")?.light.primary).toBe("#000000")
     expect(themePresets.find((theme) => theme.id === "figma-coral")?.light.primary).toBe("#0D99FF")
     for (const theme of themePresets.filter((theme) => theme.category === "brand" || ["geist", "vercel-mono"].includes(theme.id))) {
       const reference = brandThemeReferences[theme.id]
@@ -108,6 +108,10 @@ describe("theme validation", () => {
     expect(() => parseTheme({ ...defaultTheme, radius: 20 })).toThrow()
     expect(() => parseTheme({ ...defaultTheme, buttonRadius: 20 })).toThrow()
     expect(() => parseTheme({ ...defaultTheme, buttonWeight: 1500 })).toThrow()
+    expect(() => parseTheme({ ...defaultTheme, inputRadius: -1 })).toThrow()
+    expect(() => parseTheme({ ...defaultTheme, panelBorderWidth: 4 })).toThrow()
+    expect(() => parseTheme({ ...defaultTheme, headingFont: "unknown" })).toThrow()
+    expect(() => parseTheme({ ...defaultTheme, buttonFont: "unknown" })).toThrow()
     expect(() => parseTheme({ ...defaultTheme, shadow: { ...defaultTheme.shadow, opacity: 0.9 } })).toThrow()
   })
 
@@ -134,6 +138,23 @@ describe("theme import and export", () => {
     const imported = importThemeJson(themeToJson(lowerCase))
     expect(imported.light.background).toBe("#FFFFFF")
     expect(imported.shadow.color).toBe("#AABBCC")
+  })
+
+  test("preserves distinct brand shapes and font roles in installable exports", () => {
+    const anthropic = themePresets.find((theme) => theme.id === "anthropic")!
+    expect(importThemeJson(themeToJson(anthropic))).toEqual(anthropic)
+    const exported = themeToRegistry(anthropic)
+    expect(exported.dependencies).toEqual(["@fontsource-variable/public-sans", "@fontsource-variable/source-serif-4", "@fontsource-variable/geist-mono"])
+    expect(exported.css[":root"]["--heading-font"]).toContain("Source Serif 4")
+    expect(exported.css[":root"]["--panel-border-width"]).toBe("0px")
+    expect(exported.css[":root"]["--input-radius"]).toBe("0.5rem")
+    expect(exported.cssVars.light.radius).toBe("1rem")
+    const nixtla = themePresets.find((theme) => theme.id === "nixtla")!
+    expect(themeToCss(nixtla)).toContain('--button-font: var(--font-mono, "Geist Mono Variable", monospace);')
+    expect(themeToRegistry(nixtla).css[":root"]["--button-font"]).toContain("Geist Mono Variable")
+    const openai = themePresets.find((theme) => theme.id === "openai-forest")!
+    expect(themeVariables(openai, "light")["--input-radius"]).toBe("1.5rem")
+    expect(themeVariables(openai, "light")["--radius"]).toBe("0.375rem")
   })
 
   test("exports complete shadcn variables for both modes", () => {
@@ -179,7 +200,7 @@ describe("theme import and export", () => {
     }
     const storage = new Map([
       [THEME_MODE_STORAGE_KEY, "dark"],
-      [THEME_STORAGE_KEY, JSON.stringify(themePresets.find((theme) => theme.id === "supervisor"))],
+      [THEME_STORAGE_KEY, JSON.stringify({ ...themePresets.find((theme) => theme.id === "supervisor"), inputRadius: 1.5, panelBorderWidth: 0, headingFont: "source-serif-4", buttonFont: "mono" })],
     ])
     const run = new Function("document", "localStorage", "matchMedia", themeInitScript)
     run(
@@ -194,6 +215,10 @@ describe("theme import and export", () => {
     expect(properties.get("--background")).toBe("#000000")
     expect(properties.get("--spacing")).toBe("0.25rem")
     expect(properties.get("--radius")).toBe("0.1875rem")
+    expect(properties.get("--input-radius")).toBe("1.5rem")
+    expect(properties.get("--panel-border-width")).toBe("0px")
+    expect(properties.get("--heading-font")).toBe("var(--font-source-serif-4)")
+    expect(properties.get("--button-font")).toContain("Geist Mono Variable")
     expect(properties.get("--button-radius")).toBe("0.3125rem")
     expect(properties.get("--button-weight")).toBe("500")
     expect(properties.get("--border-width")).toBe("1px")
@@ -208,5 +233,8 @@ describe("theme import and export", () => {
     expect(imported.buttonRadius).toBeUndefined()
     expect(themeVariables(imported, "light")["--button-radius"]).toBe("0.375rem")
     expect(themeToRegistry(imported).css[":root"]["--button-weight"]).toBe("500")
+    expect(themeVariables(imported, "light")["--input-radius"]).toBe("0.375rem")
+    expect(themeVariables(imported, "light")["--panel-border-width"]).toBe("1px")
+    expect(themeVariables(imported, "light")["--heading-font"]).toBe("var(--font-geist-sans)")
   })
 })
