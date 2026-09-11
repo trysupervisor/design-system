@@ -54,7 +54,11 @@ Then run `bunx shadcn@latest add @supervisor/supervisor`.
 
 Theme Studio includes brand inspired presets and controls for both color modes, fonts, corners, borders, spacing, type size, control height, and shadows. Changes apply across the preview and persist in the browser. Saved themes stay on that device. Choose Download for shadcn to export an installable registry file, including fonts and both color modes. Move the download into your app and run the command shown in Theme Studio, such as `bunx shadcn@latest add ./my-theme.registry.json`. Export JSON saves a Theme Studio document. Copy CSS provides a manual export for Tailwind 4.
 
-The twelve bundled font families have open licenses and are served by this application. Theme files accept only approved font identifiers, hexadecimal colors, and bounded numeric values. They cannot contain CSS expressions, external assets, or executable code.
+The thirteen bundled font families have open licenses and are served by this application. A separate System Sans option uses the device font with Inter as a fallback. Theme files accept only approved font identifiers, hexadecimal colors, and bounded numeric values. They cannot contain CSS expressions, external assets, or executable code.
+
+Named brand presets include source links in Theme Studio, with font substitutions and numeric adaptations identified beside the preview. GitHub uses Mona Sans and Primer colors, Figma uses Inter and blue interface tokens, and OpenAI uses a neutral palette. The original preset identifiers remain stable for saved documents and registry URLs. Button roundness and weight can be adjusted separately from panel corners. Older theme documents keep their previous button shape and medium weight.
+
+The [Button page](https://ui.trysupervisor.com/components/button) includes Supervisor's orange brand action, with the website's border and layered hover and press shadows. It uses Geist Mono as a substitute for VCR OSD Mono and black labels for contrast. Install it with `bunx shadcn@latest add https://ui.trysupervisor.com/r/supervisor-brand-button.json`. It wraps the Button already configured in your shadcn app and preserves its props.
 
 Natural language generation calls a model through Vercel AI Gateway. It returns the same validated theme format used by manual editing and imports. Generation errors appear in the interface, and manual editing remains available.
 
