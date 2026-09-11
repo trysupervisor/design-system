@@ -8,14 +8,16 @@ import { SupervisorBrandButton } from "./registry/supervisor-brand-button";
 const code = `"use client"
 
 import { useState } from "react"
+import { ArrowUpRightIcon } from "lucide-react"
 import { SupervisorBrandButton } from "@/components/ui/supervisor-brand-button"
 
 export default function Example() {
   const [saved, setSaved] = useState(false)
 
   return (
-    <SupervisorBrandButton onClick={() => setSaved(true)}>
+    <SupervisorBrandButton disabled={saved} onClick={() => setSaved(true)}>
       {saved ? "Saved" : "Save changes"}
+      <ArrowUpRightIcon aria-hidden="true" data-supervisor-brand-arrow="" />
     </SupervisorBrandButton>
   )
 }`;
@@ -25,14 +27,14 @@ export function SupervisorBrandButtonExample() {
   return (
     <section className="component-docs-section">
       <h2>Supervisor brand button</h2>
-      <p>The orange action from trysupervisor.com, with its border and layered press shadows. This version uses Geist Mono in place of VCR OSD Mono and black labels for contrast.</p>
+      <p>The orange action from trysupervisor.com, with white text and arrow, layered press shadows, and a muted gray disabled state. This version uses Geist Mono in place of VCR OSD Mono.</p>
       <div className="component-frame">
         <div className="component-preview flex-col gap-4">
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <SupervisorBrandButton onClick={() => setActivated((value) => !value)}>{activated ? "Ready to go" : "Get started"}<ArrowUpRightIcon aria-hidden="true" /></SupervisorBrandButton>
-            <SupervisorBrandButton disabled>Unavailable</SupervisorBrandButton>
+            <SupervisorBrandButton disabled={activated} onClick={() => setActivated(true)}>{activated ? "Selected" : "Get started"}<ArrowUpRightIcon aria-hidden="true" data-supervisor-brand-arrow="" /></SupervisorBrandButton>
+            <SupervisorBrandButton disabled>Unavailable<ArrowUpRightIcon aria-hidden="true" data-supervisor-brand-arrow="" /></SupervisorBrandButton>
           </div>
-          <p className="min-h-5 text-xs text-muted-foreground" role="status">{activated ? "Brand action selected." : "Try the hover, focus, and pressed states."}</p>
+          <div className="flex min-h-5 items-center gap-2 text-xs text-muted-foreground"><p role="status">{activated ? "The selected action now uses the disabled state." : "Try the hover, focus, and pressed states."}</p>{activated ? <button type="button" className="underline underline-offset-4" onClick={() => setActivated(false)}>Reset</button> : null}</div>
         </div>
         <CodeDisclosure title="Supervisor brand button" code={code} />
       </div>

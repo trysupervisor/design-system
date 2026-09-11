@@ -58,7 +58,7 @@ The thirteen bundled font families have open licenses and are served by this app
 
 Named brand presets include source links in Theme Studio, with font substitutions and numeric adaptations identified beside the preview. GitHub uses Mona Sans and Primer colors, Figma uses Inter and blue interface tokens, and OpenAI uses a neutral palette. The original preset identifiers remain stable for saved documents and registry URLs. Button roundness and weight can be adjusted separately from panel corners. Older theme documents keep their previous button shape and medium weight.
 
-The [Button page](https://ui.trysupervisor.com/components/button) includes Supervisor's orange brand action, with the website's border and layered hover and press shadows. It uses Geist Mono as a substitute for VCR OSD Mono and black labels for contrast. Install it with `bunx shadcn@latest add https://ui.trysupervisor.com/r/supervisor-brand-button.json`. It wraps the Button already configured in your shadcn app and preserves its props.
+The [Button page](https://ui.trysupervisor.com/components/button) includes Supervisor's orange brand action, with white text and arrow, layered hover and press shadows, and the website's muted gray disabled state. It uses Geist Mono as a substitute for VCR OSD Mono. The standard preview uses the neutral Geist theme. Install the brand button with `bunx shadcn@latest add https://ui.trysupervisor.com/r/supervisor-brand-button.json`. It wraps the Button already configured in your shadcn app and preserves its props.
 
 Natural language generation calls a model through Vercel AI Gateway. It returns the same validated theme format used by manual editing and imports. Generation errors appear in the interface, and manual editing remains available.
 

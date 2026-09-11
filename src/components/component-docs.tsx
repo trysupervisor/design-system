@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 import { ArrowLeftIcon, ArrowRightIcon, SearchIcon } from "lucide-react";
 import { CodeDisclosure } from "@/components/code-disclosure";
 import { ComponentExample } from "@/components/examples/component-example";
@@ -11,6 +11,9 @@ import { DeviceDetails } from "@/components/examples/device-example";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useTheme } from "@/components/theme-provider";
+import { themeVariables } from "@/lib/theme";
+import { defaultTheme } from "@/lib/theme-presets";
 import { COMPONENTS, COMPONENT_CATEGORIES, getComponent } from "@/lib/component-catalog";
 
 export function ComponentIndex() {
@@ -56,6 +59,12 @@ export function ComponentIndex() {
 }
 
 export function ComponentDocs({ slug }: { slug: string }) {
+  const { resolvedMode } = useTheme();
+  const previewStyle = slug === "button" ? {
+    ...themeVariables(defaultTheme, resolvedMode),
+    fontFamily: "var(--app-font)",
+    color: "var(--foreground)",
+  } as CSSProperties : undefined;
   const component = getComponent(slug);
   if (!component) return null;
   const index = COMPONENTS.findIndex((item) => item.slug === slug);
@@ -73,7 +82,7 @@ export function ComponentDocs({ slug }: { slug: string }) {
 
       <section className="component-docs-section">
         <h2>Preview</h2>
-        <div className="component-frame">
+        <div className="component-frame" style={previewStyle}>
           <div className="component-preview"><ComponentExample slug={slug} /></div>
           <CodeDisclosure title={component.name} code={code} />
         </div>

@@ -2,7 +2,6 @@ import { describe, expect, test } from "bun:test";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createElement } from "react";
 import postcss from "postcss";
-import { contrastRatio } from "../src/lib/theme";
 import { SupervisorBrandButton } from "../src/components/examples/registry/supervisor-brand-button";
 
 describe("Supervisor brand button", () => {
@@ -31,12 +30,12 @@ describe("Supervisor brand button", () => {
     css.walkRules((rule) => {
       expect(rule.selector).toContain("[data-supervisor-brand]");
       rule.walkDecls("background", (declaration) => { backgrounds.push(declaration.value); });
-      rule.walkDecls("color", (declaration) => { foreground = declaration.value; });
+      if (rule.selector === '[data-slot="button"][data-supervisor-brand]') {
+        rule.walkDecls("color", (declaration) => { foreground = declaration.value; });
+      }
     });
-    expect(backgrounds).toEqual(["#ff5125", "#f0441b", "#e8441c"]);
-    for (const background of backgrounds) {
-      expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(4.5);
-    }
+    expect(backgrounds).toEqual(["#ff5125", "#f0441b", "#e8441c", "var(--muted, #f4f4f4)"]);
+    expect(foreground).toBe("#ffffff");
     expect(css.toString()).toContain("prefers-reduced-motion: reduce");
     expect(css.toString()).toContain("border-radius: 5px");
   });

@@ -2,7 +2,7 @@
   border: 1px solid #e6471f;
   border-radius: 5px;
   background: #ff5125;
-  color: #000000;
+  color: #ffffff;
   font-family: var(--font-geist-mono, "Geist Mono Variable"), "Geist Mono", ui-monospace, monospace;
   font-weight: 500;
   text-transform: uppercase;
@@ -36,6 +36,21 @@
 [data-slot="button"][data-supervisor-brand]:focus-visible {
   outline: 2px solid #1886e2;
   outline-offset: 2px;
+}
+
+[data-slot="button"][data-supervisor-brand]:is(:disabled, [aria-disabled="true"]) {
+  border-color: var(--border, #e8e8e8);
+  background: var(--muted, #f4f4f4);
+  color: var(--muted-foreground, #666666);
+  box-shadow: none;
+  cursor: default;
+  opacity: 1;
+  translate: none;
+  scale: none;
+}
+
+[data-slot="button"][data-supervisor-brand]:is(:disabled, [aria-disabled="true"]) [data-supervisor-brand-arrow] {
+  transform: rotate(135deg);
 }
 
 @media (prefers-reduced-motion: reduce) {
