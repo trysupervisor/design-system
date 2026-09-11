@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import React, { type CSSProperties } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import postcss from "postcss";
-import { LedgerButton, LedgerPresence, LedgerProvider, LedgerRangeSelector, LedgerSearch, LedgerSurface, LedgerTable, ledgerMotion, ledgerCornerStyleKey } from "../src/components/examples/registry/ledger";
+import { LedgerButton, LedgerPresence, LedgerProvider, LedgerRangeSelector, LedgerSearch, LedgerSurface, LedgerTable, ledgerMotion, ledgerVariables, ledgerCornerStyleKey } from "../src/components/examples/registry/ledger";
 import { LedgerChart, ledgerChartGeometry, ledgerChartIndex, ledgerChartPaths, ledgerChartPoint, ledgerResample } from "../src/components/examples/registry/ledger-chart";
 
 const markup = renderToStaticMarkup;
@@ -95,6 +95,23 @@ describe("Ledger semantic components", () => {
     expect(html.match(/--ledger-font-heading:/g)).toHaveLength(1);
     expect(html).toContain("--ledger-default-paper:#ffffff");
     expect(html).toContain("--ledger-default-font-heading:");
+  });
+
+  test("body, heading and button font roles inherit independently with identical native defaults", async () => {
+    expect(ledgerVariables["--ledger-font-body"]).toBe(ledgerVariables["--ledger-font-heading"]);
+    expect(ledgerVariables["--ledger-font-button"]).toBe(ledgerVariables["--ledger-font-heading"]);
+    const html = markup(<div style={{ "--ledger-font-body": "Body Font", "--ledger-font-heading": "Heading Font", "--ledger-font-button": "Button Font" } as CSSProperties}><LedgerProvider><p>Body</p><h2 data-ledger-role="heading">Heading</h2><LedgerButton>Action</LedgerButton></LedgerProvider></div>);
+    for (const role of ["body", "heading", "button"]) {
+      expect(html.match(new RegExp(`--ledger-font-${role}:`, "g"))).toHaveLength(1);
+      expect(html).toContain(`--ledger-default-font-${role}:`);
+    }
+    const css = postcss.parse(await Bun.file(new URL("../src/components/examples/registry/ledger.css", import.meta.url)).text());
+    const families = new Map<string, string>();
+    css.walkRules((rule) => { rule.walkDecls("font-family", (declaration) => { families.set(rule.selector, declaration.value); }); });
+    expect(families.get("[data-ledger-theme]")).toBe("var(--ledger-font-body, var(--ledger-default-font-body))");
+    expect(families.get('[data-ledger-theme] .ledger-button')).toBe("var(--ledger-font-button, var(--ledger-default-font-button))");
+    expect(families.get('[data-ledger-theme] [data-ledger-role="heading"]')).toBe("var(--ledger-font-heading, var(--ledger-default-font-heading))");
+    expect(families.get('[data-ledger-theme] [data-ledger-role="display"]')).toBe("var(--ledger-font-heading, var(--ledger-default-font-heading))");
   });
 
   test("surface and button forward native props and preserve semantics", () => {

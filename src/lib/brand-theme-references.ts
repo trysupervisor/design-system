@@ -1,5 +1,6 @@
 export type BrandThemeReference = {
   brand: string
+  checkedOn?: string
   reference: string
   mode: "light" | "dark"
   typography: string
@@ -104,14 +105,15 @@ export const brandThemeReferences: Record<string, BrandThemeReference> = {
   },
   "netflix-red": {
     brand: "Netflix",
-    reference: "Netflix website and brand palette",
+    reference: "Netflix public website",
+    checkedOn: "September 11, 2026",
     mode: "dark",
     typography: "Netflix Sans is proprietary. Inter is our free substitute for its neutral interface typography.",
-    geometry: "40 px controls, 4 px corners, restrained borders, and spacing in multiples of 4 px adapt the public website. Prominent website actions are larger.",
-    adaptation: "Netflix Red is #E50914. Black surfaces and quiet gray layers follow the website. Light mode, chart grays, and opaque border equivalents are adaptations.",
+    geometry: "The website uses 4 px buttons and fields, 8 px content cards without borders, and square FAQ rows. Our 40 px controls sit between the measured 32 px sign in action and 56 px main action.",
+    adaptation: "Netflix Red is #E50914. Cards use #232323 on the black canvas. The #606060 input border approximates the translucent gray field border. Light mode, chart grays, and a shared control height are adaptations.",
     sources: [
       { label: "Netflix brand palette", url: "https://brand.netflix.com/en/assets/logos/" },
-      { label: "Netflix website", url: "https://www.netflix.com" },
+      { label: "Netflix website", url: "https://www.netflix.com/es-en/" },
     ],
   },
   "apple-clean": {
@@ -128,16 +130,37 @@ export const brandThemeReferences: Record<string, BrandThemeReference> = {
       { label: "Color guidance", url: "https://developer.apple.com/design/human-interface-guidelines/color" },
     ],
   },
+  anthropic: {
+    brand: "Anthropic",
+    checkedOn: "September 11, 2026",
+    reference: "Anthropic public website",
+    mode: "light",
+    typography: "Public Sans and Source Serif 4 are free substitutes for Anthropic Sans and Anthropic Serif. Body text and display headings keep their separate roles.",
+    geometry: "The website uses 36 px buttons with 8 px corners and one px borders. Announcement cards use 16 px corners and about 31 px padding. Hero and cookie panels use larger 24 px corners. Cards are defined by warm fills, without general borders.",
+    adaptation: "Canvas #FAF9F5, ink #141413, navigation #F0EEE6, and card fill #E3DACC follow measured styles. The 16 px panel default favors content cards. Input geometry, dark mode, and chart companions are adaptations because the homepage does not expose those controls or a dark theme.",
+    sources: [{ label: "Anthropic website", url: "https://www.anthropic.com/" }],
+  },
+  nixtla: {
+    brand: "Nixtla",
+    checkedOn: "September 11, 2026",
+    reference: "Nixtla public website",
+    mode: "light",
+    typography: "IBM Plex Sans is a free substitute for Neue Montreal. Geist Mono replaces Supply for button labels. These preserve the website's separate body and technical label roles without bundling its fonts.",
+    geometry: "Square corners and one px ink rules follow the website. Main actions are 48 px high with 32 px horizontal padding; compact navigation actions are 32 px high. The preset uses 48 px controls and the shared 4 px spacing step.",
+    adaptation: "The measured Lab colors convert to paper #F6F4F0, ink #222121, and indigo #434E82 in sRGB. Paper cards and strong borders follow the website. Dark mode and additional chart colors are adaptations. The shared button padding is more compact than the main website action.",
+    sources: [{ label: "Nixtla website", url: "https://www.nixtla.io/" }],
+  },
   "openai-forest": {
     brand: "OpenAI",
-    reference: "OpenAI identity and ChatGPT appearance",
+    reference: "OpenAI public website",
+    checkedOn: "September 11, 2026",
     mode: "light",
     typography: "OpenAI Sans is proprietary. Manrope is our free substitute for the geometric, rounded construction described in the brand guide.",
-    geometry: "40 px controls, pill buttons, 12 px panels, and a 4 px spacing step are our adaptation of ChatGPT. OpenAI does not publish these dimensions as reusable tokens.",
-    adaptation: "Neutral surfaces replace the former forest green palette. The numeric palette, chart grays, and geometry are visual approximations, not official OpenAI tokens.",
+    geometry: "Measured website actions are 36 px high with 40 px pill corners. Media cards use about 6 px corners. The prompt has 24 px corners. Cards have no general border; outlined chips use a subtle one px black border at 12 percent opacity.",
+    adaptation: "White canvas and black actions follow the homepage. Input corners adapt the prompt shape to form fields. Dark mode and chart grays are adaptations; chip shadows and image content are not part of the theme.",
     sources: [
       { label: "OpenAI brand guide", url: "https://openai.com/brand/" },
-      { label: "ChatGPT", url: "https://chatgpt.com" },
+      { label: "OpenAI website", url: "https://openai.com/" },
     ],
   },
 }

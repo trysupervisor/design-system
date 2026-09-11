@@ -84,7 +84,7 @@ describe("theme presets", () => {
     expect(themeToRegistry(spotify).css[":root"]["--button-weight"]).toBe("700")
     expect(themeToRegistry(spotify).cssVars.light.radius).toBe("0.5rem")
     expect(themeVariables(spotify, "dark")["--button-radius"]).toBe("3rem")
-    expect(themePresets.find((theme) => theme.id === "openai-forest")?.light.primary).toBe("#0D0D0D")
+    expect(themePresets.find((theme) => theme.id === "openai-forest")?.light.primary).toBe("#000000")
     expect(themePresets.find((theme) => theme.id === "figma-coral")?.light.primary).toBe("#0D99FF")
     for (const theme of themePresets.filter((theme) => theme.category === "brand" || ["geist", "vercel-mono"].includes(theme.id))) {
       const reference = brandThemeReferences[theme.id]
@@ -141,6 +141,10 @@ describe("theme validation", () => {
     expect(() => parseTheme({ ...defaultTheme, radius: 20 })).toThrow()
     expect(() => parseTheme({ ...defaultTheme, buttonRadius: 20 })).toThrow()
     expect(() => parseTheme({ ...defaultTheme, buttonWeight: 1500 })).toThrow()
+    expect(() => parseTheme({ ...defaultTheme, inputRadius: -1 })).toThrow()
+    expect(() => parseTheme({ ...defaultTheme, panelBorderWidth: 4 })).toThrow()
+    expect(() => parseTheme({ ...defaultTheme, headingFont: "unknown" })).toThrow()
+    expect(() => parseTheme({ ...defaultTheme, buttonFont: "unknown" })).toThrow()
     expect(() => parseTheme({ ...defaultTheme, shadow: { ...defaultTheme.shadow, opacity: 0.9 } })).toThrow()
   })
 
@@ -148,6 +152,21 @@ describe("theme validation", () => {
     expect(parseTheme({ ...defaultTheme, recipe: "ledger" }).recipe).toBe("ledger")
     expect(() => parseTheme({ ...defaultTheme, recipe: "unknown" })).toThrow()
     expect(() => importThemeJson(JSON.stringify({ ...defaultTheme, recipe: { name: "ledger" } }))).toThrow()
+  })
+
+  test("accepts strict optional font and geometry fields", () => {
+    expect(parseTheme({
+      ...defaultTheme,
+      headingFont: "source-serif-4",
+      buttonFont: "mono",
+      inputRadius: 1.25,
+      panelBorderWidth: 0,
+    })).toMatchObject({
+      headingFont: "source-serif-4",
+      buttonFont: "mono",
+      inputRadius: 1.25,
+      panelBorderWidth: 0,
+    })
   })
 
   test("rejects unreadable foreground pairs", () => {
@@ -173,6 +192,23 @@ describe("theme import and export", () => {
     const imported = importThemeJson(themeToJson(lowerCase))
     expect(imported.light.background).toBe("#FFFFFF")
     expect(imported.shadow.color).toBe("#AABBCC")
+  })
+
+  test("preserves distinct brand shapes and font roles in installable exports", () => {
+    const anthropic = themePresets.find((theme) => theme.id === "anthropic")!
+    expect(importThemeJson(themeToJson(anthropic))).toEqual(anthropic)
+    const exported = themeToRegistry(anthropic)
+    expect(exported.dependencies).toEqual(["@fontsource-variable/public-sans", "@fontsource-variable/source-serif-4", "@fontsource-variable/geist-mono"])
+    expect(exported.css[":root"]["--heading-font"]).toContain("Source Serif 4")
+    expect(exported.css[":root"]["--panel-border-width"]).toBe("0px")
+    expect(exported.css[":root"]["--input-radius"]).toBe("0.5rem")
+    expect(exported.cssVars.light.radius).toBe("1rem")
+    const nixtla = themePresets.find((theme) => theme.id === "nixtla")!
+    expect(themeToCss(nixtla)).toContain('--button-font: var(--font-mono, "Geist Mono Variable", monospace);')
+    expect(themeToRegistry(nixtla).css[":root"]["--button-font"]).toContain("Geist Mono Variable")
+    const openai = themePresets.find((theme) => theme.id === "openai-forest")!
+    expect(themeVariables(openai, "light")["--input-radius"]).toBe("1.5rem")
+    expect(themeVariables(openai, "light")["--radius"]).toBe("0.375rem")
   })
 
   test("exports complete shadcn variables for both modes", () => {
@@ -218,7 +254,7 @@ describe("theme import and export", () => {
     }
     const storage = new Map([
       [THEME_MODE_STORAGE_KEY, "dark"],
-      [THEME_STORAGE_KEY, JSON.stringify(themePresets.find((theme) => theme.id === "supervisor"))],
+      [THEME_STORAGE_KEY, JSON.stringify({ ...themePresets.find((theme) => theme.id === "supervisor"), inputRadius: 1.5, panelBorderWidth: 0, headingFont: "source-serif-4", buttonFont: "mono" })],
     ])
     const run = new Function("document", "localStorage", "matchMedia", themeInitScript)
     run(
@@ -233,6 +269,10 @@ describe("theme import and export", () => {
     expect(properties.get("--background")).toBe("#000000")
     expect(properties.get("--spacing")).toBe("0.25rem")
     expect(properties.get("--radius")).toBe("0.1875rem")
+    expect(properties.get("--input-radius")).toBe("1.5rem")
+    expect(properties.get("--panel-border-width")).toBe("0px")
+    expect(properties.get("--heading-font")).toBe("var(--font-source-serif-4)")
+    expect(properties.get("--button-font")).toContain("Geist Mono Variable")
     expect(properties.get("--button-radius")).toBe("0.3125rem")
     expect(properties.get("--button-weight")).toBe("500")
     expect(properties.get("--border-width")).toBe("1px")
@@ -242,11 +282,54 @@ describe("theme import and export", () => {
     expect(properties.get("--theme-shadow")).toContain("rgba(0, 0, 0, 0)")
   })
 
+  test("restores Ledger font roles before hydration", () => {
+    const properties = new Map<string, string>()
+    const root = {
+      dataset: {} as Record<string, string>,
+      classList: { toggle() {} },
+      style: {
+        colorScheme: "",
+        setProperty(name: string, value: string) {
+          properties.set(name, value)
+        },
+      },
+    }
+    const storedTheme = parseTheme({
+      ...ledgerTheme,
+      font: "inter",
+      headingFont: "source-serif-4",
+      buttonFont: "mono",
+      inputRadius: 1.25,
+      panelBorderWidth: 0,
+    })
+    const run = new Function("document", "localStorage", "matchMedia", themeInitScript)
+    run(
+      { documentElement: root },
+      { getItem: (key: string) => key === THEME_STORAGE_KEY ? JSON.stringify(storedTheme) : null },
+      () => ({ matches: false })
+    )
+
+    expect(root.dataset.theme).toBe("ledger")
+    expect(properties.get("--app-font")).toBe("var(--font-inter)")
+    expect(properties.get("--heading-font")).toBe("var(--font-source-serif-4)")
+    expect(properties.get("--button-font")).toBe(LEDGER_NATIVE_MONO)
+    expect(properties.get("--font-mono")).toBe(LEDGER_NATIVE_MONO)
+    expect(properties.get("--ledger-font-body")).toBe("var(--font-inter)")
+    expect(properties.get("--ledger-font-heading")).toBe("var(--font-source-serif-4)")
+    expect(properties.get("--ledger-font-button")).toBe(LEDGER_NATIVE_MONO)
+    expect(properties.get("--ledger-font-data")).toBe(LEDGER_NATIVE_MONO)
+    expect(properties.get("--input-radius")).toBe("1.25rem")
+    expect(properties.get("--panel-border-width")).toBe("0px")
+  })
+
   test("legacy themes inherit their existing button shape and weight", () => {
     const imported = importThemeJson(themeToJson(defaultTheme))
     expect(imported.buttonRadius).toBeUndefined()
     expect(themeVariables(imported, "light")["--button-radius"]).toBe("0.375rem")
     expect(themeToRegistry(imported).css[":root"]["--button-weight"]).toBe("500")
+    expect(themeVariables(imported, "light")["--input-radius"]).toBe("0.375rem")
+    expect(themeVariables(imported, "light")["--panel-border-width"]).toBe("1px")
+    expect(themeVariables(imported, "light")["--heading-font"]).toBe("var(--font-geist-sans)")
   })
 
   test("keeps legacy themes free of recipe output and resets the mono family", () => {
@@ -289,23 +372,45 @@ describe("theme import and export", () => {
     }
   })
 
-  test("honors a custom sans selection on the Ledger recipe", () => {
-    const customized = parseTheme({ ...ledgerTheme, font: "inter" })
+  test("honors custom Ledger font roles", () => {
+    const customized = parseTheme({
+      ...ledgerTheme,
+      font: "inter",
+      headingFont: "source-serif-4",
+      buttonFont: "mono",
+    })
     expect(themeVariables(customized, "light")["--font-sans"]).toBe("var(--font-inter)")
     expect(themeVariables(customized, "light")["--font-mono"]).toBe(LEDGER_NATIVE_MONO)
-    const heading = FONT_OPTIONS.find((font) => font.id === "inter")!.cssFamily
-    expect(themeVariables(customized, "light")["--ledger-font-heading"]).toBe(heading)
-    expect(themeToCss(customized)).toContain(`--ledger-font-heading: ${heading};`)
+    expect(themeVariables(customized, "light")["--heading-font"]).toBe("var(--font-source-serif-4)")
+    expect(themeVariables(customized, "light")["--button-font"]).toBe(LEDGER_NATIVE_MONO)
+    expect(themeVariables(customized, "light")["--ledger-font-body"]).toBe("var(--font-inter)")
+    expect(themeVariables(customized, "light")["--ledger-font-heading"]).toBe("var(--font-source-serif-4)")
+    expect(themeVariables(customized, "light")["--ledger-font-button"]).toBe(LEDGER_NATIVE_MONO)
+
+    const bodyFamily = FONT_OPTIONS.find((font) => font.id === "inter")!.cssFamily
+    const headingFamily = FONT_OPTIONS.find((font) => font.id === "source-serif-4")!.cssFamily
+    const css = themeToCss(customized)
+    expect(css).toContain(`--ledger-font-body: ${bodyFamily};`)
+    expect(css).toContain(`--ledger-font-heading: ${headingFamily};`)
+    expect(css).toContain(`--ledger-font-button: ${LEDGER_NATIVE_MONO};`)
 
     const registry = themeToRegistry(customized)
-    expect(registry.dependencies).toEqual(["@fontsource-variable/inter"])
-    expect(registry.cssVars.theme["font-sans"]).toContain("Inter Variable")
+    expect(registry.dependencies).toEqual(["@fontsource-variable/inter", "@fontsource-variable/source-serif-4"])
+    expect(registry.cssVars.theme["font-sans"]).toBe(bodyFamily)
+    expect(registry.cssVars.theme["font-heading"]).toBe(headingFamily)
     expect(registry.cssVars.theme["font-mono"]).toBe(LEDGER_NATIVE_MONO)
-    expect(registry.css[":root"]["--ledger-font-heading"]).toBe(heading)
+    expect(registry.css[":root"]["--ledger-font-body"]).toBe(bodyFamily)
+    expect(registry.css[":root"]["--ledger-font-heading"]).toBe(headingFamily)
+    expect(registry.css[":root"]["--ledger-font-button"]).toBe(LEDGER_NATIVE_MONO)
 
-    const geistRegistry = themeToRegistry(parseTheme({ ...ledgerTheme, font: "geist" }))
+    const geistRegistry = themeToRegistry(parseTheme({ ...ledgerTheme, font: "geist", headingFont: "geist", buttonFont: "body" }))
+    const portableGeist = '"Geist Variable", ui-sans-serif, system-ui, sans-serif'
     expect(geistRegistry.dependencies).toEqual(["@fontsource-variable/geist"])
-    expect(geistRegistry.css[":root"]["--ledger-font-heading"]).toBe(geistRegistry.cssVars.theme["font-sans"])
-    expect(geistRegistry.css[":root"]["--ledger-font-heading"]).not.toContain("--font-geist-sans")
+    expect(geistRegistry.cssVars.theme["font-sans"]).toBe(portableGeist)
+    expect(geistRegistry.cssVars.theme["font-heading"]).toBe(portableGeist)
+    expect(geistRegistry.css[":root"]["--button-font"]).toBe(portableGeist)
+    expect(geistRegistry.css[":root"]["--ledger-font-body"]).toBe(portableGeist)
+    expect(geistRegistry.css[":root"]["--ledger-font-heading"]).toBe(portableGeist)
+    expect(geistRegistry.css[":root"]["--ledger-font-button"]).toBe(portableGeist)
   })
 })

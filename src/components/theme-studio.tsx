@@ -128,9 +128,9 @@ function PresetCard({
           <span className="mt-1.5 block h-1 w-3/4 rounded-sm opacity-30" style={{ background: palette.sidebarForeground }} />
         </span>
         <span className="min-w-0 flex-1" style={{ padding: `${preset.spacing * 8}px` }}>
-          <span className="block text-[11px] font-semibold" style={{ color: palette.foreground }}>Overview</span>
-          <span className="mt-1 block border px-1.5 py-1 text-[12px]" style={{ color: palette.foreground, background: palette.card, borderColor: palette.border, borderWidth: preset.borderWidth, borderRadius: `${preset.radius * 0.5}rem` }}>Aa 123</span>
-          <span className="mt-1.5 block w-12 text-center text-[8px] leading-none" style={{ background: palette.primary, color: palette.primaryForeground, paddingBlock: `${preset.controlHeight * 1.5}px`, borderRadius: `${preset.buttonRadius ?? preset.radius}rem`, fontWeight: preset.buttonWeight ?? 500 }}>Continue</span>
+          <span className="block text-[11px] font-semibold" style={{ color: palette.foreground, fontFamily: getThemeFontSetup({ ...preset, font: preset.headingFont ?? preset.font }).cssFamily }}>Overview</span>
+          <span className="mt-1 block border px-1.5 py-1 text-[12px]" style={{ color: palette.foreground, background: palette.card, borderColor: palette.input, borderWidth: Math.max(1, preset.borderWidth), borderRadius: `${preset.inputRadius ?? preset.radius}rem` }}>Aa 123</span>
+          <span className="mt-1.5 block w-12 text-center text-[8px] leading-none" style={{ background: palette.primary, color: palette.primaryForeground, paddingBlock: `${preset.controlHeight * 1.5}px`, borderRadius: `${preset.buttonRadius ?? preset.radius}rem`, fontWeight: preset.buttonWeight ?? 500, fontFamily: preset.buttonFont === "mono" ? "var(--font-mono)" : font.cssFamily }}>Continue</span>
         </span>
       </span>
       <span className="flex items-center justify-between gap-2">
@@ -233,20 +233,24 @@ function ThemePreview({ theme, mode }: { theme: ThemeDefinition; mode: PreviewMo
           <main className="min-w-0 p-4 sm:p-5">
             <div className="mb-5 flex items-start justify-between gap-3">
               <div>
-                <p className="text-[0.875em] font-semibold">Good morning, Alex</p>
+                <p className="font-heading text-[0.875em] font-semibold">Good morning, Alex</p>
                 <p className="mt-1 text-[0.625em] text-muted-foreground">Your team completed 84 tasks this month.</p>
               </div>
-              <button className="h-[var(--control-height)] shrink-0 rounded-[var(--button-radius)] bg-primary px-3 text-[0.625em] font-[number:var(--button-weight)] text-primary-foreground">New report</button>
+              <button className="h-[var(--control-height)] shrink-0 rounded-[var(--button-radius)] bg-primary px-3 text-[0.625em] font-[number:var(--button-weight)] [font-family:var(--button-font)] text-primary-foreground">New report</button>
             </div>
+            <label className="mb-4 grid gap-1.5 text-[0.625em] font-medium">
+              Project name
+              <Input aria-label="Preview project name" defaultValue="Website refresh" className="w-full" />
+            </label>
             <div className="grid gap-3 sm:grid-cols-3">
               {["Active projects", "Tasks closed", "On time"].map((label, index) => (
-                <div key={label} className="preview-border rounded-[var(--radius)] border bg-card p-3 text-card-foreground">
+                <div key={label} className="rounded-[var(--radius)] border-[length:var(--panel-border-width)] bg-card p-3 text-card-foreground">
                   <p className="text-[0.5625em] text-muted-foreground">{label}</p>
                   <p className="mt-1.5 text-[1.125em] font-semibold tabular-nums">{[12, 248, "94%"][index]}</p>
                 </div>
               ))}
             </div>
-            <div className="preview-border mt-3 rounded-[var(--radius)] border bg-card p-3 text-card-foreground">
+            <div className="mt-3 rounded-[var(--radius)] border-[length:var(--panel-border-width)] bg-card p-3 text-card-foreground">
               <div className="mb-4 flex items-center justify-between">
                 <p className="text-[0.625em] font-medium">Weekly activity</p>
                 <span className="rounded-full bg-secondary px-2 py-1 text-[0.5625em] text-secondary-foreground">Last 7 days</span>
@@ -295,6 +299,7 @@ export function ThemeStudio() {
     })
   }, [category, search])
   const fontSetup = getThemeFontSetup(draft)
+  const headingFontSetup = getThemeFontSetup({ ...draft, font: draft.headingFont ?? draft.font })
   const brandReference = brandThemeReferences[draft.id]
   const isLedgerRecipe = draft.recipe === "ledger"
   const referencePreset = themePresets.find((preset) => preset.id === draft.id)
@@ -437,7 +442,7 @@ export function ThemeStudio() {
               <div className="mt-4 border-t pt-4 text-xs leading-5" data-brand-reference={draft.id}>
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h3 className="font-semibold">{referenceModified ? `Starting reference: ${brandReference.reference}` : brandReference.reference}</h3>
-                  <span className="text-[10px] text-muted-foreground">Researched September 10, 2026</span>
+                  <span className="text-[10px] text-muted-foreground">Researched {brandReference.checkedOn ?? "September 10, 2026"}</span>
                 </div>
                 {referenceModified && <p className="mt-2">These references describe the preset before your edits.</p>}
                 <p className="mt-2 text-muted-foreground">{brandReference.typography}</p>
@@ -541,7 +546,7 @@ export function ThemeStudio() {
                   <span className="mt-1 block">Move the downloaded file into your app and run this command. It installs the theme and fonts through shadcn. Your components stay in place.</span>
                 </div>
               )}
-              {isLedgerRecipe && draft.font === "system-sans" ? (
+              {isLedgerRecipe && draft.font === "system-sans" && headingFontSetup.id === "system-sans" ? (
                 <div className="col-span-2 mt-1 rounded-lg bg-muted/50 p-2.5 text-[10px] leading-4 text-muted-foreground">
                   <span className="font-medium text-foreground">Native font setup</span>
                   <span className="mt-1 block">Ledger uses San Francisco on Apple devices, then system sans fallbacks. Its data face uses the native monospace stack. No font package is required.</span>
@@ -549,9 +554,9 @@ export function ThemeStudio() {
               ) : (
                 <div className="col-span-2 mt-1 rounded-lg bg-muted/50 p-2.5 text-[10px] leading-4 text-muted-foreground">
                   <span className="font-medium text-foreground">Font setup for CSS exports</span>
-                  <code className="mt-1 block break-all">bun add {fontSetup.packageName}</code>
-                  <code className="block break-all">{fontSetup.cssImport}</code>
-                  <span className="mt-1 block">{fontSetup.usage}</span>
+                  {(!isLedgerRecipe || draft.font !== "system-sans") && <><code className="mt-1 block break-all">bun add {fontSetup.packageName}</code><code className="block break-all">{fontSetup.cssImport}</code><span className="mt-1 block">{fontSetup.usage}</span></>}
+                  {headingFontSetup.id !== fontSetup.id && (!isLedgerRecipe || headingFontSetup.id !== "system-sans") && <><code className="mt-2 block break-all">bun add {headingFontSetup.packageName}</code><code className="block break-all">{headingFontSetup.cssImport}</code></>}
+                  {draft.buttonFont === "mono" && !isLedgerRecipe && <><code className="mt-2 block break-all">bun add @fontsource-variable/geist-mono</code><code className="block break-all">{'@import "@fontsource-variable/geist-mono";'}</code></>}
                 </div>
               )}
             </div>
@@ -564,10 +569,25 @@ export function ThemeStudio() {
                     {FONT_OPTIONS.map((font) => <option key={font.id} value={font.id}>{font.label}</option>)}
                   </select>
                 </label>
+                <label className="grid gap-1.5 text-xs font-medium">
+                  Heading typeface
+                  <select value={draft.headingFont ?? draft.font} onChange={(event) => patchDraft({ headingFont: event.target.value as ThemeFontId })} className="h-8 rounded-lg border border-input bg-background px-2 text-xs">
+                    {FONT_OPTIONS.map((font) => <option key={font.id} value={font.id}>{font.label}</option>)}
+                  </select>
+                </label>
+                <label className="grid gap-1.5 text-xs font-medium">
+                  Button typeface
+                  <select value={draft.buttonFont ?? "body"} onChange={(event) => patchDraft({ buttonFont: event.target.value as "body" | "mono" })} className="h-8 rounded-lg border border-input bg-background px-2 text-xs">
+                    <option value="body">Body font</option>
+                    <option value="mono">{isLedgerRecipe ? "Native monospace" : "Geist Mono"}</option>
+                  </select>
+                </label>
                 <RangeControl label="Panel roundness" value={draft.radius} min={0} max={2} step={0.01} suffix="rem" onChange={(radius) => patchDraft({ radius })} />
+                <RangeControl label="Input roundness" value={draft.inputRadius ?? draft.radius} min={0} max={3.5} step={0.01} suffix="rem" onChange={(inputRadius) => patchDraft({ inputRadius })} />
                 <RangeControl label="Button roundness" value={draft.buttonRadius ?? draft.radius} min={0} max={3.5} step={0.01} suffix="rem" onChange={(buttonRadius) => patchDraft({ buttonRadius })} />
                 <RangeControl label="Button weight" value={draft.buttonWeight ?? 500} min={400} max={800} step={100} onChange={(buttonWeight) => patchDraft({ buttonWeight })} />
                 <RangeControl label="Border" value={draft.borderWidth} min={0} max={3} step={0.25} suffix="px" onChange={(borderWidth) => patchDraft({ borderWidth })} />
+                <RangeControl label="Card border" value={draft.panelBorderWidth ?? draft.borderWidth} min={0} max={3} step={0.25} suffix="px" onChange={(panelBorderWidth) => patchDraft({ panelBorderWidth })} />
                 <RangeControl label="Spacing" value={draft.spacing} min={0.75} max={1.5} step={0.01} suffix="×" onChange={(spacing) => patchDraft({ spacing })} />
                 <RangeControl label="Control height" value={draft.controlHeight} min={1.75} max={3.5} step={0.05} suffix="rem" onChange={(controlHeight) => patchDraft({ controlHeight })} />
                 <RangeControl label="Text size" value={draft.textScale} min={0.875} max={1.25} step={0.025} suffix="×" onChange={(textScale) => patchDraft({ textScale })} />

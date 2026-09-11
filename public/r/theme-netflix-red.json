@@ -14,11 +14,12 @@
   "cssVars": {
     "theme": {
       "font-sans": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+      "font-heading": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
       "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
       "shadow-sm": "var(--theme-shadow)"
     },
     "light": {
-      "radius": "0.25rem",
+      "radius": "0.5rem",
       "background": "0 0% 100%",
       "foreground": "0 0% 7.84314%",
       "card": "0 0% 96.07843%",
@@ -54,12 +55,12 @@
       "sidebar-background": "0 0% 96.07843%"
     },
     "dark": {
-      "radius": "0.25rem",
+      "radius": "0.5rem",
       "background": "0 0% 0%",
       "foreground": "0 0% 100%",
-      "card": "0 0% 8.62745%",
+      "card": "0 0% 13.72549%",
       "card-foreground": "0 0% 100%",
-      "popover": "0 0% 13.72549%",
+      "popover": "0 0% 8.62745%",
       "popover-foreground": "0 0% 100%",
       "primary": "357 92.43697% 46.66667%",
       "primary-foreground": "0 0% 100%",
@@ -72,7 +73,7 @@
       "destructive": "356.96629 81.65138% 57.2549%",
       "destructive-foreground": "0 0% 0%",
       "border": "0 0% 20%",
-      "input": "0 0% 50.19608%",
+      "input": "0 0% 37.64706%",
       "ring": "0 0% 100%",
       "chart-1": "357 92.43697% 46.66667%",
       "chart-2": "356.84211 92.43243% 36.27451%",
@@ -95,10 +96,14 @@
     "@import \"@fontsource-variable/geist-mono\"": {},
     ":root": {
       "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+      "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+      "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
       "--spacing": "0.25rem",
+      "--input-radius": "0.25rem",
       "--button-radius": "0.25rem",
       "--button-weight": "500",
       "--border-width": "1px",
+      "--panel-border-width": "0px",
       "--control-height": "2.5rem",
       "--text-scale": "1",
       "--shadow-color": "#000000",
@@ -111,10 +116,14 @@
     },
     ".dark": {
       "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+      "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+      "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
       "--spacing": "0.25rem",
+      "--input-radius": "0.25rem",
       "--button-radius": "0.25rem",
       "--button-weight": "500",
       "--border-width": "1px",
+      "--panel-border-width": "0px",
       "--control-height": "2.5rem",
       "--text-scale": "1",
       "--shadow-color": "#000000",
@@ -133,6 +142,9 @@
           "fontFamily": {
             "sans": [
               "var(--app-font)"
+            ],
+            "heading": [
+              "var(--heading-font)"
             ],
             "mono": [
               "Geist Mono Variable",

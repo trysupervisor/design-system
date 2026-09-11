@@ -34,7 +34,7 @@ Four colors carry the interface. Pale gray is the canvas, white is paper, charco
 
 Spacing follows shell, panel, control, and inset roles. Radius roles use continuous corners with smoothing set to 0.6. Layered shadows sit outside the surface fill mask so rounded edges do not clip them.
 
-Text uses the native San Francisco family on Apple devices. System fallbacks cover other platforms. Tabular data uses the installed monospace stack.
+Text uses the native San Francisco family on Apple devices. System fallbacks cover other platforms. Tabular data uses the installed monospace stack. Theme Studio can adjust body, heading, and button typefaces separately. Download the customized registry file to preserve those choices.
 
 ## Behavior
 

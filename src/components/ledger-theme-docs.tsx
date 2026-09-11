@@ -65,7 +65,9 @@ const ledgerTokenGroups = [
   {
     name: "Type",
     values: [
-      ["Native sans", ledgerVariables["--ledger-font-heading"]],
+      ["Body", ledgerVariables["--ledger-font-body"]],
+      ["Heading", ledgerVariables["--ledger-font-heading"]],
+      ["Button", ledgerVariables["--ledger-font-button"]],
       ["Data face", ledgerVariables["--ledger-font-data"]],
     ],
   },
@@ -421,7 +423,7 @@ export function LedgerThemeDocs() {
           <div className="mt-4 space-y-4 text-sm leading-6 text-muted-foreground">
             <p>Four colors carry the interface. Pale gray is the canvas, white is paper, charcoal is ink, and red marks the current chart endpoint or another item that needs attention.</p>
             <p>Spacing follows roles. Shell, panel, control, and inset values come from the installed tokens. The radii use continuous corners with smoothing set to 0.6. Shadows sit outside the fill mask, so they do not clip at a rounded edge.</p>
-            <p>Text uses the native San Francisco family on Apple devices. System fallbacks cover other platforms. Tabular data uses the installed monospace stack.</p>
+            <p>Text uses the native San Francisco family on Apple devices. System fallbacks cover other platforms. Tabular data uses the installed monospace stack. Theme Studio can adjust the body, heading, and button typefaces separately.</p>
           </div>
         </section>
 

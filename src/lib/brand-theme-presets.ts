@@ -60,7 +60,7 @@ function semanticPalette(tokens: BrandPalette): ThemePalette {
 }
 
 type BrandSeed = Pick<ThemeDefinition, "id" | "name" | "font" | "radius" | "controlHeight"> &
-  Partial<Pick<ThemeDefinition, "category" | "buttonRadius" | "buttonWeight" | "spacing" | "borderWidth" | "textScale" | "shadow">> & {
+  Partial<Pick<ThemeDefinition, "category" | "headingFont" | "buttonFont" | "inputRadius" | "panelBorderWidth" | "buttonRadius" | "buttonWeight" | "spacing" | "borderWidth" | "textScale" | "shadow">> & {
     light: BrandPalette
     dark: BrandPalette
   }
@@ -92,9 +92,9 @@ export const brandThemePresets = [
     dark: { background: "#121212", foreground: "#FFFFFF", card: "#181818", popover: "#282828", primary: "#1ED760", primaryForeground: "#000000", secondary: "#282828", mutedForeground: "#B3B3B3", accent: "#333333", border: "#313131", input: "#727272", ring: "#FFFFFF", sidebar: "#000000", sidebarAccent: "#282828", destructive: "#F15E6C", destructiveForeground: "#000000", charts: ["#1ED760", "#62E38F", "#7AB1F1", "#B49ADA", "#B3B3B3"] },
   }),
   brandPreset({
-    id: "netflix-red", name: "Netflix", font: "inter", radius: 0.25, buttonRadius: 0.25, buttonWeight: 500, controlHeight: 2.5,
+    id: "netflix-red", name: "Netflix", font: "inter", radius: 0.5, inputRadius: 0.25, buttonRadius: 0.25, panelBorderWidth: 0, buttonWeight: 500, controlHeight: 2.5,
     light: { background: "#FFFFFF", foreground: "#141414", card: "#F5F5F5", popover: "#FFFFFF", primary: "#E50914", primaryForeground: "#FFFFFF", secondary: "#EEEEEE", mutedForeground: "#595959", border: "#D2D2D2", input: "#808080", ring: "#141414", sidebar: "#F5F5F5", destructive: "#B20710", destructiveForeground: "#FFFFFF", charts: ["#E50914", "#B20710", "#221F1F", "#777777", "#AAAAAA"] },
-    dark: { background: "#000000", foreground: "#FFFFFF", card: "#161616", popover: "#232323", primary: "#E50914", primaryForeground: "#FFFFFF", secondary: "#232323", mutedForeground: "#B3B3B3", accent: "#333333", border: "#333333", input: "#808080", ring: "#FFFFFF", sidebar: "#000000", destructive: "#EB3942", destructiveForeground: "#000000", charts: ["#E50914", "#B20710", "#FFFFFF", "#B3B3B3", "#777777"] },
+    dark: { background: "#000000", foreground: "#FFFFFF", card: "#232323", popover: "#161616", primary: "#E50914", primaryForeground: "#FFFFFF", secondary: "#232323", mutedForeground: "#B3B3B3", accent: "#333333", border: "#333333", input: "#606060", ring: "#FFFFFF", sidebar: "#000000", destructive: "#EB3942", destructiveForeground: "#000000", charts: ["#E50914", "#B20710", "#FFFFFF", "#B3B3B3", "#777777"] },
   }),
   brandPreset({
     id: "apple-clean", name: "Apple", font: "system-sans", radius: 0.75, buttonRadius: 3, buttonWeight: 400, controlHeight: 2.75,
@@ -102,9 +102,20 @@ export const brandThemePresets = [
     dark: { background: "#000000", foreground: "#F5F5F7", card: "#1D1D1F", popover: "#2C2C2E", primary: "#2997FF", primaryForeground: "#000000", secondary: "#1D1D1F", mutedForeground: "#A1A1A6", accent: "#2C2C2E", border: "#292929", input: "#424245", ring: "#2997FF", sidebar: "#1D1D1F", destructive: "#FF6961", destructiveForeground: "#000000", charts: ["#2997FF", "#30D158", "#FF9F0A", "#BF5AF2", "#FF375F"] },
   }),
   brandPreset({
-    id: "openai-forest", name: "OpenAI", font: "manrope", radius: 0.75, buttonRadius: 3, buttonWeight: 600, controlHeight: 2.5,
-    light: { background: "#FFFFFF", foreground: "#0D0D0D", card: "#F7F7F8", popover: "#FFFFFF", primary: "#0D0D0D", primaryForeground: "#FFFFFF", secondary: "#F4F4F4", mutedForeground: "#5D5D5D", accent: "#ECECEC", border: "#E5E5E5", input: "#D9D9D9", ring: "#0D0D0D", sidebar: "#F9F9F9", destructive: "#B91C1C", destructiveForeground: "#FFFFFF", charts: ["#0D0D0D", "#5D5D5D", "#8F8F8F", "#B4B4B4", "#D5D5D5"] },
+    id: "openai-forest", name: "OpenAI", font: "manrope", radius: 0.375, inputRadius: 1.5, buttonRadius: 2.5, panelBorderWidth: 0, buttonWeight: 500, controlHeight: 2.25,
+    light: { background: "#FFFFFF", foreground: "#000000", card: "#F9F9F9", popover: "#FFFFFF", primary: "#000000", primaryForeground: "#FFFFFF", secondary: "#F4F4F4", mutedForeground: "#5D5D5D", accent: "#ECECEC", border: "#E0E0E0", input: "#E0E0E0", ring: "#000000", sidebar: "#F9F9F9", destructive: "#B91C1C", destructiveForeground: "#FFFFFF", charts: ["#0D0D0D", "#5D5D5D", "#8F8F8F", "#B4B4B4", "#D5D5D5"] },
     dark: { background: "#212121", foreground: "#ECECEC", card: "#171717", popover: "#2F2F2F", primary: "#FFFFFF", primaryForeground: "#0D0D0D", secondary: "#2F2F2F", mutedForeground: "#B4B4B4", accent: "#3A3A3A", border: "#3C3C3C", input: "#4D4D4D", ring: "#ECECEC", sidebar: "#171717", destructive: "#F87171", destructiveForeground: "#000000", charts: ["#ECECEC", "#B4B4B4", "#8F8F8F", "#6F6F6F", "#515151"] },
+  }),
+
+  brandPreset({
+    id: "anthropic", name: "Anthropic", font: "public-sans", headingFont: "source-serif-4", radius: 1, inputRadius: 0.5, buttonRadius: 0.5, panelBorderWidth: 0, buttonWeight: 400, controlHeight: 2.25,
+    light: { background: "#FAF9F5", foreground: "#141413", card: "#E3DACC", popover: "#FAF9F5", primary: "#141413", primaryForeground: "#FAF9F5", secondary: "#F0EEE6", mutedForeground: "#64635D", accent: "#E3DACC", border: "#D6D3C9", input: "#AAA79E", ring: "#141413", sidebar: "#F0EEE6", destructive: "#AE3737", destructiveForeground: "#FFFFFF", charts: ["#D97757", "#141413", "#6B705C", "#9D8260", "#B4A892"] },
+    dark: { background: "#1F1E1B", foreground: "#FAF9F5", card: "#302E29", popover: "#282722", primary: "#FAF9F5", primaryForeground: "#141413", secondary: "#2C2A25", mutedForeground: "#C4C0B5", accent: "#403B32", border: "#514D43", input: "#787366", ring: "#FAF9F5", sidebar: "#25241F", destructive: "#F08F86", destructiveForeground: "#141413", charts: ["#E5967A", "#FAF9F5", "#AFB49A", "#C6AC88", "#B4A892"] },
+  }),
+  brandPreset({
+    id: "nixtla", name: "Nixtla", font: "ibm-plex-sans", buttonFont: "mono", radius: 0, inputRadius: 0, buttonRadius: 0, panelBorderWidth: 1, buttonWeight: 500, controlHeight: 3,
+    light: { background: "#F6F4F0", foreground: "#222121", card: "#F6F4F0", popover: "#FFFFFF", primary: "#222121", primaryForeground: "#F6F4F0", secondary: "#EAE7E1", mutedForeground: "#62605A", accent: "#E0DDD5", border: "#222121", input: "#222121", ring: "#222121", sidebar: "#F6F4F0", destructive: "#A62E2E", destructiveForeground: "#FFFFFF", charts: ["#434E82", "#222121", "#6B7069", "#9A8468", "#97938C"] },
+    dark: { background: "#222121", foreground: "#F6F4F0", card: "#292827", popover: "#333230", primary: "#F6F4F0", primaryForeground: "#222121", secondary: "#333230", mutedForeground: "#C1BDB4", accent: "#43413D", border: "#F6F4F0", input: "#F6F4F0", ring: "#F6F4F0", sidebar: "#222121", destructive: "#EE8989", destructiveForeground: "#222121", charts: ["#A0ABE2", "#F6F4F0", "#A7B0A4", "#C6AE8C", "#97938C"] },
   }),
 
   brandPreset({

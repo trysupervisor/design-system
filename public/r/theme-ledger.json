@@ -12,6 +12,7 @@
   "cssVars": {
     "theme": {
       "font-sans": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+      "font-heading": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
       "font-mono": "\"SFMono-Regular\", Menlo, Consolas, \"Liberation Mono\", monospace",
       "shadow-sm": "var(--theme-shadow)"
     },
@@ -91,10 +92,14 @@
   "css": {
     ":root": {
       "--app-font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+      "--heading-font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+      "--button-font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
       "--spacing": "0.25rem",
+      "--input-radius": "0.875rem",
       "--button-radius": "0.875rem",
       "--button-weight": "500",
       "--border-width": "0px",
+      "--panel-border-width": "0px",
       "--control-height": "2.125rem",
       "--text-scale": "1",
       "--shadow-color": "#000000",
@@ -104,7 +109,9 @@
       "--shadow-blur": "0px",
       "--shadow-spread": "0px",
       "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)",
+      "--ledger-font-body": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
       "--ledger-font-heading": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+      "--ledger-font-button": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
       "--ledger-font-data": "\"SFMono-Regular\", Menlo, Consolas, \"Liberation Mono\", monospace",
       "--ledger-canvas": "#f3f3f3",
       "--ledger-paper": "#ffffff",
@@ -166,10 +173,14 @@
     },
     ".dark": {
       "--app-font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+      "--heading-font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+      "--button-font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
       "--spacing": "0.25rem",
+      "--input-radius": "0.875rem",
       "--button-radius": "0.875rem",
       "--button-weight": "500",
       "--border-width": "0px",
+      "--panel-border-width": "0px",
       "--control-height": "2.125rem",
       "--text-scale": "1",
       "--shadow-color": "#000000",
@@ -179,7 +190,9 @@
       "--shadow-blur": "0px",
       "--shadow-spread": "0px",
       "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)",
+      "--ledger-font-body": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
       "--ledger-font-heading": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+      "--ledger-font-button": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
       "--ledger-font-data": "\"SFMono-Regular\", Menlo, Consolas, \"Liberation Mono\", monospace",
       "--ledger-canvas": "#f3f3f3",
       "--ledger-paper": "#ffffff",
@@ -247,6 +260,9 @@
           "fontFamily": {
             "sans": [
               "var(--app-font)"
+            ],
+            "heading": [
+              "var(--heading-font)"
             ],
             "mono": [
               "SFMono-Regular",

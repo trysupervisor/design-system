@@ -7,8 +7,12 @@ export const ledgerMotion = {
   tooltip: { type: "tween", duration: 0.16, ease: [0.22, 1, 0.36, 1] },
 } as const;
 
+const ledgerNativeSans = '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, sans-serif';
+
 export const ledgerVariables: Record<string, string> = {
-  "--ledger-font-heading": '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, sans-serif',
+  "--ledger-font-body": ledgerNativeSans,
+  "--ledger-font-heading": ledgerNativeSans,
+  "--ledger-font-button": ledgerNativeSans,
   "--ledger-font-data": '"SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace',
   "--ledger-canvas": "#f3f3f3",
   "--ledger-paper": "#ffffff",

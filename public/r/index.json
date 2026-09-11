@@ -1645,13 +1645,13 @@
           "path": "src/components/examples/registry/ledger-tokens.ts",
           "type": "registry:ui",
           "target": "@ui/ledger-tokens.ts",
-          "content": "export const ledgerMotion = {\n  layout: { type: \"spring\", stiffness: 310, damping: 34, mass: 1 },\n  enter: { type: \"tween\", duration: 0.22, ease: [0.22, 1, 0.36, 1] },\n  exit: { type: \"tween\", duration: 0.26, ease: [0.4, 0, 0.6, 1] },\n  summary: { type: \"tween\", duration: 0.12, ease: \"easeInOut\" },\n  chart: { type: \"tween\", duration: 0.48, ease: [0.22, 1, 0.36, 1] },\n  tooltip: { type: \"tween\", duration: 0.16, ease: [0.22, 1, 0.36, 1] },\n} as const;\n\nexport const ledgerVariables: Record<string, string> = {\n  \"--ledger-font-heading\": '-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif',\n  \"--ledger-font-data\": '\"SFMono-Regular\", Menlo, Consolas, \"Liberation Mono\", monospace',\n  \"--ledger-canvas\": \"#f3f3f3\",\n  \"--ledger-paper\": \"#ffffff\",\n  \"--ledger-ink\": \"#181818\",\n  \"--ledger-muted\": \"#272727\",\n  \"--ledger-foreground\": \"#232323\",\n  \"--ledger-inverse\": \"#eeeeee\",\n  \"--ledger-label\": \"#969696\",\n  \"--ledger-accent\": \"#ed514e\",\n  \"--ledger-primary\": \"#191919\",\n  \"--ledger-primary-hover\": \"#2c2c2c\",\n  \"--ledger-hover\": \"#eeeeed\",\n  \"--ledger-stripe\": \"#f8f8f8\",\n  \"--ledger-selected\": \"#f1f1f0\",\n  \"--ledger-border\": \"#e4e4e4\",\n  \"--ledger-radius-shell\": \"46px\",\n  \"--ledger-radius-panel\": \"34px\",\n  \"--ledger-radius-card\": \"22px\",\n  \"--ledger-radius-control\": \"14px\",\n  \"--ledger-radius-nested\": \"11px\",\n  \"--ledger-radius-range\": \"7px\",\n  \"--ledger-corner-smoothing\": \"0.6\",\n  \"--ledger-space-inset\": \"3px\",\n  \"--ledger-space-small\": \"7px\",\n  \"--ledger-space-control\": \"10px\",\n  \"--ledger-space-panel\": \"20px\",\n  \"--ledger-space-shell\": \"14px\",\n  \"--ledger-shadow-panel\": \"drop-shadow(0 1px 1px rgb(0 0 0 / 0.2)) drop-shadow(0 12px 24px rgb(0 0 0 / 0.1))\",\n  \"--ledger-shadow-floating\": \"drop-shadow(0 2px 3px rgb(0 0 0 / 0.14)) drop-shadow(0 24px 72px rgb(0 0 0 / 0.16))\",\n  \"--ledger-shadow-tooltip\": \"drop-shadow(0 9px 22px rgb(0 0 0 / 0.24))\",\n  \"--ledger-motion-enter\": `${ledgerMotion.enter.duration * 1000}ms`,\n  \"--ledger-motion-exit\": `${ledgerMotion.exit.duration * 1000}ms`,\n  \"--ledger-motion-summary\": `${ledgerMotion.summary.duration * 1000}ms`,\n  \"--ledger-motion-chart\": `${ledgerMotion.chart.duration * 1000}ms`,\n  \"--ledger-motion-hover\": \"160ms\",\n  \"--ledger-motion-row\": \"150ms\",\n  \"--ledger-ease-enter\": `cubic-bezier(${ledgerMotion.enter.ease.join(\", \")})`,\n  \"--ledger-ease-exit\": `cubic-bezier(${ledgerMotion.exit.ease.join(\", \")})`,\n  \"--ledger-table-row-height\": \"35px\",\n  \"--ledger-table-header-height\": \"43px\",\n  \"--ledger-table-font-size\": \"11px\",\n  \"--ledger-table-label-size\": \"9px\",\n  \"--ledger-table-cell-padding\": \"9px\",\n  \"--ledger-table-trailing-width\": \"32px\",\n  \"--ledger-control-height\": \"34px\",\n  \"--ledger-heading-size\": \"36px\",\n  \"--ledger-display-size\": \"51px\",\n  \"--ledger-chart-width\": \"340\",\n  \"--ledger-chart-height\": \"112\",\n  \"--ledger-chart-inset\": \"12\",\n  \"--ledger-chart-samples\": \"128\",\n  \"--ledger-chart-line\": \"#e2e2e2\",\n  \"--ledger-chart-baseline\": \"#3b3b3b\",\n  \"--ledger-chart-rule\": \"#666666\",\n  \"--ledger-chart-fill\": \"#bcbcbc\",\n  \"--ledger-chart-tooltip\": \"rgba(20, 20, 20, 0.96)\",\n  \"--ledger-chart-tooltip-border\": \"#464646\",\n  \"--ledger-chart-tooltip-width\": \"130px\",\n};\n"
+          "content": "export const ledgerMotion = {\n  layout: { type: \"spring\", stiffness: 310, damping: 34, mass: 1 },\n  enter: { type: \"tween\", duration: 0.22, ease: [0.22, 1, 0.36, 1] },\n  exit: { type: \"tween\", duration: 0.26, ease: [0.4, 0, 0.6, 1] },\n  summary: { type: \"tween\", duration: 0.12, ease: \"easeInOut\" },\n  chart: { type: \"tween\", duration: 0.48, ease: [0.22, 1, 0.36, 1] },\n  tooltip: { type: \"tween\", duration: 0.16, ease: [0.22, 1, 0.36, 1] },\n} as const;\n\nconst ledgerNativeSans = '-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif';\n\nexport const ledgerVariables: Record<string, string> = {\n  \"--ledger-font-body\": ledgerNativeSans,\n  \"--ledger-font-heading\": ledgerNativeSans,\n  \"--ledger-font-button\": ledgerNativeSans,\n  \"--ledger-font-data\": '\"SFMono-Regular\", Menlo, Consolas, \"Liberation Mono\", monospace',\n  \"--ledger-canvas\": \"#f3f3f3\",\n  \"--ledger-paper\": \"#ffffff\",\n  \"--ledger-ink\": \"#181818\",\n  \"--ledger-muted\": \"#272727\",\n  \"--ledger-foreground\": \"#232323\",\n  \"--ledger-inverse\": \"#eeeeee\",\n  \"--ledger-label\": \"#969696\",\n  \"--ledger-accent\": \"#ed514e\",\n  \"--ledger-primary\": \"#191919\",\n  \"--ledger-primary-hover\": \"#2c2c2c\",\n  \"--ledger-hover\": \"#eeeeed\",\n  \"--ledger-stripe\": \"#f8f8f8\",\n  \"--ledger-selected\": \"#f1f1f0\",\n  \"--ledger-border\": \"#e4e4e4\",\n  \"--ledger-radius-shell\": \"46px\",\n  \"--ledger-radius-panel\": \"34px\",\n  \"--ledger-radius-card\": \"22px\",\n  \"--ledger-radius-control\": \"14px\",\n  \"--ledger-radius-nested\": \"11px\",\n  \"--ledger-radius-range\": \"7px\",\n  \"--ledger-corner-smoothing\": \"0.6\",\n  \"--ledger-space-inset\": \"3px\",\n  \"--ledger-space-small\": \"7px\",\n  \"--ledger-space-control\": \"10px\",\n  \"--ledger-space-panel\": \"20px\",\n  \"--ledger-space-shell\": \"14px\",\n  \"--ledger-shadow-panel\": \"drop-shadow(0 1px 1px rgb(0 0 0 / 0.2)) drop-shadow(0 12px 24px rgb(0 0 0 / 0.1))\",\n  \"--ledger-shadow-floating\": \"drop-shadow(0 2px 3px rgb(0 0 0 / 0.14)) drop-shadow(0 24px 72px rgb(0 0 0 / 0.16))\",\n  \"--ledger-shadow-tooltip\": \"drop-shadow(0 9px 22px rgb(0 0 0 / 0.24))\",\n  \"--ledger-motion-enter\": `${ledgerMotion.enter.duration * 1000}ms`,\n  \"--ledger-motion-exit\": `${ledgerMotion.exit.duration * 1000}ms`,\n  \"--ledger-motion-summary\": `${ledgerMotion.summary.duration * 1000}ms`,\n  \"--ledger-motion-chart\": `${ledgerMotion.chart.duration * 1000}ms`,\n  \"--ledger-motion-hover\": \"160ms\",\n  \"--ledger-motion-row\": \"150ms\",\n  \"--ledger-ease-enter\": `cubic-bezier(${ledgerMotion.enter.ease.join(\", \")})`,\n  \"--ledger-ease-exit\": `cubic-bezier(${ledgerMotion.exit.ease.join(\", \")})`,\n  \"--ledger-table-row-height\": \"35px\",\n  \"--ledger-table-header-height\": \"43px\",\n  \"--ledger-table-font-size\": \"11px\",\n  \"--ledger-table-label-size\": \"9px\",\n  \"--ledger-table-cell-padding\": \"9px\",\n  \"--ledger-table-trailing-width\": \"32px\",\n  \"--ledger-control-height\": \"34px\",\n  \"--ledger-heading-size\": \"36px\",\n  \"--ledger-display-size\": \"51px\",\n  \"--ledger-chart-width\": \"340\",\n  \"--ledger-chart-height\": \"112\",\n  \"--ledger-chart-inset\": \"12\",\n  \"--ledger-chart-samples\": \"128\",\n  \"--ledger-chart-line\": \"#e2e2e2\",\n  \"--ledger-chart-baseline\": \"#3b3b3b\",\n  \"--ledger-chart-rule\": \"#666666\",\n  \"--ledger-chart-fill\": \"#bcbcbc\",\n  \"--ledger-chart-tooltip\": \"rgba(20, 20, 20, 0.96)\",\n  \"--ledger-chart-tooltip-border\": \"#464646\",\n  \"--ledger-chart-tooltip-width\": \"130px\",\n};\n"
         },
         {
           "path": "src/components/examples/registry/ledger.css",
           "type": "registry:ui",
           "target": "@ui/ledger.css",
-          "content": "[data-ledger-theme] {\n  font-family: var(--ledger-font-heading, var(--ledger-default-font-heading));\n  color: var(--ledger-foreground, var(--ledger-default-foreground));\n  background: transparent;\n  color-scheme: light;\n  -webkit-font-smoothing: antialiased;\n}\n[data-ledger-theme] *, [data-ledger-theme] *::before, [data-ledger-theme] *::after { box-sizing: border-box; }\n[data-ledger-theme] :where(button, input) { font-family: inherit; }\n[data-ledger-theme] :where(button, input, a, [tabindex]):focus-visible { outline: 2px solid var(--ledger-accent, var(--ledger-default-accent)); outline-offset: 4px; }\n[data-ledger-theme] :where(button) { cursor: pointer; }\n[data-ledger-theme] :where(button:disabled) { cursor: default; opacity: 0.4; }\n[data-ledger-theme] [data-ledger-corners] { position: relative; isolation: isolate; background: transparent; }\n[data-ledger-theme] [data-ledger-corners]::before {\n  content: \"\"; position: absolute; inset: 0; z-index: -1; pointer-events: none;\n  background: var(--ledger-fill, var(--ledger-paper, var(--ledger-default-paper)));\n  mask: var(--ledger-corner-mask) center / 100% 100% no-repeat;\n  -webkit-mask: var(--ledger-corner-mask) center / 100% 100% no-repeat;\n  transition: background-color var(--ledger-motion-hover, var(--ledger-default-motion-hover)) ease;\n}\n[data-ledger-theme] .ledger-surface { border-radius: var(--ledger-radius-card, var(--ledger-default-radius-card)); --ledger-fill: var(--ledger-paper, var(--ledger-default-paper)); }\n[data-ledger-theme] .ledger-button { border-radius: var(--ledger-radius-control, var(--ledger-default-radius-control)); --ledger-fill: var(--ledger-paper, var(--ledger-default-paper)); }\n[data-ledger-theme] .ledger-surface { container-type: inline-size; min-width: 0; padding: var(--ledger-space-panel, var(--ledger-default-space-panel)); background: var(--ledger-fill); border: 0; }\n[data-ledger-theme] .ledger-surface[data-ledger-corners] { background: transparent; }\n[data-ledger-theme] [data-ledger-tone=\"canvas\"] { --ledger-fill: var(--ledger-canvas, var(--ledger-default-canvas)); color: var(--ledger-foreground, var(--ledger-default-foreground)); }\n[data-ledger-theme] [data-ledger-tone=\"paper\"] { --ledger-fill: var(--ledger-paper, var(--ledger-default-paper)); color: var(--ledger-foreground, var(--ledger-default-foreground)); }\n[data-ledger-theme] [data-ledger-tone=\"ink\"] { --ledger-fill: var(--ledger-ink, var(--ledger-default-ink)); color: var(--ledger-inverse, var(--ledger-default-inverse)); }\n[data-ledger-theme] [data-ledger-tone=\"muted\"] { --ledger-fill: var(--ledger-muted, var(--ledger-default-muted)); color: var(--ledger-inverse, var(--ledger-default-inverse)); }\n[data-ledger-theme] [data-ledger-radius=\"shell\"] { border-radius: var(--ledger-radius-shell, var(--ledger-default-radius-shell)); padding: var(--ledger-space-shell, var(--ledger-default-space-shell)); }\n[data-ledger-theme] [data-ledger-radius=\"panel\"] { border-radius: var(--ledger-radius-panel, var(--ledger-default-radius-panel)); }\n[data-ledger-theme] [data-ledger-radius=\"card\"] { border-radius: var(--ledger-radius-card, var(--ledger-default-radius-card)); }\n[data-ledger-theme] [data-ledger-radius=\"control\"] { border-radius: var(--ledger-radius-control, var(--ledger-default-radius-control)); }\n[data-ledger-theme] [data-ledger-elevation=\"panel\"] { filter: var(--ledger-shadow-panel, var(--ledger-default-shadow-panel)); }\n[data-ledger-theme] [data-ledger-elevation=\"floating\"] { filter: var(--ledger-shadow-floating, var(--ledger-default-shadow-floating)); }\n[data-ledger-theme] .ledger-button { display: inline-flex; align-items: center; justify-content: center; gap: var(--ledger-space-small, var(--ledger-default-space-small)); min-height: var(--ledger-control-height, var(--ledger-default-control-height)); padding: 0 12px; border: 0; box-shadow: none; background: var(--ledger-fill); color: var(--ledger-foreground, var(--ledger-default-foreground)); font-size: 12px; font-weight: 400; }\n[data-ledger-theme] .ledger-button[data-ledger-corners] { background: transparent; }\n[data-ledger-theme] .ledger-button:not(:disabled):hover { --ledger-fill: var(--ledger-hover, var(--ledger-default-hover)); }\n[data-ledger-theme] .ledger-button[data-ledger-variant=\"primary\"] { --ledger-fill: var(--ledger-primary, var(--ledger-default-primary)); color: var(--ledger-inverse, var(--ledger-default-inverse)); }\n[data-ledger-theme] .ledger-button[data-ledger-variant=\"primary\"]:not(:disabled):hover { --ledger-fill: var(--ledger-primary-hover, var(--ledger-default-primary-hover)); }\n[data-ledger-theme] .ledger-button:active:not(:disabled) { transform: scale(0.96); }\n[data-ledger-theme] .ledger-table-scroll { width: 100%; overflow-x: auto; scrollbar-width: thin; }\n[data-ledger-theme] .ledger-table-mask { min-width: max-content; border-radius: var(--ledger-radius-panel, var(--ledger-default-radius-panel)); overflow: hidden; --ledger-fill: var(--ledger-paper, var(--ledger-default-paper)); }\n[data-ledger-theme] .ledger-table-mask[data-ledger-corners] { mask: var(--ledger-corner-mask) center / 100% 100% no-repeat; -webkit-mask: var(--ledger-corner-mask) center / 100% 100% no-repeat; }\n[data-ledger-theme] .ledger-table-mask[data-ledger-corners]::before { content: none; }\n[data-ledger-theme] .ledger-table { width: 100%; border-collapse: separate; border-spacing: 0; font-family: var(--ledger-font-data, var(--ledger-default-font-data)); font-size: var(--ledger-table-font-size, var(--ledger-default-table-font-size)); line-height: 1.35; color: var(--ledger-foreground, var(--ledger-default-foreground)); text-align: left; }\n[data-ledger-theme] .ledger-table caption { text-align: left; padding: var(--ledger-space-control, var(--ledger-default-space-control)); color: var(--ledger-label, var(--ledger-default-label)); }\n[data-ledger-theme] .ledger-table :where(th, td) { padding: 0 var(--ledger-table-cell-padding, var(--ledger-default-table-cell-padding)); border: 0; white-space: nowrap; }\n[data-ledger-theme] .ledger-table th { height: var(--ledger-table-header-height, var(--ledger-default-table-header-height)); font-size: var(--ledger-table-label-size, var(--ledger-default-table-label-size)); font-weight: 400; color: var(--ledger-label, var(--ledger-default-label)); letter-spacing: -0.15px; background: var(--ledger-paper, var(--ledger-default-paper)); }\n[data-ledger-theme] .ledger-table td { height: var(--ledger-table-row-height, var(--ledger-default-table-row-height)); }\n[data-ledger-theme] .ledger-table :where(th, td):last-child { padding-right: var(--ledger-table-trailing-width, var(--ledger-default-table-trailing-width)); }\n[data-ledger-theme] .ledger-table tbody tr { background: var(--ledger-paper, var(--ledger-default-paper)); transition: background-color var(--ledger-motion-row, var(--ledger-default-motion-row)) ease; }\n[data-ledger-theme] .ledger-table tbody tr:nth-child(4n + 1), [data-ledger-theme] .ledger-table tbody tr:nth-child(4n + 2) { background: var(--ledger-stripe, var(--ledger-default-stripe)); }\n[data-ledger-theme] .ledger-table tbody tr:hover { background: var(--ledger-hover, var(--ledger-default-hover)); }\n[data-ledger-theme] .ledger-table tbody tr[data-selected]:not([data-selected=\"false\"]) { background: var(--ledger-selected, var(--ledger-default-selected)); }\n[data-ledger-theme] .ledger-search, [data-ledger-theme] .ledger-search-idle { display: flex; align-items: center; gap: var(--ledger-space-small, var(--ledger-default-space-small)); min-width: 0; }\n[data-ledger-theme] .ledger-search-idle > span { color: var(--ledger-label, var(--ledger-default-label)); font: 10px var(--ledger-font-data, var(--ledger-default-font-data)); white-space: nowrap; }\n[data-ledger-theme] .ledger-search-idle .ledger-button { padding: 0; width: var(--ledger-control-height, var(--ledger-default-control-height)); --ledger-fill: transparent; color: #898989; }\n[data-ledger-theme] .ledger-search-field { display: flex; align-items: center; --ledger-fill: var(--ledger-paper, var(--ledger-default-paper)); background: var(--ledger-fill); border-radius: var(--ledger-radius-control, var(--ledger-default-radius-control)); padding: var(--ledger-space-inset, var(--ledger-default-space-inset)); padding-left: var(--ledger-space-control, var(--ledger-default-space-control)); height: var(--ledger-control-height, var(--ledger-default-control-height)); width: 210px; max-width: 100%; transform-origin: right center; }\n[data-ledger-theme] .ledger-search-field[data-ledger-corners] { background: transparent; }\n[data-ledger-theme] .ledger-search-field > svg { flex-shrink: 0; color: var(--ledger-label, var(--ledger-default-label)); }\n[data-ledger-theme] .ledger-search-field input { width: 100%; min-width: 0; height: 28px; padding: 5px 8px; border: 0; box-shadow: none; background: transparent; color: var(--ledger-foreground, var(--ledger-default-foreground)); font-size: 12px; }\n[data-ledger-theme] .ledger-search-field input:focus-visible { outline-offset: -2px; }\n[data-ledger-theme] .ledger-search-field .ledger-search-close { width: 28px; height: 28px; min-height: 28px; padding: 0; flex-shrink: 0; border-radius: var(--ledger-radius-nested, var(--ledger-default-radius-nested)); --ledger-fill: transparent; color: #888; }\n[data-ledger-theme] .ledger-search-close:focus-visible { outline-offset: 0; }\n[data-ledger-theme] .ledger-range { display: flex; gap: 5px; padding-top: 13px; }\n[data-ledger-theme] .ledger-range button { position: relative; isolation: isolate; flex: 1; height: 24px; padding: 0; border: 0; border-radius: var(--ledger-radius-range, var(--ledger-default-radius-range)); background: transparent; --ledger-fill: transparent; color: #797979; font: 9px var(--ledger-font-data, var(--ledger-default-font-data)); transition: color var(--ledger-motion-hover, var(--ledger-default-motion-hover)) ease; }\n[data-ledger-theme] .ledger-range button:hover { --ledger-fill: #2b2b2b; color: #ddd; }\n[data-ledger-theme] .ledger-range button[aria-pressed=\"true\"] { color: #dadada; --ledger-fill: transparent; }\n[data-ledger-theme] .ledger-range-selection { position: absolute; inset: 0; border-radius: var(--ledger-radius-range, var(--ledger-default-radius-range)); --ledger-fill: #343434; background: var(--ledger-fill); z-index: -1; }\n[data-ledger-theme] .ledger-range-selection[data-ledger-corners] { position: absolute; background: transparent; }\n[data-ledger-theme] .ledger-chart { min-width: 0; position: relative; font-family: var(--ledger-font-data, var(--ledger-default-font-data)); }\n[data-ledger-theme] .ledger-chart-readout, [data-ledger-theme] .ledger-chart-labels { display: flex; justify-content: space-between; gap: 8px; font-size: 8px; color: #747474; }\n[data-ledger-theme] .ledger-chart-readout { margin: 1px 0 8px; }\n[data-ledger-theme] .ledger-chart-labels { margin-top: 5px; }\n[data-ledger-theme] .ledger-chart-labels span { min-width: 0; overflow-wrap: anywhere; }\n[data-ledger-theme] .ledger-chart-labels span:last-child { text-align: right; }\n[data-ledger-theme] .ledger-chart-plot { position: relative; }\n[data-ledger-theme] .ledger-chart-plot > svg { display: block; width: 100%; height: calc(var(--ledger-chart-height, var(--ledger-default-chart-height)) * 1px); overflow: visible; touch-action: pan-y; }\n[data-ledger-theme] .ledger-chart-tooltip-anchor { position: absolute; top: 0; width: min(var(--ledger-chart-tooltip-width, var(--ledger-default-chart-tooltip-width)), 100%); pointer-events: none; z-index: 2; }\n[data-ledger-theme] .ledger-chart-tooltip { padding: 9px 10px; border-radius: var(--ledger-radius-control, var(--ledger-default-radius-control)); color: #e7e7e7; background: var(--ledger-chart-tooltip, var(--ledger-default-chart-tooltip)); --ledger-fill: var(--ledger-chart-tooltip, var(--ledger-default-chart-tooltip)); filter: var(--ledger-shadow-tooltip, var(--ledger-default-shadow-tooltip)); border: 1px solid var(--ledger-chart-tooltip-border, var(--ledger-default-chart-tooltip-border)); overflow-wrap: anywhere; }\n[data-ledger-theme] .ledger-chart-tooltip[data-ledger-corners] { background: transparent; border-color: transparent; }\n[data-ledger-theme] .ledger-chart-tooltip[data-ledger-corners]::before { box-shadow: inset 0 0 0 1px var(--ledger-chart-tooltip-border, var(--ledger-default-chart-tooltip-border)); }\n[data-ledger-theme] .ledger-chart-tooltip span { display: block; font-size: 8px; color: #979797; }\n[data-ledger-theme] .ledger-chart-tooltip strong { display: block; margin-top: 5px; font-size: 14px; font-weight: 500; letter-spacing: -0.04em; }\n[data-ledger-theme] .ledger-chart-empty { min-height: calc(var(--ledger-chart-height, var(--ledger-default-chart-height)) * 1px); display: grid; place-items: center; font-size: 11px; color: var(--ledger-label, var(--ledger-default-label)); }\n[data-ledger-theme] .ledger-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }\n[data-ledger-theme] [data-ledger-role=\"eyebrow\"], [data-ledger-theme] [data-ledger-role=\"meta\"], [data-ledger-theme] [data-ledger-role=\"delta\"] { font-family: var(--ledger-font-data, var(--ledger-default-font-data)); font-size: var(--ledger-table-font-size, var(--ledger-default-table-font-size)); color: var(--ledger-label, var(--ledger-default-label)); }\n[data-ledger-theme] [data-ledger-role=\"eyebrow\"] { font-size: var(--ledger-table-label-size, var(--ledger-default-table-label-size)); letter-spacing: 0.06em; }\n[data-ledger-theme] [data-ledger-role=\"heading\"] { margin: 0; font-family: var(--ledger-font-heading, var(--ledger-default-font-heading)); font-size: clamp(24px, 10cqi, var(--ledger-heading-size, var(--ledger-default-heading-size))); font-weight: 400; line-height: 1; letter-spacing: -1.65px; }\n[data-ledger-theme] [data-ledger-role=\"display\"] { margin: 0; font-family: var(--ledger-font-heading, var(--ledger-default-font-heading)); font-size: clamp(28px, 14cqi, var(--ledger-display-size, var(--ledger-default-display-size))); font-weight: 400; line-height: 1; letter-spacing: -2px; }\n[data-ledger-theme] [data-ledger-role=\"delta\"][data-negative=\"true\"] { color: var(--ledger-accent, var(--ledger-default-accent)); }\n@media (prefers-reduced-motion: reduce) {\n  [data-ledger-theme] *, [data-ledger-theme] *::before, [data-ledger-theme] *::after { transition-duration: 0s; animation-duration: 0s; scroll-behavior: auto; }\n  [data-ledger-theme] .ledger-button:active:not(:disabled) { transform: none; }\n}\n"
+          "content": "[data-ledger-theme] {\n  font-family: var(--ledger-font-body, var(--ledger-default-font-body));\n  color: var(--ledger-foreground, var(--ledger-default-foreground));\n  background: transparent;\n  color-scheme: light;\n  -webkit-font-smoothing: antialiased;\n}\n[data-ledger-theme] *, [data-ledger-theme] *::before, [data-ledger-theme] *::after { box-sizing: border-box; }\n[data-ledger-theme] :where(button, input) { font-family: inherit; }\n[data-ledger-theme] :is(h1, h2, h3, h4, h5, h6) { font-family: var(--ledger-font-heading, var(--ledger-default-font-heading)); }\n[data-ledger-theme] :where(button, input, a, [tabindex]):focus-visible { outline: 2px solid var(--ledger-accent, var(--ledger-default-accent)); outline-offset: 4px; }\n[data-ledger-theme] :where(button) { cursor: pointer; }\n[data-ledger-theme] :where(button:disabled) { cursor: default; opacity: 0.4; }\n[data-ledger-theme] [data-ledger-corners] { position: relative; isolation: isolate; background: transparent; }\n[data-ledger-theme] [data-ledger-corners]::before {\n  content: \"\"; position: absolute; inset: 0; z-index: -1; pointer-events: none;\n  background: var(--ledger-fill, var(--ledger-paper, var(--ledger-default-paper)));\n  mask: var(--ledger-corner-mask) center / 100% 100% no-repeat;\n  -webkit-mask: var(--ledger-corner-mask) center / 100% 100% no-repeat;\n  transition: background-color var(--ledger-motion-hover, var(--ledger-default-motion-hover)) ease;\n}\n[data-ledger-theme] .ledger-surface { border-radius: var(--ledger-radius-card, var(--ledger-default-radius-card)); --ledger-fill: var(--ledger-paper, var(--ledger-default-paper)); }\n[data-ledger-theme] .ledger-button { border-radius: var(--ledger-radius-control, var(--ledger-default-radius-control)); --ledger-fill: var(--ledger-paper, var(--ledger-default-paper)); }\n[data-ledger-theme] .ledger-surface { container-type: inline-size; min-width: 0; padding: var(--ledger-space-panel, var(--ledger-default-space-panel)); background: var(--ledger-fill); border: 0; }\n[data-ledger-theme] .ledger-surface[data-ledger-corners] { background: transparent; }\n[data-ledger-theme] [data-ledger-tone=\"canvas\"] { --ledger-fill: var(--ledger-canvas, var(--ledger-default-canvas)); color: var(--ledger-foreground, var(--ledger-default-foreground)); }\n[data-ledger-theme] [data-ledger-tone=\"paper\"] { --ledger-fill: var(--ledger-paper, var(--ledger-default-paper)); color: var(--ledger-foreground, var(--ledger-default-foreground)); }\n[data-ledger-theme] [data-ledger-tone=\"ink\"] { --ledger-fill: var(--ledger-ink, var(--ledger-default-ink)); color: var(--ledger-inverse, var(--ledger-default-inverse)); }\n[data-ledger-theme] [data-ledger-tone=\"muted\"] { --ledger-fill: var(--ledger-muted, var(--ledger-default-muted)); color: var(--ledger-inverse, var(--ledger-default-inverse)); }\n[data-ledger-theme] [data-ledger-radius=\"shell\"] { border-radius: var(--ledger-radius-shell, var(--ledger-default-radius-shell)); padding: var(--ledger-space-shell, var(--ledger-default-space-shell)); }\n[data-ledger-theme] [data-ledger-radius=\"panel\"] { border-radius: var(--ledger-radius-panel, var(--ledger-default-radius-panel)); }\n[data-ledger-theme] [data-ledger-radius=\"card\"] { border-radius: var(--ledger-radius-card, var(--ledger-default-radius-card)); }\n[data-ledger-theme] [data-ledger-radius=\"control\"] { border-radius: var(--ledger-radius-control, var(--ledger-default-radius-control)); }\n[data-ledger-theme] [data-ledger-elevation=\"panel\"] { filter: var(--ledger-shadow-panel, var(--ledger-default-shadow-panel)); }\n[data-ledger-theme] [data-ledger-elevation=\"floating\"] { filter: var(--ledger-shadow-floating, var(--ledger-default-shadow-floating)); }\n[data-ledger-theme] .ledger-button { font-family: var(--ledger-font-button, var(--ledger-default-font-button)); display: inline-flex; align-items: center; justify-content: center; gap: var(--ledger-space-small, var(--ledger-default-space-small)); min-height: var(--ledger-control-height, var(--ledger-default-control-height)); padding: 0 12px; border: 0; box-shadow: none; background: var(--ledger-fill); color: var(--ledger-foreground, var(--ledger-default-foreground)); font-size: 12px; font-weight: 400; }\n[data-ledger-theme] .ledger-button[data-ledger-corners] { background: transparent; }\n[data-ledger-theme] .ledger-button:not(:disabled):hover { --ledger-fill: var(--ledger-hover, var(--ledger-default-hover)); }\n[data-ledger-theme] .ledger-button[data-ledger-variant=\"primary\"] { --ledger-fill: var(--ledger-primary, var(--ledger-default-primary)); color: var(--ledger-inverse, var(--ledger-default-inverse)); }\n[data-ledger-theme] .ledger-button[data-ledger-variant=\"primary\"]:not(:disabled):hover { --ledger-fill: var(--ledger-primary-hover, var(--ledger-default-primary-hover)); }\n[data-ledger-theme] .ledger-button:active:not(:disabled) { transform: scale(0.96); }\n[data-ledger-theme] .ledger-table-scroll { width: 100%; overflow-x: auto; scrollbar-width: thin; }\n[data-ledger-theme] .ledger-table-mask { min-width: max-content; border-radius: var(--ledger-radius-panel, var(--ledger-default-radius-panel)); overflow: hidden; --ledger-fill: var(--ledger-paper, var(--ledger-default-paper)); }\n[data-ledger-theme] .ledger-table-mask[data-ledger-corners] { mask: var(--ledger-corner-mask) center / 100% 100% no-repeat; -webkit-mask: var(--ledger-corner-mask) center / 100% 100% no-repeat; }\n[data-ledger-theme] .ledger-table-mask[data-ledger-corners]::before { content: none; }\n[data-ledger-theme] .ledger-table { width: 100%; border-collapse: separate; border-spacing: 0; font-family: var(--ledger-font-data, var(--ledger-default-font-data)); font-size: var(--ledger-table-font-size, var(--ledger-default-table-font-size)); line-height: 1.35; color: var(--ledger-foreground, var(--ledger-default-foreground)); text-align: left; }\n[data-ledger-theme] .ledger-table caption { text-align: left; padding: var(--ledger-space-control, var(--ledger-default-space-control)); color: var(--ledger-label, var(--ledger-default-label)); }\n[data-ledger-theme] .ledger-table :where(th, td) { padding: 0 var(--ledger-table-cell-padding, var(--ledger-default-table-cell-padding)); border: 0; white-space: nowrap; }\n[data-ledger-theme] .ledger-table th { height: var(--ledger-table-header-height, var(--ledger-default-table-header-height)); font-size: var(--ledger-table-label-size, var(--ledger-default-table-label-size)); font-weight: 400; color: var(--ledger-label, var(--ledger-default-label)); letter-spacing: -0.15px; background: var(--ledger-paper, var(--ledger-default-paper)); }\n[data-ledger-theme] .ledger-table td { height: var(--ledger-table-row-height, var(--ledger-default-table-row-height)); }\n[data-ledger-theme] .ledger-table :where(th, td):last-child { padding-right: var(--ledger-table-trailing-width, var(--ledger-default-table-trailing-width)); }\n[data-ledger-theme] .ledger-table tbody tr { background: var(--ledger-paper, var(--ledger-default-paper)); transition: background-color var(--ledger-motion-row, var(--ledger-default-motion-row)) ease; }\n[data-ledger-theme] .ledger-table tbody tr:nth-child(4n + 1), [data-ledger-theme] .ledger-table tbody tr:nth-child(4n + 2) { background: var(--ledger-stripe, var(--ledger-default-stripe)); }\n[data-ledger-theme] .ledger-table tbody tr:hover { background: var(--ledger-hover, var(--ledger-default-hover)); }\n[data-ledger-theme] .ledger-table tbody tr[data-selected]:not([data-selected=\"false\"]) { background: var(--ledger-selected, var(--ledger-default-selected)); }\n[data-ledger-theme] .ledger-search, [data-ledger-theme] .ledger-search-idle { display: flex; align-items: center; gap: var(--ledger-space-small, var(--ledger-default-space-small)); min-width: 0; }\n[data-ledger-theme] .ledger-search-idle > span { color: var(--ledger-label, var(--ledger-default-label)); font: 10px var(--ledger-font-data, var(--ledger-default-font-data)); white-space: nowrap; }\n[data-ledger-theme] .ledger-search-idle .ledger-button { padding: 0; width: var(--ledger-control-height, var(--ledger-default-control-height)); --ledger-fill: transparent; color: #898989; }\n[data-ledger-theme] .ledger-search-field { display: flex; align-items: center; --ledger-fill: var(--ledger-paper, var(--ledger-default-paper)); background: var(--ledger-fill); border-radius: var(--ledger-radius-control, var(--ledger-default-radius-control)); padding: var(--ledger-space-inset, var(--ledger-default-space-inset)); padding-left: var(--ledger-space-control, var(--ledger-default-space-control)); height: var(--ledger-control-height, var(--ledger-default-control-height)); width: 210px; max-width: 100%; transform-origin: right center; }\n[data-ledger-theme] .ledger-search-field[data-ledger-corners] { background: transparent; }\n[data-ledger-theme] .ledger-search-field > svg { flex-shrink: 0; color: var(--ledger-label, var(--ledger-default-label)); }\n[data-ledger-theme] .ledger-search-field input { width: 100%; min-width: 0; height: 28px; padding: 5px 8px; border: 0; box-shadow: none; background: transparent; color: var(--ledger-foreground, var(--ledger-default-foreground)); font-size: 12px; }\n[data-ledger-theme] .ledger-search-field input:focus-visible { outline-offset: -2px; }\n[data-ledger-theme] .ledger-search-field .ledger-search-close { width: 28px; height: 28px; min-height: 28px; padding: 0; flex-shrink: 0; border-radius: var(--ledger-radius-nested, var(--ledger-default-radius-nested)); --ledger-fill: transparent; color: #888; }\n[data-ledger-theme] .ledger-search-close:focus-visible { outline-offset: 0; }\n[data-ledger-theme] .ledger-range { display: flex; gap: 5px; padding-top: 13px; }\n[data-ledger-theme] .ledger-range button { position: relative; isolation: isolate; flex: 1; height: 24px; padding: 0; border: 0; border-radius: var(--ledger-radius-range, var(--ledger-default-radius-range)); background: transparent; --ledger-fill: transparent; color: #797979; font: 9px var(--ledger-font-data, var(--ledger-default-font-data)); transition: color var(--ledger-motion-hover, var(--ledger-default-motion-hover)) ease; }\n[data-ledger-theme] .ledger-range button:hover { --ledger-fill: #2b2b2b; color: #ddd; }\n[data-ledger-theme] .ledger-range button[aria-pressed=\"true\"] { color: #dadada; --ledger-fill: transparent; }\n[data-ledger-theme] .ledger-range-selection { position: absolute; inset: 0; border-radius: var(--ledger-radius-range, var(--ledger-default-radius-range)); --ledger-fill: #343434; background: var(--ledger-fill); z-index: -1; }\n[data-ledger-theme] .ledger-range-selection[data-ledger-corners] { position: absolute; background: transparent; }\n[data-ledger-theme] .ledger-chart { min-width: 0; position: relative; font-family: var(--ledger-font-data, var(--ledger-default-font-data)); }\n[data-ledger-theme] .ledger-chart-readout, [data-ledger-theme] .ledger-chart-labels { display: flex; justify-content: space-between; gap: 8px; font-size: 8px; color: #747474; }\n[data-ledger-theme] .ledger-chart-readout { margin: 1px 0 8px; }\n[data-ledger-theme] .ledger-chart-labels { margin-top: 5px; }\n[data-ledger-theme] .ledger-chart-labels span { min-width: 0; overflow-wrap: anywhere; }\n[data-ledger-theme] .ledger-chart-labels span:last-child { text-align: right; }\n[data-ledger-theme] .ledger-chart-plot { position: relative; }\n[data-ledger-theme] .ledger-chart-plot > svg { display: block; width: 100%; height: calc(var(--ledger-chart-height, var(--ledger-default-chart-height)) * 1px); overflow: visible; touch-action: pan-y; }\n[data-ledger-theme] .ledger-chart-tooltip-anchor { position: absolute; top: 0; width: min(var(--ledger-chart-tooltip-width, var(--ledger-default-chart-tooltip-width)), 100%); pointer-events: none; z-index: 2; }\n[data-ledger-theme] .ledger-chart-tooltip { padding: 9px 10px; border-radius: var(--ledger-radius-control, var(--ledger-default-radius-control)); color: #e7e7e7; background: var(--ledger-chart-tooltip, var(--ledger-default-chart-tooltip)); --ledger-fill: var(--ledger-chart-tooltip, var(--ledger-default-chart-tooltip)); filter: var(--ledger-shadow-tooltip, var(--ledger-default-shadow-tooltip)); border: 1px solid var(--ledger-chart-tooltip-border, var(--ledger-default-chart-tooltip-border)); overflow-wrap: anywhere; }\n[data-ledger-theme] .ledger-chart-tooltip[data-ledger-corners] { background: transparent; border-color: transparent; }\n[data-ledger-theme] .ledger-chart-tooltip[data-ledger-corners]::before { box-shadow: inset 0 0 0 1px var(--ledger-chart-tooltip-border, var(--ledger-default-chart-tooltip-border)); }\n[data-ledger-theme] .ledger-chart-tooltip span { display: block; font-size: 8px; color: #979797; }\n[data-ledger-theme] .ledger-chart-tooltip strong { display: block; margin-top: 5px; font-size: 14px; font-weight: 500; letter-spacing: -0.04em; }\n[data-ledger-theme] .ledger-chart-empty { min-height: calc(var(--ledger-chart-height, var(--ledger-default-chart-height)) * 1px); display: grid; place-items: center; font-size: 11px; color: var(--ledger-label, var(--ledger-default-label)); }\n[data-ledger-theme] .ledger-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }\n[data-ledger-theme] [data-ledger-role=\"eyebrow\"], [data-ledger-theme] [data-ledger-role=\"meta\"], [data-ledger-theme] [data-ledger-role=\"delta\"] { font-family: var(--ledger-font-data, var(--ledger-default-font-data)); font-size: var(--ledger-table-font-size, var(--ledger-default-table-font-size)); color: var(--ledger-label, var(--ledger-default-label)); }\n[data-ledger-theme] [data-ledger-role=\"eyebrow\"] { font-size: var(--ledger-table-label-size, var(--ledger-default-table-label-size)); letter-spacing: 0.06em; }\n[data-ledger-theme] [data-ledger-role=\"heading\"] { margin: 0; font-family: var(--ledger-font-heading, var(--ledger-default-font-heading)); font-size: clamp(24px, 10cqi, var(--ledger-heading-size, var(--ledger-default-heading-size))); font-weight: 400; line-height: 1; letter-spacing: -1.65px; }\n[data-ledger-theme] [data-ledger-role=\"display\"] { margin: 0; font-family: var(--ledger-font-heading, var(--ledger-default-font-heading)); font-size: clamp(28px, 14cqi, var(--ledger-display-size, var(--ledger-default-display-size))); font-weight: 400; line-height: 1; letter-spacing: -2px; }\n[data-ledger-theme] [data-ledger-role=\"delta\"][data-negative=\"true\"] { color: var(--ledger-accent, var(--ledger-default-accent)); }\n@media (prefers-reduced-motion: reduce) {\n  [data-ledger-theme] *, [data-ledger-theme] *::before, [data-ledger-theme] *::after { transition-duration: 0s; animation-duration: 0s; scroll-behavior: auto; }\n  [data-ledger-theme] .ledger-button:active:not(:disabled) { transform: none; }\n}\n"
         },
         {
           "path": "LICENSE",
@@ -1866,6 +1866,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -1947,10 +1948,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -1963,10 +1968,14 @@
         },
         ".dark": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -1985,6 +1994,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -2104,9 +2116,13 @@
             "outline-offset": "3px"
           }
         },
+        ":is(h1, h2, h3, h4, h5, h6, [data-slot=\"card-title\"])": {
+          "font-family": "var(--heading-font, var(--app-font))"
+        },
         "[data-slot=\"button\"]": {
           "height": "var(--control-height)",
           "border-radius": "var(--button-radius, var(--radius))",
+          "font-family": "var(--button-font, var(--app-font))",
           "font-weight": "var(--button-weight, 500)",
           "font-size": ".8125rem",
           "box-shadow": "var(--theme-shadow)"
@@ -2132,7 +2148,7 @@
         },
         "[data-slot=\"input\"], [data-slot=\"select-trigger\"], [data-slot=\"native-select\"]": {
           "height": "var(--control-height)",
-          "border-radius": "var(--radius)",
+          "border-radius": "var(--input-radius, var(--radius))",
           "border-width": "var(--border-width)",
           "font-size": ".8125rem"
         },
@@ -2140,7 +2156,24 @@
           "border-width": "var(--border-width)",
           "border-radius": "var(--radius)"
         },
+        ":is([data-slot=\"input\"], [data-slot=\"textarea\"], [data-slot=\"input-group\"])": {
+          "border-width": "max(1px, var(--border-width))",
+          "border-radius": "var(--input-radius, var(--radius))"
+        },
+        ":is([data-slot=\"input\"], [data-slot=\"textarea\"], [data-slot=\"input-group\"], [data-slot=\"select-trigger\"], [data-slot=\"native-select\"], select):focus-within": {
+          "outline": "none",
+          "box-shadow": "none"
+        },
+        ":is([data-slot=\"input\"], [data-slot=\"textarea\"], [data-slot=\"input-group\"], [data-slot=\"select-trigger\"], [data-slot=\"native-select\"], select):not([aria-invalid]:not([aria-invalid=\"false\"])):not(:has([aria-invalid]:not([aria-invalid=\"false\"]))):not([data-invalid]):not(:has([data-invalid])):focus-within": {
+          "border-color": "currentColor",
+          "box-shadow": "inset 0 0 0 1px currentColor"
+        },
+        "[data-slot=\"input-group-control\"]:focus": {
+          "outline": "none",
+          "box-shadow": "none"
+        },
         "[data-slot=\"card\"]": {
+          "border-width": "var(--panel-border-width, var(--border-width))",
           "box-shadow": "var(--theme-shadow)"
         },
         "[data-slot=\"badge\"]": {
@@ -2229,6 +2262,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -2310,10 +2344,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.42rem",
           "--button-radius": "0.42rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2326,10 +2364,14 @@
         },
         ".dark": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.42rem",
           "--button-radius": "0.42rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2348,6 +2390,214 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
+                ],
+                "mono": [
+                  "Geist Mono Variable",
+                  "monospace"
+                ]
+              },
+              "borderRadius": {
+                "sm": "calc(var(--radius) * .6)",
+                "md": "calc(var(--radius) * .8)",
+                "lg": "var(--radius)",
+                "xl": "calc(var(--radius) * 1.4)"
+              },
+              "spacing": {
+                "1": "calc(var(--spacing) * 1)",
+                "2": "calc(var(--spacing) * 2)",
+                "3": "calc(var(--spacing) * 3)",
+                "4": "calc(var(--spacing) * 4)",
+                "5": "calc(var(--spacing) * 5)",
+                "6": "calc(var(--spacing) * 6)",
+                "7": "calc(var(--spacing) * 7)",
+                "8": "calc(var(--spacing) * 8)",
+                "9": "calc(var(--spacing) * 9)",
+                "10": "calc(var(--spacing) * 10)",
+                "11": "calc(var(--spacing) * 11)",
+                "12": "calc(var(--spacing) * 12)",
+                "14": "calc(var(--spacing) * 14)",
+                "16": "calc(var(--spacing) * 16)",
+                "20": "calc(var(--spacing) * 20)",
+                "24": "calc(var(--spacing) * 24)",
+                "28": "calc(var(--spacing) * 28)",
+                "32": "calc(var(--spacing) * 32)",
+                "36": "calc(var(--spacing) * 36)",
+                "40": "calc(var(--spacing) * 40)",
+                "44": "calc(var(--spacing) * 44)",
+                "48": "calc(var(--spacing) * 48)",
+                "52": "calc(var(--spacing) * 52)",
+                "56": "calc(var(--spacing) * 56)",
+                "60": "calc(var(--spacing) * 60)",
+                "64": "calc(var(--spacing) * 64)",
+                "72": "calc(var(--spacing) * 72)",
+                "80": "calc(var(--spacing) * 80)",
+                "96": "calc(var(--spacing) * 96)",
+                "0.5": "calc(var(--spacing) * 0.5)",
+                "1.5": "calc(var(--spacing) * 1.5)",
+                "2.5": "calc(var(--spacing) * 2.5)",
+                "3.5": "calc(var(--spacing) * 3.5)"
+              },
+              "boxShadow": {
+                "sm": "var(--theme-shadow)"
+              }
+            }
+          }
+        }
+      },
+      "docs": "Theme installed in your configured stylesheet. Existing components and their APIs are preserved. Use your existing dark mode switch."
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "theme-anthropic",
+      "type": "registry:theme",
+      "title": "Anthropic",
+      "description": "Anthropic colors, typography, spacing, borders, and shadows for shadcn.",
+      "registryDependencies": [
+        "https://ui.trysupervisor.com/r/supervisor-foundation.json"
+      ],
+      "dependencies": [
+        "@fontsource-variable/public-sans",
+        "@fontsource-variable/source-serif-4",
+        "@fontsource-variable/geist-mono"
+      ],
+      "cssVars": {
+        "theme": {
+          "font-sans": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
+          "shadow-sm": "var(--theme-shadow)"
+        },
+        "light": {
+          "radius": "1rem",
+          "background": "48 33.33333% 97.05882%",
+          "foreground": "60 2.5641% 7.64706%",
+          "card": "36.52174 29.11392% 84.5098%",
+          "card-foreground": "60 2.5641% 7.64706%",
+          "popover": "48 33.33333% 97.05882%",
+          "popover-foreground": "60 2.5641% 7.64706%",
+          "primary": "60 2.5641% 7.64706%",
+          "primary-foreground": "48 33.33333% 97.05882%",
+          "secondary": "48 25% 92.15686%",
+          "secondary-foreground": "60 2.5641% 7.64706%",
+          "muted": "48 25% 92.15686%",
+          "muted-foreground": "51.42857 3.62694% 37.84314%",
+          "accent": "36.52174 29.11392% 84.5098%",
+          "accent-foreground": "60 2.5641% 7.64706%",
+          "destructive": "0 51.96507% 44.90196%",
+          "destructive-foreground": "0 0% 100%",
+          "border": "46.15385 13.68421% 81.37255%",
+          "input": "45 6.59341% 64.31373%",
+          "ring": "60 2.5641% 7.64706%",
+          "chart-1": "14.76923 63.1068% 59.60784%",
+          "chart-2": "60 2.5641% 7.64706%",
+          "chart-3": "75 9.80392% 40%",
+          "chart-4": "33.44262 24.11067% 49.60784%",
+          "chart-5": "38.82353 18.47826% 63.92157%",
+          "sidebar": "48 25% 92.15686%",
+          "sidebar-foreground": "60 2.5641% 7.64706%",
+          "sidebar-primary": "60 2.5641% 7.64706%",
+          "sidebar-primary-foreground": "48 33.33333% 97.05882%",
+          "sidebar-accent": "36.52174 29.11392% 84.5098%",
+          "sidebar-accent-foreground": "60 2.5641% 7.64706%",
+          "sidebar-border": "46.15385 13.68421% 81.37255%",
+          "sidebar-ring": "60 2.5641% 7.64706%",
+          "sidebar-background": "48 25% 92.15686%"
+        },
+        "dark": {
+          "radius": "1rem",
+          "background": "45 6.89655% 11.37255%",
+          "foreground": "48 33.33333% 97.05882%",
+          "card": "42.85714 7.86517% 17.45098%",
+          "card-foreground": "48 33.33333% 97.05882%",
+          "popover": "50 8.10811% 14.5098%",
+          "popover-foreground": "48 33.33333% 97.05882%",
+          "primary": "48 33.33333% 97.05882%",
+          "primary-foreground": "60 2.5641% 7.64706%",
+          "secondary": "42.85714 8.64198% 15.88235%",
+          "secondary-foreground": "48 33.33333% 97.05882%",
+          "muted": "42.85714 8.64198% 15.88235%",
+          "muted-foreground": "44 11.2782% 73.92157%",
+          "accent": "38.57143 12.2807% 22.35294%",
+          "accent-foreground": "48 33.33333% 97.05882%",
+          "destructive": "5.09434 77.94118% 73.33333%",
+          "destructive-foreground": "60 2.5641% 7.64706%",
+          "border": "42.85714 9.45946% 29.01961%",
+          "input": "43.33333 8.10811% 43.52941%",
+          "ring": "48 33.33333% 97.05882%",
+          "chart-1": "15.70093 67.2956% 68.82353%",
+          "chart-2": "48 33.33333% 97.05882%",
+          "chart-3": "71.53846 14.77273% 65.4902%",
+          "chart-4": "34.83871 35.22727% 65.4902%",
+          "chart-5": "38.82353 18.47826% 63.92157%",
+          "sidebar": "50 8.82353% 13.33333%",
+          "sidebar-foreground": "48 33.33333% 97.05882%",
+          "sidebar-primary": "48 33.33333% 97.05882%",
+          "sidebar-primary-foreground": "60 2.5641% 7.64706%",
+          "sidebar-accent": "38.57143 12.2807% 22.35294%",
+          "sidebar-accent-foreground": "48 33.33333% 97.05882%",
+          "sidebar-border": "42.85714 9.45946% 29.01961%",
+          "sidebar-ring": "48 33.33333% 97.05882%",
+          "sidebar-background": "50 8.82353% 13.33333%"
+        }
+      },
+      "css": {
+        "@import \"@fontsource-variable/public-sans\"": {},
+        "@import \"@fontsource-variable/source-serif-4\"": {},
+        "@import \"@fontsource-variable/geist-mono\"": {},
+        ":root": {
+          "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
+          "--button-radius": "0.5rem",
+          "--button-weight": "400",
+          "--border-width": "1px",
+          "--panel-border-width": "0px",
+          "--control-height": "2.25rem",
+          "--text-scale": "1",
+          "--shadow-color": "#000000",
+          "--shadow-opacity": "0",
+          "--shadow-x": "0px",
+          "--shadow-y": "0px",
+          "--shadow-blur": "0px",
+          "--shadow-spread": "0px",
+          "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+        },
+        ".dark": {
+          "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
+          "--button-radius": "0.5rem",
+          "--button-weight": "400",
+          "--border-width": "1px",
+          "--panel-border-width": "0px",
+          "--control-height": "2.25rem",
+          "--text-scale": "1",
+          "--shadow-color": "#000000",
+          "--shadow-opacity": "0",
+          "--shadow-x": "0px",
+          "--shadow-y": "0px",
+          "--shadow-blur": "0px",
+          "--shadow-spread": "0px",
+          "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+        }
+      },
+      "tailwind": {
+        "config": {
+          "theme": {
+            "extend": {
+              "fontFamily": {
+                "sans": [
+                  "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -2420,6 +2670,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "font-heading": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -2501,10 +2752,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.75rem",
           "--button-radius": "3rem",
           "--button-weight": "400",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.75rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2517,10 +2772,14 @@
         },
         ".dark": {
           "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.75rem",
           "--button-radius": "3rem",
           "--button-weight": "400",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.75rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2539,6 +2798,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -2611,6 +2873,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -2692,10 +2955,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.22rem",
+          "--input-radius": "0rem",
           "--button-radius": "0rem",
           "--button-weight": "500",
           "--border-width": "1.5px",
+          "--panel-border-width": "1.5px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2708,10 +2975,14 @@
         },
         ".dark": {
           "--app-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.22rem",
+          "--input-radius": "0rem",
           "--button-radius": "0rem",
           "--button-weight": "500",
           "--border-width": "1.5px",
+          "--panel-border-width": "1.5px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2730,6 +3001,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -2802,6 +3076,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -2883,10 +3158,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.18rem",
           "--button-radius": "0.18rem",
           "--button-weight": "500",
           "--border-width": "1.25px",
+          "--panel-border-width": "1.25px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2899,10 +3178,14 @@
         },
         ".dark": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.18rem",
           "--button-radius": "0.18rem",
           "--button-weight": "500",
           "--border-width": "1.25px",
+          "--panel-border-width": "1.25px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -2921,6 +3204,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -2993,6 +3279,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -3074,10 +3361,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.58rem",
           "--button-radius": "0.58rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3090,10 +3381,14 @@
         },
         ".dark": {
           "--app-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.58rem",
           "--button-radius": "0.58rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3112,6 +3407,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -3184,6 +3482,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -3265,10 +3564,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.45rem",
           "--button-radius": "0.45rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3281,10 +3584,14 @@
         },
         ".dark": {
           "--app-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.45rem",
           "--button-radius": "0.45rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3303,6 +3610,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -3375,6 +3685,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -3456,10 +3767,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.195rem",
+          "--input-radius": "0.18rem",
           "--button-radius": "0.18rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "1.8rem",
           "--text-scale": "0.9",
           "--shadow-color": "#000000",
@@ -3472,10 +3787,14 @@
         },
         ".dark": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.195rem",
+          "--input-radius": "0.18rem",
           "--button-radius": "0.18rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "1.8rem",
           "--text-scale": "0.9",
           "--shadow-color": "#000000",
@@ -3494,6 +3813,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -3566,6 +3888,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -3647,10 +3970,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.52rem",
           "--button-radius": "0.52rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3663,10 +3990,14 @@
         },
         ".dark": {
           "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.52rem",
           "--button-radius": "0.52rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3685,6 +4016,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -3757,6 +4091,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -3838,10 +4173,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "0.5rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3854,10 +4193,14 @@
         },
         ".dark": {
           "--app-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "0.5rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -3876,6 +4219,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -3948,6 +4294,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Lora Variable\", Lora, Georgia, serif",
+          "font-heading": "\"Lora Variable\", Lora, Georgia, serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -4029,10 +4376,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--heading-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--button-font": "\"Lora Variable\", Lora, Georgia, serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.1rem",
           "--button-radius": "0.1rem",
           "--button-weight": "500",
           "--border-width": "1.25px",
+          "--panel-border-width": "1.25px",
           "--control-height": "2rem",
           "--text-scale": "1.025",
           "--shadow-color": "#000000",
@@ -4045,10 +4396,14 @@
         },
         ".dark": {
           "--app-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--heading-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--button-font": "\"Lora Variable\", Lora, Georgia, serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.1rem",
           "--button-radius": "0.1rem",
           "--button-weight": "500",
           "--border-width": "1.25px",
+          "--panel-border-width": "1.25px",
           "--control-height": "2rem",
           "--text-scale": "1.025",
           "--shadow-color": "#000000",
@@ -4067,6 +4422,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -4139,6 +4497,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -4220,10 +4579,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4236,10 +4599,14 @@
         },
         ".dark": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4258,6 +4625,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -4330,6 +4700,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -4411,10 +4782,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.275rem",
+          "--input-radius": "0rem",
           "--button-radius": "0rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4427,10 +4802,14 @@
         },
         ".dark": {
           "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.275rem",
+          "--input-radius": "0rem",
           "--button-radius": "0rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4449,6 +4828,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -4521,6 +4903,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -4602,10 +4985,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4618,10 +5005,14 @@
         },
         ".dark": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -4640,6 +5031,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -4712,6 +5106,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -4793,10 +5188,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#1F2328",
@@ -4809,10 +5208,14 @@
         },
         ".dark": {
           "--app-font": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Mona Sans Variable\", \"Mona Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#1F2328",
@@ -4831,6 +5234,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -4903,6 +5309,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -4984,10 +5391,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.4rem",
           "--button-radius": "0.4rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5000,10 +5411,14 @@
         },
         ".dark": {
           "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.4rem",
           "--button-radius": "0.4rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5022,6 +5437,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -5094,6 +5512,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -5175,10 +5594,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.88rem",
           "--button-radius": "0.88rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5191,10 +5614,14 @@
         },
         ".dark": {
           "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.88rem",
           "--button-radius": "0.88rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5213,6 +5640,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -5283,6 +5713,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+          "font-heading": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
           "font-mono": "\"SFMono-Regular\", Menlo, Consolas, \"Liberation Mono\", monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -5362,10 +5793,14 @@
       "css": {
         ":root": {
           "--app-font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+          "--heading-font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+          "--button-font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.875rem",
           "--button-radius": "0.875rem",
           "--button-weight": "500",
           "--border-width": "0px",
+          "--panel-border-width": "0px",
           "--control-height": "2.125rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5375,7 +5810,9 @@
           "--shadow-blur": "0px",
           "--shadow-spread": "0px",
           "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)",
+          "--ledger-font-body": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
           "--ledger-font-heading": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+          "--ledger-font-button": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
           "--ledger-font-data": "\"SFMono-Regular\", Menlo, Consolas, \"Liberation Mono\", monospace",
           "--ledger-canvas": "#f3f3f3",
           "--ledger-paper": "#ffffff",
@@ -5437,10 +5874,14 @@
         },
         ".dark": {
           "--app-font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+          "--heading-font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+          "--button-font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.875rem",
           "--button-radius": "0.875rem",
           "--button-weight": "500",
           "--border-width": "0px",
+          "--panel-border-width": "0px",
           "--control-height": "2.125rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5450,7 +5891,9 @@
           "--shadow-blur": "0px",
           "--shadow-spread": "0px",
           "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)",
+          "--ledger-font-body": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
           "--ledger-font-heading": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
+          "--ledger-font-button": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", system-ui, sans-serif",
           "--ledger-font-data": "\"SFMono-Regular\", Menlo, Consolas, \"Liberation Mono\", monospace",
           "--ledger-canvas": "#f3f3f3",
           "--ledger-paper": "#ffffff",
@@ -5518,6 +5961,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "SFMono-Regular",
@@ -5593,6 +6039,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -5674,10 +6121,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5690,10 +6141,14 @@
         },
         ".dark": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5712,6 +6167,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -5784,6 +6242,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -5865,10 +6324,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.72rem",
           "--button-radius": "0.72rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5881,10 +6344,14 @@
         },
         ".dark": {
           "--app-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Plus Jakarta Sans Variable\", \"Plus Jakarta Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.72rem",
           "--button-radius": "0.72rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -5903,6 +6370,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -5975,6 +6445,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "font-heading": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -6056,10 +6527,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--button-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.18rem",
           "--button-radius": "0.18rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1.05",
           "--shadow-color": "#000000",
@@ -6072,10 +6547,14 @@
         },
         ".dark": {
           "--app-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--button-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.18rem",
           "--button-radius": "0.18rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1.05",
           "--shadow-color": "#000000",
@@ -6094,6 +6573,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -6166,11 +6648,12 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
         "light": {
-          "radius": "0.25rem",
+          "radius": "0.5rem",
           "background": "0 0% 100%",
           "foreground": "0 0% 7.84314%",
           "card": "0 0% 96.07843%",
@@ -6206,12 +6689,12 @@
           "sidebar-background": "0 0% 96.07843%"
         },
         "dark": {
-          "radius": "0.25rem",
+          "radius": "0.5rem",
           "background": "0 0% 0%",
           "foreground": "0 0% 100%",
-          "card": "0 0% 8.62745%",
+          "card": "0 0% 13.72549%",
           "card-foreground": "0 0% 100%",
-          "popover": "0 0% 13.72549%",
+          "popover": "0 0% 8.62745%",
           "popover-foreground": "0 0% 100%",
           "primary": "357 92.43697% 46.66667%",
           "primary-foreground": "0 0% 100%",
@@ -6224,7 +6707,7 @@
           "destructive": "356.96629 81.65138% 57.2549%",
           "destructive-foreground": "0 0% 0%",
           "border": "0 0% 20%",
-          "input": "0 0% 50.19608%",
+          "input": "0 0% 37.64706%",
           "ring": "0 0% 100%",
           "chart-1": "357 92.43697% 46.66667%",
           "chart-2": "356.84211 92.43243% 36.27451%",
@@ -6247,10 +6730,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.25rem",
           "--button-radius": "0.25rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "0px",
           "--control-height": "2.5rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6263,10 +6750,14 @@
         },
         ".dark": {
           "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.25rem",
           "--button-radius": "0.25rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "0px",
           "--control-height": "2.5rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6285,6 +6776,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -6357,6 +6851,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "font-heading": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -6438,10 +6933,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--button-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
           "--spacing": "0.23rem",
+          "--input-radius": "0rem",
           "--button-radius": "0rem",
           "--button-weight": "500",
           "--border-width": "1.5px",
+          "--panel-border-width": "1.5px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6454,10 +6953,14 @@
         },
         ".dark": {
           "--app-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+          "--button-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
           "--spacing": "0.23rem",
+          "--input-radius": "0rem",
           "--button-radius": "0rem",
           "--button-weight": "500",
           "--border-width": "1.5px",
+          "--panel-border-width": "1.5px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6476,6 +6979,212 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
+                ],
+                "mono": [
+                  "Geist Mono Variable",
+                  "monospace"
+                ]
+              },
+              "borderRadius": {
+                "sm": "calc(var(--radius) * .6)",
+                "md": "calc(var(--radius) * .8)",
+                "lg": "var(--radius)",
+                "xl": "calc(var(--radius) * 1.4)"
+              },
+              "spacing": {
+                "1": "calc(var(--spacing) * 1)",
+                "2": "calc(var(--spacing) * 2)",
+                "3": "calc(var(--spacing) * 3)",
+                "4": "calc(var(--spacing) * 4)",
+                "5": "calc(var(--spacing) * 5)",
+                "6": "calc(var(--spacing) * 6)",
+                "7": "calc(var(--spacing) * 7)",
+                "8": "calc(var(--spacing) * 8)",
+                "9": "calc(var(--spacing) * 9)",
+                "10": "calc(var(--spacing) * 10)",
+                "11": "calc(var(--spacing) * 11)",
+                "12": "calc(var(--spacing) * 12)",
+                "14": "calc(var(--spacing) * 14)",
+                "16": "calc(var(--spacing) * 16)",
+                "20": "calc(var(--spacing) * 20)",
+                "24": "calc(var(--spacing) * 24)",
+                "28": "calc(var(--spacing) * 28)",
+                "32": "calc(var(--spacing) * 32)",
+                "36": "calc(var(--spacing) * 36)",
+                "40": "calc(var(--spacing) * 40)",
+                "44": "calc(var(--spacing) * 44)",
+                "48": "calc(var(--spacing) * 48)",
+                "52": "calc(var(--spacing) * 52)",
+                "56": "calc(var(--spacing) * 56)",
+                "60": "calc(var(--spacing) * 60)",
+                "64": "calc(var(--spacing) * 64)",
+                "72": "calc(var(--spacing) * 72)",
+                "80": "calc(var(--spacing) * 80)",
+                "96": "calc(var(--spacing) * 96)",
+                "0.5": "calc(var(--spacing) * 0.5)",
+                "1.5": "calc(var(--spacing) * 1.5)",
+                "2.5": "calc(var(--spacing) * 2.5)",
+                "3.5": "calc(var(--spacing) * 3.5)"
+              },
+              "boxShadow": {
+                "sm": "var(--theme-shadow)"
+              }
+            }
+          }
+        }
+      },
+      "docs": "Theme installed in your configured stylesheet. Existing components and their APIs are preserved. Use your existing dark mode switch."
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "theme-nixtla",
+      "type": "registry:theme",
+      "title": "Nixtla",
+      "description": "Nixtla colors, typography, spacing, borders, and shadows for shadcn.",
+      "registryDependencies": [
+        "https://ui.trysupervisor.com/r/supervisor-foundation.json"
+      ],
+      "dependencies": [
+        "@fontsource-variable/ibm-plex-sans",
+        "@fontsource-variable/geist-mono"
+      ],
+      "cssVars": {
+        "theme": {
+          "font-sans": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
+          "shadow-sm": "var(--theme-shadow)"
+        },
+        "light": {
+          "radius": "0rem",
+          "background": "40 25% 95.29412%",
+          "foreground": "0 1.49254% 13.13725%",
+          "card": "40 25% 95.29412%",
+          "card-foreground": "0 1.49254% 13.13725%",
+          "popover": "0 0% 100%",
+          "popover-foreground": "0 1.49254% 13.13725%",
+          "primary": "0 1.49254% 13.13725%",
+          "primary-foreground": "40 25% 95.29412%",
+          "secondary": "40 17.64706% 90%",
+          "secondary-foreground": "0 1.49254% 13.13725%",
+          "muted": "40 17.64706% 90%",
+          "muted-foreground": "45 4.25532% 36.86275%",
+          "accent": "43.63636 15.06849% 85.68627%",
+          "accent-foreground": "0 1.49254% 13.13725%",
+          "destructive": "0 56.60377% 41.56863%",
+          "destructive-foreground": "0 0% 100%",
+          "border": "0 1.49254% 13.13725%",
+          "input": "0 1.49254% 13.13725%",
+          "ring": "0 1.49254% 13.13725%",
+          "chart-1": "229.52381 31.9797% 38.62745%",
+          "chart-2": "0 1.49254% 13.13725%",
+          "chart-3": "102.85714 3.22581% 42.54902%",
+          "chart-4": "33.6 19.84127% 50.58824%",
+          "chart-5": "38.18182 5.02283% 57.05882%",
+          "sidebar": "40 25% 95.29412%",
+          "sidebar-foreground": "0 1.49254% 13.13725%",
+          "sidebar-primary": "0 1.49254% 13.13725%",
+          "sidebar-primary-foreground": "40 25% 95.29412%",
+          "sidebar-accent": "43.63636 15.06849% 85.68627%",
+          "sidebar-accent-foreground": "0 1.49254% 13.13725%",
+          "sidebar-border": "0 1.49254% 13.13725%",
+          "sidebar-ring": "0 1.49254% 13.13725%",
+          "sidebar-background": "40 25% 95.29412%"
+        },
+        "dark": {
+          "radius": "0rem",
+          "background": "0 1.49254% 13.13725%",
+          "foreground": "40 25% 95.29412%",
+          "card": "30 2.5% 15.68627%",
+          "card-foreground": "40 25% 95.29412%",
+          "popover": "40 3.0303% 19.41176%",
+          "popover-foreground": "40 25% 95.29412%",
+          "primary": "40 25% 95.29412%",
+          "primary-foreground": "0 1.49254% 13.13725%",
+          "secondary": "40 3.0303% 19.41176%",
+          "secondary-foreground": "40 25% 95.29412%",
+          "muted": "40 3.0303% 19.41176%",
+          "muted-foreground": "41.53846 9.48905% 73.13725%",
+          "accent": "40 4.6875% 25.09804%",
+          "accent-foreground": "40 25% 95.29412%",
+          "destructive": "0 74.81481% 73.52941%",
+          "destructive-foreground": "0 1.49254% 13.13725%",
+          "border": "40 25% 95.29412%",
+          "input": "40 25% 95.29412%",
+          "ring": "40 25% 95.29412%",
+          "chart-1": "230 53.22581% 75.68627%",
+          "chart-2": "40 25% 95.29412%",
+          "chart-3": "105 7.05882% 66.66667%",
+          "chart-4": "35.17241 33.72093% 66.27451%",
+          "chart-5": "38.18182 5.02283% 57.05882%",
+          "sidebar": "0 1.49254% 13.13725%",
+          "sidebar-foreground": "40 25% 95.29412%",
+          "sidebar-primary": "40 25% 95.29412%",
+          "sidebar-primary-foreground": "0 1.49254% 13.13725%",
+          "sidebar-accent": "40 4.6875% 25.09804%",
+          "sidebar-accent-foreground": "40 25% 95.29412%",
+          "sidebar-border": "40 25% 95.29412%",
+          "sidebar-ring": "40 25% 95.29412%",
+          "sidebar-background": "0 1.49254% 13.13725%"
+        }
+      },
+      "css": {
+        "@import \"@fontsource-variable/ibm-plex-sans\"": {},
+        "@import \"@fontsource-variable/geist-mono\"": {},
+        ":root": {
+          "--app-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Mono Variable\", ui-monospace, monospace",
+          "--spacing": "0.25rem",
+          "--input-radius": "0rem",
+          "--button-radius": "0rem",
+          "--button-weight": "500",
+          "--border-width": "1px",
+          "--panel-border-width": "1px",
+          "--control-height": "3rem",
+          "--text-scale": "1",
+          "--shadow-color": "#000000",
+          "--shadow-opacity": "0",
+          "--shadow-x": "0px",
+          "--shadow-y": "0px",
+          "--shadow-blur": "0px",
+          "--shadow-spread": "0px",
+          "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+        },
+        ".dark": {
+          "--app-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Mono Variable\", ui-monospace, monospace",
+          "--spacing": "0.25rem",
+          "--input-radius": "0rem",
+          "--button-radius": "0rem",
+          "--button-weight": "500",
+          "--border-width": "1px",
+          "--panel-border-width": "1px",
+          "--control-height": "3rem",
+          "--text-scale": "1",
+          "--shadow-color": "#000000",
+          "--shadow-opacity": "0",
+          "--shadow-x": "0px",
+          "--shadow-y": "0px",
+          "--shadow-blur": "0px",
+          "--shadow-spread": "0px",
+          "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+        }
+      },
+      "tailwind": {
+        "config": {
+          "theme": {
+            "extend": {
+              "fontFamily": {
+                "sans": [
+                  "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -6548,6 +7257,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "font-heading": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -6629,10 +7339,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6645,10 +7359,14 @@
         },
         ".dark": {
           "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -6667,6 +7385,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -6739,47 +7460,48 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
         "light": {
-          "radius": "0.75rem",
+          "radius": "0.375rem",
           "background": "0 0% 100%",
-          "foreground": "0 0% 5.09804%",
-          "card": "240 6.66667% 97.05882%",
-          "card-foreground": "0 0% 5.09804%",
+          "foreground": "0 0% 0%",
+          "card": "0 0% 97.64706%",
+          "card-foreground": "0 0% 0%",
           "popover": "0 0% 100%",
-          "popover-foreground": "0 0% 5.09804%",
-          "primary": "0 0% 5.09804%",
+          "popover-foreground": "0 0% 0%",
+          "primary": "0 0% 0%",
           "primary-foreground": "0 0% 100%",
           "secondary": "0 0% 95.68627%",
-          "secondary-foreground": "0 0% 5.09804%",
+          "secondary-foreground": "0 0% 0%",
           "muted": "0 0% 95.68627%",
           "muted-foreground": "0 0% 36.47059%",
           "accent": "0 0% 92.54902%",
-          "accent-foreground": "0 0% 5.09804%",
+          "accent-foreground": "0 0% 0%",
           "destructive": "0 73.70892% 41.76471%",
           "destructive-foreground": "0 0% 100%",
-          "border": "0 0% 89.80392%",
-          "input": "0 0% 85.09804%",
-          "ring": "0 0% 5.09804%",
+          "border": "0 0% 87.84314%",
+          "input": "0 0% 87.84314%",
+          "ring": "0 0% 0%",
           "chart-1": "0 0% 5.09804%",
           "chart-2": "0 0% 36.47059%",
           "chart-3": "0 0% 56.07843%",
           "chart-4": "0 0% 70.58824%",
           "chart-5": "0 0% 83.52941%",
           "sidebar": "0 0% 97.64706%",
-          "sidebar-foreground": "0 0% 5.09804%",
-          "sidebar-primary": "0 0% 5.09804%",
+          "sidebar-foreground": "0 0% 0%",
+          "sidebar-primary": "0 0% 0%",
           "sidebar-primary-foreground": "0 0% 100%",
           "sidebar-accent": "0 0% 92.54902%",
-          "sidebar-accent-foreground": "0 0% 5.09804%",
-          "sidebar-border": "0 0% 89.80392%",
-          "sidebar-ring": "0 0% 5.09804%",
+          "sidebar-accent-foreground": "0 0% 0%",
+          "sidebar-border": "0 0% 87.84314%",
+          "sidebar-ring": "0 0% 0%",
           "sidebar-background": "0 0% 97.64706%"
         },
         "dark": {
-          "radius": "0.75rem",
+          "radius": "0.375rem",
           "background": "0 0% 12.94118%",
           "foreground": "0 0% 92.54902%",
           "card": "0 0% 9.01961%",
@@ -6820,11 +7542,15 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
-          "--button-radius": "3rem",
-          "--button-weight": "600",
+          "--input-radius": "1.5rem",
+          "--button-radius": "2.5rem",
+          "--button-weight": "500",
           "--border-width": "1px",
-          "--control-height": "2.5rem",
+          "--panel-border-width": "0px",
+          "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
           "--shadow-opacity": "0",
@@ -6836,11 +7562,15 @@
         },
         ".dark": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
-          "--button-radius": "3rem",
-          "--button-weight": "600",
+          "--input-radius": "1.5rem",
+          "--button-radius": "2.5rem",
+          "--button-weight": "500",
           "--border-width": "1px",
-          "--control-height": "2.5rem",
+          "--panel-border-width": "0px",
+          "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
           "--shadow-opacity": "0",
@@ -6858,6 +7588,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -6930,6 +7663,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -7011,10 +7745,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.65rem",
           "--button-radius": "0.65rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7027,10 +7765,14 @@
         },
         ".dark": {
           "--app-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.65rem",
           "--button-radius": "0.65rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7049,6 +7791,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -7121,6 +7866,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -7202,10 +7948,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "1rem",
           "--button-radius": "1rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7218,10 +7968,14 @@
         },
         ".dark": {
           "--app-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "1rem",
           "--button-radius": "1rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7240,6 +7994,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -7312,6 +8069,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -7393,10 +8151,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.8rem",
           "--button-radius": "0.8rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7409,10 +8171,14 @@
         },
         ".dark": {
           "--app-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Sora Variable\", Sora, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.8rem",
           "--button-radius": "0.8rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7431,6 +8197,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -7503,6 +8272,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -7584,10 +8354,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "1.15rem",
           "--button-radius": "1.15rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7600,10 +8374,14 @@
         },
         ".dark": {
           "--app-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "1.15rem",
           "--button-radius": "1.15rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7622,6 +8400,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -7694,6 +8475,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Lora Variable\", Lora, Georgia, serif",
+          "font-heading": "\"Lora Variable\", Lora, Georgia, serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -7775,10 +8557,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--heading-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--button-font": "\"Lora Variable\", Lora, Georgia, serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.7rem",
           "--button-radius": "0.7rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7791,10 +8577,14 @@
         },
         ".dark": {
           "--app-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--heading-font": "\"Lora Variable\", Lora, Georgia, serif",
+          "--button-font": "\"Lora Variable\", Lora, Georgia, serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.7rem",
           "--button-radius": "0.7rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7813,6 +8603,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -7885,6 +8678,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -7966,10 +8760,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.2875rem",
+          "--input-radius": "1.4rem",
           "--button-radius": "1.4rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.35rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -7982,10 +8780,14 @@
         },
         ".dark": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.2875rem",
+          "--input-radius": "1.4rem",
           "--button-radius": "1.4rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.35rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8004,6 +8806,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -8076,6 +8881,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -8157,10 +8963,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "3rem",
           "--button-weight": "700",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "3rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8173,10 +8983,14 @@
         },
         ".dark": {
           "--app-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"DM Sans Variable\", \"DM Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.5rem",
           "--button-radius": "3rem",
           "--button-weight": "700",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "3rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8195,6 +9009,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -8267,6 +9084,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -8348,10 +9166,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.7rem",
           "--button-radius": "0.7rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8364,10 +9186,14 @@
         },
         ".dark": {
           "--app-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Outfit Variable\", Outfit, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.7rem",
           "--button-radius": "0.7rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8386,6 +9212,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -8458,6 +9287,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "font-heading": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -8539,10 +9369,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.1875rem",
           "--button-radius": "0.3125rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.75rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8555,10 +9389,14 @@
         },
         ".dark": {
           "--app-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--heading-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
+          "--button-font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Inter Variable\", sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.1875rem",
           "--button-radius": "0.3125rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.75rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8577,6 +9415,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -8649,6 +9490,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -8730,10 +9572,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.3rem",
           "--button-radius": "0.3rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8746,10 +9592,14 @@
         },
         ".dark": {
           "--app-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Space Grotesk Variable\", \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.3rem",
           "--button-radius": "0.3rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8768,6 +9618,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -8840,6 +9693,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -8921,10 +9775,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.14rem",
           "--button-radius": "0.14rem",
           "--button-weight": "500",
           "--border-width": "1.25px",
+          "--panel-border-width": "1.25px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8937,10 +9795,14 @@
         },
         ".dark": {
           "--app-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"IBM Plex Sans Variable\", \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.14rem",
           "--button-radius": "0.14rem",
           "--button-weight": "500",
           "--border-width": "1.25px",
+          "--panel-border-width": "1.25px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -8959,6 +9821,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -9031,6 +9896,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -9112,10 +9978,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -9128,10 +9998,14 @@
         },
         ".dark": {
           "--app-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.375rem",
           "--button-radius": "0.375rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2.25rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -9150,6 +10024,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",
@@ -9222,6 +10099,7 @@
       "cssVars": {
         "theme": {
           "font-sans": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "font-heading": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
           "shadow-sm": "var(--theme-shadow)"
         },
@@ -9303,10 +10181,14 @@
         "@import \"@fontsource-variable/geist-mono\"": {},
         ":root": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.55rem",
           "--button-radius": "0.55rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -9319,10 +10201,14 @@
         },
         ".dark": {
           "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--heading-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
+          "--button-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
           "--spacing": "0.25rem",
+          "--input-radius": "0.55rem",
           "--button-radius": "0.55rem",
           "--button-weight": "500",
           "--border-width": "1px",
+          "--panel-border-width": "1px",
           "--control-height": "2rem",
           "--text-scale": "1",
           "--shadow-color": "#000000",
@@ -9341,6 +10227,9 @@
               "fontFamily": {
                 "sans": [
                   "var(--app-font)"
+                ],
+                "heading": [
+                  "var(--heading-font)"
                 ],
                 "mono": [
                   "Geist Mono Variable",

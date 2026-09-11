@@ -30,12 +30,20 @@ export function hexToHslChannels(hex: string) {
 export function themeToRegistry(themeInput: ThemeDefinition, baseUrl = REGISTRY_URL, name?: string) {
   const theme = parseTheme(themeInput);
   const isLedger = theme.recipe === "ledger";
-  const usesLedgerNativeSans = isLedger && theme.font === "system-sans";
   const font = FONT_OPTIONS.find((option) => option.id === theme.font)!;
-  const family = usesLedgerNativeSans ? LEDGER_NATIVE_SANS : theme.font === "geist" ? '"Geist Variable", ui-sans-serif, system-ui, sans-serif' : font.cssFamily;
+  const headingFont = FONT_OPTIONS.find((option) => option.id === (theme.headingFont ?? theme.font))!;
+  const familyFor = (option: typeof font) => isLedger && option.id === "system-sans"
+    ? LEDGER_NATIVE_SANS
+    : option.id === "geist" ? '"Geist Variable", ui-sans-serif, system-ui, sans-serif' : option.cssFamily;
+  const packageFor = (option: typeof font) => isLedger && option.id === "system-sans"
+    ? undefined
+    : option.id === "geist" ? "@fontsource-variable/geist" : option.packageName;
+  const family = familyFor(font);
+  const headingFamily = familyFor(headingFont);
   const monoFamily = isLedger ? LEDGER_NATIVE_MONO : '"Geist Mono Variable", ui-monospace, monospace';
-  const fontPackage = usesLedgerNativeSans ? undefined : theme.font === "geist" ? "@fontsource-variable/geist" : font.packageName;
+  const buttonFamily = theme.buttonFont === "mono" ? monoFamily : family;
   const monoPackage = isLedger ? undefined : "@fontsource-variable/geist-mono";
+  const fontPackages = [...new Set([packageFor(font), packageFor(headingFont), monoPackage].filter((packageName): packageName is string => Boolean(packageName)))];
   const palette = (mode: "light" | "dark") => {
     const variables: Record<string, string> = {};
     const rules: Record<string, string> = {};
@@ -51,7 +59,14 @@ export function themeToRegistry(themeInput: ThemeDefinition, baseUrl = REGISTRY_
       }
     }
     rules["--app-font"] = family;
-    if (isLedger) rules["--ledger-font-heading"] = family;
+    rules["--heading-font"] = headingFamily;
+    rules["--button-font"] = buttonFamily;
+    if (isLedger) {
+      rules["--ledger-font-body"] = family;
+      rules["--ledger-font-heading"] = headingFamily;
+      rules["--ledger-font-button"] = buttonFamily;
+      rules["--ledger-font-data"] = LEDGER_NATIVE_MONO;
+    }
     variables["sidebar-background"] = variables.sidebar;
     rules["--theme-shadow"] = shadowToCss(theme.shadow);
     return { variables, rules };
@@ -68,15 +83,14 @@ export function themeToRegistry(themeInput: ThemeDefinition, baseUrl = REGISTRY_
       ...(isLedger ? [`${baseUrl}/ledger-runtime.json`] : []),
       `${baseUrl}/supervisor-foundation.json`,
     ],
-    dependencies: [fontPackage, monoPackage].filter((dependency): dependency is string => Boolean(dependency)),
+    dependencies: fontPackages,
     cssVars: {
-      theme: { "font-sans": family, "font-mono": monoFamily, "shadow-sm": "var(--theme-shadow)" },
+      theme: { "font-sans": family, "font-heading": headingFamily, "font-mono": monoFamily, "shadow-sm": "var(--theme-shadow)" },
       light: light.variables,
       dark: dark.variables,
     },
     css: {
-      ...(fontPackage ? { [`@import "${fontPackage}"`]: {} } : {}),
-      ...(monoPackage ? { '@import "@fontsource-variable/geist-mono"': {} } : {}),
+      ...Object.fromEntries(fontPackages.map((packageName) => [`@import "${packageName}"`, {}])),
       ":root": light.rules,
       ".dark": dark.rules,
     },
@@ -86,9 +100,8 @@ export function themeToRegistry(themeInput: ThemeDefinition, baseUrl = REGISTRY_
           extend: {
             fontFamily: {
               sans: ["var(--app-font)"],
-              mono: isLedger
-                ? ["SFMono-Regular", "Menlo", "Consolas", "Liberation Mono", "monospace"]
-                : ["Geist Mono Variable", "monospace"],
+              heading: ["var(--heading-font)"],
+              mono: isLedger ? ["SFMono-Regular", "Menlo", "Consolas", "Liberation Mono", "monospace"] : ["Geist Mono Variable", "monospace"],
             },
             borderRadius: { sm: "calc(var(--radius) * .6)", md: "calc(var(--radius) * .8)", lg: "var(--radius)", xl: "calc(var(--radius) * 1.4)" },
             spacing: Object.fromEntries([0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96].map((size) => [String(size), `calc(var(--spacing) * ${size})`])),

@@ -1,0 +1,205 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme-anthropic",
+  "type": "registry:theme",
+  "title": "Anthropic",
+  "description": "Anthropic colors, typography, spacing, borders, and shadows for shadcn.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-foundation.json"
+  ],
+  "dependencies": [
+    "@fontsource-variable/public-sans",
+    "@fontsource-variable/source-serif-4",
+    "@fontsource-variable/geist-mono"
+  ],
+  "cssVars": {
+    "theme": {
+      "font-sans": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+      "font-heading": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+      "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace",
+      "shadow-sm": "var(--theme-shadow)"
+    },
+    "light": {
+      "radius": "1rem",
+      "background": "48 33.33333% 97.05882%",
+      "foreground": "60 2.5641% 7.64706%",
+      "card": "36.52174 29.11392% 84.5098%",
+      "card-foreground": "60 2.5641% 7.64706%",
+      "popover": "48 33.33333% 97.05882%",
+      "popover-foreground": "60 2.5641% 7.64706%",
+      "primary": "60 2.5641% 7.64706%",
+      "primary-foreground": "48 33.33333% 97.05882%",
+      "secondary": "48 25% 92.15686%",
+      "secondary-foreground": "60 2.5641% 7.64706%",
+      "muted": "48 25% 92.15686%",
+      "muted-foreground": "51.42857 3.62694% 37.84314%",
+      "accent": "36.52174 29.11392% 84.5098%",
+      "accent-foreground": "60 2.5641% 7.64706%",
+      "destructive": "0 51.96507% 44.90196%",
+      "destructive-foreground": "0 0% 100%",
+      "border": "46.15385 13.68421% 81.37255%",
+      "input": "45 6.59341% 64.31373%",
+      "ring": "60 2.5641% 7.64706%",
+      "chart-1": "14.76923 63.1068% 59.60784%",
+      "chart-2": "60 2.5641% 7.64706%",
+      "chart-3": "75 9.80392% 40%",
+      "chart-4": "33.44262 24.11067% 49.60784%",
+      "chart-5": "38.82353 18.47826% 63.92157%",
+      "sidebar": "48 25% 92.15686%",
+      "sidebar-foreground": "60 2.5641% 7.64706%",
+      "sidebar-primary": "60 2.5641% 7.64706%",
+      "sidebar-primary-foreground": "48 33.33333% 97.05882%",
+      "sidebar-accent": "36.52174 29.11392% 84.5098%",
+      "sidebar-accent-foreground": "60 2.5641% 7.64706%",
+      "sidebar-border": "46.15385 13.68421% 81.37255%",
+      "sidebar-ring": "60 2.5641% 7.64706%",
+      "sidebar-background": "48 25% 92.15686%"
+    },
+    "dark": {
+      "radius": "1rem",
+      "background": "45 6.89655% 11.37255%",
+      "foreground": "48 33.33333% 97.05882%",
+      "card": "42.85714 7.86517% 17.45098%",
+      "card-foreground": "48 33.33333% 97.05882%",
+      "popover": "50 8.10811% 14.5098%",
+      "popover-foreground": "48 33.33333% 97.05882%",
+      "primary": "48 33.33333% 97.05882%",
+      "primary-foreground": "60 2.5641% 7.64706%",
+      "secondary": "42.85714 8.64198% 15.88235%",
+      "secondary-foreground": "48 33.33333% 97.05882%",
+      "muted": "42.85714 8.64198% 15.88235%",
+      "muted-foreground": "44 11.2782% 73.92157%",
+      "accent": "38.57143 12.2807% 22.35294%",
+      "accent-foreground": "48 33.33333% 97.05882%",
+      "destructive": "5.09434 77.94118% 73.33333%",
+      "destructive-foreground": "60 2.5641% 7.64706%",
+      "border": "42.85714 9.45946% 29.01961%",
+      "input": "43.33333 8.10811% 43.52941%",
+      "ring": "48 33.33333% 97.05882%",
+      "chart-1": "15.70093 67.2956% 68.82353%",
+      "chart-2": "48 33.33333% 97.05882%",
+      "chart-3": "71.53846 14.77273% 65.4902%",
+      "chart-4": "34.83871 35.22727% 65.4902%",
+      "chart-5": "38.82353 18.47826% 63.92157%",
+      "sidebar": "50 8.82353% 13.33333%",
+      "sidebar-foreground": "48 33.33333% 97.05882%",
+      "sidebar-primary": "48 33.33333% 97.05882%",
+      "sidebar-primary-foreground": "60 2.5641% 7.64706%",
+      "sidebar-accent": "38.57143 12.2807% 22.35294%",
+      "sidebar-accent-foreground": "48 33.33333% 97.05882%",
+      "sidebar-border": "42.85714 9.45946% 29.01961%",
+      "sidebar-ring": "48 33.33333% 97.05882%",
+      "sidebar-background": "50 8.82353% 13.33333%"
+    }
+  },
+  "css": {
+    "@import \"@fontsource-variable/public-sans\"": {},
+    "@import \"@fontsource-variable/source-serif-4\"": {},
+    "@import \"@fontsource-variable/geist-mono\"": {},
+    ":root": {
+      "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+      "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+      "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+      "--spacing": "0.25rem",
+      "--input-radius": "0.5rem",
+      "--button-radius": "0.5rem",
+      "--button-weight": "400",
+      "--border-width": "1px",
+      "--panel-border-width": "0px",
+      "--control-height": "2.25rem",
+      "--text-scale": "1",
+      "--shadow-color": "#000000",
+      "--shadow-opacity": "0",
+      "--shadow-x": "0px",
+      "--shadow-y": "0px",
+      "--shadow-blur": "0px",
+      "--shadow-spread": "0px",
+      "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+    },
+    ".dark": {
+      "--app-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+      "--heading-font": "\"Source Serif 4 Variable\", \"Source Serif 4\", Georgia, serif",
+      "--button-font": "\"Public Sans Variable\", \"Public Sans\", ui-sans-serif, system-ui, sans-serif",
+      "--spacing": "0.25rem",
+      "--input-radius": "0.5rem",
+      "--button-radius": "0.5rem",
+      "--button-weight": "400",
+      "--border-width": "1px",
+      "--panel-border-width": "0px",
+      "--control-height": "2.25rem",
+      "--text-scale": "1",
+      "--shadow-color": "#000000",
+      "--shadow-opacity": "0",
+      "--shadow-x": "0px",
+      "--shadow-y": "0px",
+      "--shadow-blur": "0px",
+      "--shadow-spread": "0px",
+      "--theme-shadow": "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+    }
+  },
+  "tailwind": {
+    "config": {
+      "theme": {
+        "extend": {
+          "fontFamily": {
+            "sans": [
+              "var(--app-font)"
+            ],
+            "heading": [
+              "var(--heading-font)"
+            ],
+            "mono": [
+              "Geist Mono Variable",
+              "monospace"
+            ]
+          },
+          "borderRadius": {
+            "sm": "calc(var(--radius) * .6)",
+            "md": "calc(var(--radius) * .8)",
+            "lg": "var(--radius)",
+            "xl": "calc(var(--radius) * 1.4)"
+          },
+          "spacing": {
+            "1": "calc(var(--spacing) * 1)",
+            "2": "calc(var(--spacing) * 2)",
+            "3": "calc(var(--spacing) * 3)",
+            "4": "calc(var(--spacing) * 4)",
+            "5": "calc(var(--spacing) * 5)",
+            "6": "calc(var(--spacing) * 6)",
+            "7": "calc(var(--spacing) * 7)",
+            "8": "calc(var(--spacing) * 8)",
+            "9": "calc(var(--spacing) * 9)",
+            "10": "calc(var(--spacing) * 10)",
+            "11": "calc(var(--spacing) * 11)",
+            "12": "calc(var(--spacing) * 12)",
+            "14": "calc(var(--spacing) * 14)",
+            "16": "calc(var(--spacing) * 16)",
+            "20": "calc(var(--spacing) * 20)",
+            "24": "calc(var(--spacing) * 24)",
+            "28": "calc(var(--spacing) * 28)",
+            "32": "calc(var(--spacing) * 32)",
+            "36": "calc(var(--spacing) * 36)",
+            "40": "calc(var(--spacing) * 40)",
+            "44": "calc(var(--spacing) * 44)",
+            "48": "calc(var(--spacing) * 48)",
+            "52": "calc(var(--spacing) * 52)",
+            "56": "calc(var(--spacing) * 56)",
+            "60": "calc(var(--spacing) * 60)",
+            "64": "calc(var(--spacing) * 64)",
+            "72": "calc(var(--spacing) * 72)",
+            "80": "calc(var(--spacing) * 80)",
+            "96": "calc(var(--spacing) * 96)",
+            "0.5": "calc(var(--spacing) * 0.5)",
+            "1.5": "calc(var(--spacing) * 1.5)",
+            "2.5": "calc(var(--spacing) * 2.5)",
+            "3.5": "calc(var(--spacing) * 3.5)"
+          },
+          "boxShadow": {
+            "sm": "var(--theme-shadow)"
+          }
+        }
+      }
+    }
+  },
+  "docs": "Theme installed in your configured stylesheet. Existing components and their APIs are preserved. Use your existing dark mode switch."
+}

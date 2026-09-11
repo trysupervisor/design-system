@@ -16,7 +16,7 @@ async function jsonFile<T>(path: string): Promise<T> {
 describe("registry output", () => {
   test("publishes schema valid items for every manifest entry", async () => {
     const manifest = await jsonFile<{ items: RegistryItem[] }>("registry.json");
-    expect(manifest.items).toHaveLength(105 + AI_ELEMENTS.length + 5);
+    expect(manifest.items).toHaveLength(73 + themePresets.length + AI_ELEMENTS.length);
     for (const item of manifest.items) {
       const output = await jsonFile<RegistryItem>(`public/r/${item.name}.json`);
       expect(registryItemSchema.safeParse(output).success).toBe(true);
@@ -129,8 +129,9 @@ describe("registry output", () => {
           expect(item.css[":root"][name]).toBe(value);
         }
       } else {
-        expect(item.dependencies.length).toBe(2);
-        expect(Object.keys(item.css).filter((key) => key.startsWith("@import"))).toHaveLength(2);
+        const fontCount = preset.headingFont && preset.headingFont !== preset.font ? 3 : 2;
+        expect(item.dependencies.length).toBe(fontCount);
+        expect(Object.keys(item.css).filter((key) => key.startsWith("@import"))).toHaveLength(fontCount);
       }
     }
   });

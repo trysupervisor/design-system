@@ -123,7 +123,7 @@ bun run test:installation
 bun run build
 ```
 
-Registry JSON is generated from validated theme presets, the original foundation styles, and reusable compositions. Standard component entries delegate to the official shadcn registry so consumer configuration controls their implementation. All 37 presets are available as `theme-{preset.id}.json`. GitHub Actions runs registry generation, lint, type checks, unit tests, and the production build. Run the installation matrix locally before a registry release; it creates temporary consumer apps and retains their logs for inspection. Vercel builds the Next.js application from the `main` branch in `trysupervisor/design-system`.
+Registry JSON is generated from validated theme presets, the original foundation styles, and reusable compositions. Standard component entries delegate to the official shadcn registry so consumer configuration controls their implementation. All 39 presets are available as `theme-{preset.id}.json`. GitHub Actions runs registry generation, lint, type checks, unit tests, and the production build. Run the installation matrix locally before a registry release; it creates temporary consumer apps and retains their logs for inspection. Vercel builds the Next.js application from the `main` branch in `trysupervisor/design-system`.
 
 ## Licenses
 

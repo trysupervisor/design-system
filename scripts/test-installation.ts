@@ -52,6 +52,10 @@ const expectedCustomTheme = {
     "--spacing": "0.3rem",
     "--text-scale": "1.1",
     "--app-font": '"Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif',
+    "--heading-font": '"Source Serif 4 Variable", "Source Serif 4", Georgia, serif',
+    "--button-font": '"Geist Mono Variable", ui-monospace, monospace',
+    "--input-radius": "1.5rem",
+    "--panel-border-width": "0px",
   },
   dark: {
     "--background": "0 0% 0%",
@@ -60,6 +64,10 @@ const expectedCustomTheme = {
     "--spacing": "0.3rem",
     "--text-scale": "1.1",
     "--app-font": '"Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif',
+    "--heading-font": '"Source Serif 4 Variable", "Source Serif 4", Georgia, serif',
+    "--button-font": '"Geist Mono Variable", ui-monospace, monospace',
+    "--input-radius": "1.5rem",
+    "--panel-border-width": "0px",
   },
 };
 
@@ -303,6 +311,10 @@ const server: ReturnType<typeof Bun.serve> = Bun.serve({
         id: "smoke-custom",
         name: "Smoke custom",
         font: "inter" as const,
+        headingFont: "source-serif-4" as const,
+        buttonFont: "mono" as const,
+        inputRadius: 1.5,
+        panelBorderWidth: 0,
         radius: 0.9,
         spacing: 1.2,
         textScale: 1.1,
