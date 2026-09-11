@@ -145,6 +145,20 @@ async function main() {
     ...nativeItems,
     ...await Promise.all(compositions.map(buildComposition)),
     {
+      name: "supervisor-brand-button",
+      type: "registry:component" as const,
+      title: "Supervisor brand button",
+      description: "The orange Supervisor action with layered hover and press shadows.",
+      registryDependencies: ["button"],
+      dependencies: ["@fontsource-variable/geist-mono"],
+      css: { '@import "@fontsource-variable/geist-mono"': {} },
+      files: [
+        await sourceFile(join(projectRoot, "src/components/examples/registry/supervisor-brand-button.tsx"), "registry:ui", "@ui/supervisor-brand-button.tsx"),
+        await sourceFile(join(projectRoot, "src/components/examples/registry/supervisor-brand-button.css"), "registry:ui", "@ui/supervisor-brand-button.css"),
+        await sourceFile(join(projectRoot, "LICENSE"), "registry:file", "~/licenses/supervisor-ui.txt"),
+      ],
+    },
+    {
       name: "ai-elements-license",
       type: "registry:style" as const,
       title: "AI Elements license",

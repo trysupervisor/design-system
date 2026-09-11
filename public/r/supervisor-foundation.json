@@ -29,7 +29,8 @@
     },
     "[data-slot=\"button\"]": {
       "height": "var(--control-height)",
-      "border-radius": "var(--radius)",
+      "border-radius": "var(--button-radius, var(--radius))",
+      "font-weight": "var(--button-weight, 500)",
       "font-size": ".8125rem",
       "box-shadow": "var(--theme-shadow)"
     },

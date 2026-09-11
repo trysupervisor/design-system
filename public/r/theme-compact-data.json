@@ -96,6 +96,8 @@
     ":root": {
       "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
       "--spacing": "0.195rem",
+      "--button-radius": "0.18rem",
+      "--button-weight": "500",
       "--border-width": "1px",
       "--control-height": "1.8rem",
       "--text-scale": "0.9",
@@ -110,6 +112,8 @@
     ".dark": {
       "--app-font": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
       "--spacing": "0.195rem",
+      "--button-radius": "0.18rem",
+      "--button-weight": "500",
       "--border-width": "1px",
       "--control-height": "1.8rem",
       "--text-scale": "0.9",

@@ -96,6 +96,8 @@
     ":root": {
       "--app-font": "\"Lora Variable\", Lora, Georgia, serif",
       "--spacing": "0.25rem",
+      "--button-radius": "0.1rem",
+      "--button-weight": "500",
       "--border-width": "1.25px",
       "--control-height": "2rem",
       "--text-scale": "1.025",
@@ -110,6 +112,8 @@
     ".dark": {
       "--app-font": "\"Lora Variable\", Lora, Georgia, serif",
       "--spacing": "0.25rem",
+      "--button-radius": "0.1rem",
+      "--button-weight": "500",
       "--border-width": "1.25px",
       "--control-height": "2rem",
       "--text-scale": "1.025",

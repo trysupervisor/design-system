@@ -96,6 +96,8 @@
     ":root": {
       "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
       "--spacing": "0.2875rem",
+      "--button-radius": "1.4rem",
+      "--button-weight": "500",
       "--border-width": "1px",
       "--control-height": "2.35rem",
       "--text-scale": "1",
@@ -110,6 +112,8 @@
     ".dark": {
       "--app-font": "\"Manrope Variable\", Manrope, ui-sans-serif, system-ui, sans-serif",
       "--spacing": "0.2875rem",
+      "--button-radius": "1.4rem",
+      "--button-weight": "500",
       "--border-width": "1px",
       "--control-height": "2.35rem",
       "--text-scale": "1",
