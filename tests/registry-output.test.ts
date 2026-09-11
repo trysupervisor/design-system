@@ -15,7 +15,7 @@ async function jsonFile<T>(path: string): Promise<T> {
 describe("registry output", () => {
   test("publishes schema valid items for every manifest entry", async () => {
     const manifest = await jsonFile<{ items: RegistryItem[] }>("registry.json");
-    expect(manifest.items).toHaveLength(103 + AI_ELEMENTS.length + 3);
+    expect(manifest.items).toHaveLength(104 + AI_ELEMENTS.length + 3);
     for (const item of manifest.items) {
       const output = await jsonFile<RegistryItem>(`public/r/${item.name}.json`);
       expect(registryItemSchema.safeParse(output).success).toBe(true);
@@ -30,6 +30,16 @@ describe("registry output", () => {
       expect(item.files).toBeUndefined();
       expect(item.cssVars).toBeUndefined();
     }
+  });
+
+  test("publishes the brand button with portable styles and native props", async () => {
+    const item = await jsonFile<RegistryItem>("public/r/supervisor-brand-button.json");
+    expect(item.registryDependencies).toEqual(["button"]);
+    expect(item.dependencies).toContain("@fontsource-variable/geist-mono");
+    expect(item.files?.map((file) => file.target)).toEqual(["@ui/supervisor-brand-button.tsx", "@ui/supervisor-brand-button.css", "~/licenses/supervisor-ui.txt"]);
+    expect(item.files?.[0].content).toContain('import "./supervisor-brand-button.css"');
+    expect(item.files?.[1].content).toContain("[data-supervisor-brand]");
+    expect(item.files?.[2].content).toContain("MIT License");
   });
 
   test("honors configured aliases for compositions", async () => {

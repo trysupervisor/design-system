@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test"
 
 import {
   FONT_OPTIONS,
+  fontIds,
   THEME_MODE_STORAGE_KEY,
   THEME_STORAGE_KEY,
   contrastRatio,
@@ -14,6 +15,8 @@ import {
   themeInitScript,
 } from "../src/lib/theme"
 import { defaultTheme, themePresets } from "../src/lib/theme-presets"
+import { brandThemeReferences } from "../src/lib/brand-theme-references"
+import { themeToRegistry } from "../src/lib/theme-registry"
 
 describe("theme presets", () => {
   test("ships more than thirty unique validated themes", () => {
@@ -29,8 +32,35 @@ describe("theme presets", () => {
   })
 
   test("includes every approved font", () => {
-    expect(FONT_OPTIONS.map((font) => font.id)).toHaveLength(12)
-    expect(new Set(FONT_OPTIONS.map((font) => font.id)).size).toBe(12)
+    expect(FONT_OPTIONS.map((font) => font.id)).toEqual([...fontIds])
+    expect(new Set(FONT_OPTIONS.map((font) => font.id)).size).toBe(14)
+  })
+
+  test("keeps researched brand identities through every export", () => {
+    const github = themePresets.find((theme) => theme.id === "github-ink")!
+    expect(github.font).toBe("mona-sans")
+    expect(github.light.primary).toBe("#1F883D")
+    expect(github.dark.background).toBe("#0D1117")
+    expect(themeToRegistry(github).dependencies).toContain("@fontsource-variable/mona-sans")
+    const spotify = themePresets.find((theme) => theme.id === "spotify-green")!
+    expect(spotify.dark.primary).toBe("#1ED760")
+    expect(spotify.font).toBe("dm-sans")
+    expect(importThemeJson(themeToJson(spotify))).toEqual(spotify)
+    expect(themeToCss(spotify)).toContain("--button-radius: 3rem;")
+    expect(themeToRegistry(spotify).css[":root"]["--button-radius"]).toBe("3rem")
+    expect(themeToRegistry(spotify).css[":root"]["--button-weight"]).toBe("700")
+    expect(themeToRegistry(spotify).cssVars.light.radius).toBe("0.5rem")
+    expect(themeVariables(spotify, "dark")["--button-radius"]).toBe("3rem")
+    expect(themePresets.find((theme) => theme.id === "openai-forest")?.light.primary).toBe("#0D0D0D")
+    expect(themePresets.find((theme) => theme.id === "figma-coral")?.light.primary).toBe("#0D99FF")
+    for (const theme of themePresets.filter((theme) => theme.category === "brand" || ["geist", "vercel-mono"].includes(theme.id))) {
+      const reference = brandThemeReferences[theme.id]
+      expect(reference).toBeDefined()
+      expect(reference.sources.length).toBeGreaterThan(0)
+      expect(reference.typography.length).toBeGreaterThan(30)
+      expect(reference.geometry.length).toBeGreaterThan(30)
+      expect(reference.adaptation.length).toBeGreaterThan(30)
+    }
   })
 
   test("keeps semantic foreground pairs readable", () => {
@@ -76,6 +106,8 @@ describe("theme validation", () => {
   test("rejects fonts outside the allowlist and numeric overflow", () => {
     expect(() => parseTheme({ ...defaultTheme, font: "Comic Sans" })).toThrow()
     expect(() => parseTheme({ ...defaultTheme, radius: 20 })).toThrow()
+    expect(() => parseTheme({ ...defaultTheme, buttonRadius: 20 })).toThrow()
+    expect(() => parseTheme({ ...defaultTheme, buttonWeight: 1500 })).toThrow()
     expect(() => parseTheme({ ...defaultTheme, shadow: { ...defaultTheme.shadow, opacity: 0.9 } })).toThrow()
   })
 
@@ -159,13 +191,22 @@ describe("theme import and export", () => {
     expect(root.dataset.theme).toBe("supervisor")
     expect(classes.has("dark")).toBe(true)
     expect(root.style.colorScheme).toBe("dark")
-    expect(properties.get("--background")).toBe("#0A0A0A")
+    expect(properties.get("--background")).toBe("#000000")
     expect(properties.get("--spacing")).toBe("0.25rem")
-    expect(properties.get("--radius")).toBe("0.38rem")
+    expect(properties.get("--radius")).toBe("0.1875rem")
+    expect(properties.get("--button-radius")).toBe("0.3125rem")
+    expect(properties.get("--button-weight")).toBe("500")
     expect(properties.get("--border-width")).toBe("1px")
-    expect(properties.get("--control-height")).toBe("2rem")
+    expect(properties.get("--control-height")).toBe("2.75rem")
     expect(properties.get("--text-scale")).toBe("1")
-    expect(properties.get("--app-font")).toBe("var(--font-geist-sans)")
-    expect(properties.get("--theme-shadow")).toContain("rgba(0, 0, 0, 0.12)")
+    expect(properties.get("--app-font")).toBe("var(--font-system-sans)")
+    expect(properties.get("--theme-shadow")).toContain("rgba(0, 0, 0, 0)")
+  })
+
+  test("legacy themes inherit their existing button shape and weight", () => {
+    const imported = importThemeJson(themeToJson(defaultTheme))
+    expect(imported.buttonRadius).toBeUndefined()
+    expect(themeVariables(imported, "light")["--button-radius"]).toBe("0.375rem")
+    expect(themeToRegistry(imported).css[":root"]["--button-weight"]).toBe("500")
   })
 })
