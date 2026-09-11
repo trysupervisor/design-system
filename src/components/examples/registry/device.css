@@ -1,0 +1,22 @@
+[data-slot="device"] {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+}
+
+[data-slot="device-screen"] {
+  position: absolute;
+  overflow: hidden;
+  background: var(--background, #fff);
+  color: var(--foreground, #171717);
+  container-type: inline-size;
+}
+
+[data-slot="device-frame"] {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
