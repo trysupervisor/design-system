@@ -74,6 +74,7 @@ import { Toggle } from "@/components/ui/toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ChartGallery } from "@/components/chart-gallery";
+import { DeviceExample } from "./device-example";
 
 const companies = ["Aperture Labs", "Northstar Works", "Pine Research"];
 const questionnaireItems = [{ name: "priority", required: true, choices: [{ value: "clarity" }, { value: "speed" }, { value: "control" }] }] as const;
@@ -161,6 +162,7 @@ export function ComponentExample({ slug }: { slug: string }) {
     case "context-menu": return <ContextMenu><ContextMenuTrigger className="grid h-36 w-full max-w-md place-items-center rounded-lg border border-dashed text-sm text-muted-foreground">Use a secondary click here</ContextMenuTrigger><ContextMenuContent><ContextMenuItem>Open</ContextMenuItem><ContextMenuItem>Duplicate</ContextMenuItem><ContextMenuSeparator /><ContextMenuItem variant="destructive">Remove</ContextMenuItem></ContextMenuContent></ContextMenu>;
     case "data-table": return <div className="w-full"><div className="mb-3 flex justify-end"><Button variant="outline" size="sm">Columns <ChevronDownIcon /></Button></div><DataRows /></div>;
     case "date-picker": return <DatePickerDemo />;
+    case "device": return <DeviceExample />;
     case "dialog": return <Dialog><DialogTrigger asChild><Button variant="outline">Edit profile</Button></DialogTrigger><DialogContent><DialogHeader><DialogTitle>Edit profile</DialogTitle><DialogDescription>Update the name shown to workspace members.</DialogDescription></DialogHeader><Field><FieldLabel htmlFor="display-name">Display name</FieldLabel><Input id="display-name" defaultValue="Mara Ortega" /></Field><DialogFooter><DialogClose asChild><Button>Save</Button></DialogClose></DialogFooter></DialogContent></Dialog>;
     case "direction": return <DirectionProvider dir="rtl"><div dir="rtl" className="w-full max-w-md rounded-lg border p-5 text-right"><p className="font-medium">إعدادات مساحة العمل</p><p className="mt-2 text-sm text-muted-foreground">يطبق المزود اتجاه القراءة على المكونات التابعة.</p><Button variant="outline" className="mt-4">حفظ</Button></div></DirectionProvider>;
     case "drawer": return <Drawer><DrawerTrigger asChild><Button variant="outline">Open drawer</Button></DrawerTrigger><DrawerContent><DrawerHeader><DrawerTitle>Choose a workspace</DrawerTitle><DrawerDescription>Switch context without leaving the current page.</DrawerDescription></DrawerHeader><div className="grid gap-2 px-4"><Button variant="outline">Aperture Labs</Button><Button variant="outline">Pine Research</Button></div><DrawerFooter><DrawerClose asChild><Button variant="outline">Close</Button></DrawerClose></DrawerFooter></DrawerContent></Drawer>;

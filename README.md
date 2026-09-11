@@ -62,6 +62,14 @@ The [Button page](https://ui.trysupervisor.com/components/button) includes Super
 
 Natural language generation calls a model through Vercel AI Gateway. It returns the same validated theme format used by manual editing and imports. Generation errors appear in the interface, and manual editing remains available.
 
+### Device frames
+
+The [Device component](https://ui.trysupervisor.com/components/device) puts screenshots, video, or React content behind photographic PNG frames for iPhone 17, iPad Pro, MacBook Pro, and Samsung Galaxy S26 Ultra. The frame keeps its proportions as its width changes, and its transparent screen passes pointer events to your content.
+
+Install it with `bunx shadcn@latest add https://ui.trysupervisor.com/r/device.json`. It works in Next.js with either shadcn component base. Use `model` to choose a device, `frameSrc` for a local copy with the same geometry, or `frame` for a custom PNG and screen coordinates.
+
+Default images load directly from Mobile FIRST with image optimization disabled. The PNGs have separate provider terms and are not redistributed in this repository or registry. Source links and local hosting instructions are included on the component page and in `licenses/device-frames.txt`.
+
 ## Vercel AI Elements
 
 The [AI Elements catalog](https://ui.trysupervisor.com/ai-elements) includes all 48 components in Vercel's current installable registry, with previews and usage examples for chat, code, voice, workflows, and utilities. The existing Theme Studio generator uses Vercel AI SDK for structured theme output.

@@ -40,6 +40,7 @@ export const COMPONENTS = [
   { slug: "context-menu", name: "Context Menu", description: "Actions that open from a secondary pointer click.", category: "Overlays" },
   { slug: "data-table", name: "Data Table", description: "A table pattern with sorting, selection, and row actions.", category: "Display" },
   { slug: "date-picker", name: "Date Picker", description: "A date field composed from a popover and calendar.", category: "Input" },
+  { slug: "device", name: "Device", description: "Present screenshots, video, and React content inside photographic PNG device frames.", category: "Display" },
   { slug: "dialog", name: "Dialog", description: "A modal window for focused content or a short task.", category: "Overlays" },
   { slug: "direction", name: "Direction", description: "A provider for left to right and right to left layouts.", category: "Display" },
   { slug: "drawer", name: "Drawer", description: "A panel that slides from an edge and supports touch gestures.", category: "Overlays" },

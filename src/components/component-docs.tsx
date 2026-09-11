@@ -7,6 +7,7 @@ import { CodeDisclosure } from "@/components/code-disclosure";
 import { ComponentExample } from "@/components/examples/component-example";
 import { COMPONENT_SNIPPETS } from "@/components/examples/component-snippets";
 import { SupervisorBrandButtonExample } from "@/components/examples/supervisor-brand-button-example";
+import { DeviceDetails } from "@/components/examples/device-example";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,9 +28,9 @@ export function ComponentIndex() {
   return (
     <div className="catalog-page">
       <header className="page-intro">
-        <Badge variant="outline">64 components</Badge>
+        <Badge variant="outline">{COMPONENTS.length} components</Badge>
         <h1>Components</h1>
-        <p>Browse every component in the current shadcn catalog. Each page has an interactive example, install command, and editable source.</p>
+        <p>Browse the shadcn catalog and Supervisor additions. Each page has an interactive example, install command, and editable source.</p>
       </header>
       <div className="catalog-controls">
         <div className="catalog-search"><SearchIcon aria-hidden="true" /><Input value={query} onChange={(event) => setQuery(event.target.value)} aria-label="Search components" placeholder="Search components" /></div>
@@ -65,7 +66,7 @@ export function ComponentDocs({ slug }: { slug: string }) {
   return (
     <article className="component-docs">
       <header className="page-intro component-docs-intro">
-        <div className="component-docs-meta"><Badge variant="outline">{component.category}</Badge><span>shadcn/ui</span></div>
+        <div className="component-docs-meta"><Badge variant="outline">{component.category}</Badge><span>{slug === "device" ? "Supervisor" : "shadcn/ui"}</span></div>
         <h1>{component.name}</h1>
         <p>{component.description}</p>
       </header>
@@ -79,11 +80,12 @@ export function ComponentDocs({ slug }: { slug: string }) {
       </section>
 
       {slug === "button" ? <SupervisorBrandButtonExample /> : null}
+      {slug === "device" ? <DeviceDetails /> : null}
 
       <section className="component-docs-section">
         <h2>Install</h2>
         <p>Run this command from a project configured for shadcn. The installer follows your component base and aliases.</p>
-        <p>Install the <Link href="/installation">Supervisor theme</Link> first to use these styles. Preview examples use Radix; Base UI apps keep their native component APIs.</p>
+        {slug === "device" ? <p>Device works with either shadcn component base in a Next.js app. The install includes the component, its CSS, and editable frame settings.</p> : <p>Install the <Link href="/installation">Supervisor theme</Link> first to use these styles. Preview examples use Radix; Base UI apps keep their native component APIs.</p>}
         <pre className="install-command"><code>{`bunx shadcn@latest add https://ui.trysupervisor.com/r/${slug}.json`}</code></pre>
       </section>
 
