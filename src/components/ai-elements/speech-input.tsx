@@ -331,6 +331,7 @@ export const SpeechInput = ({
 
       {/* Main record button */}
       <Button
+        data-state={isListening ? "listening" : "idle"}
         className={cn(
           "relative z-10 rounded-full transition-all duration-300",
           isListening

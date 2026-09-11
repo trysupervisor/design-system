@@ -208,6 +208,7 @@ export const TerminalContent = ({
         "max-h-96 overflow-auto p-4 font-mono text-sm leading-relaxed",
         className
       )}
+      data-slot="terminal-content"
       ref={containerRef}
       {...props}
     >
@@ -251,6 +252,7 @@ export const Terminal = ({
           "flex flex-col overflow-hidden rounded-lg border bg-zinc-950 text-zinc-100",
           className
         )}
+        data-slot="terminal"
         {...props}
       >
         {children ?? (

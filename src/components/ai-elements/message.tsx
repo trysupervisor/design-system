@@ -42,6 +42,7 @@ export const Message = ({ className, from, ...props }: MessageProps) => (
       from === "user" ? "is-user ml-auto justify-end" : "is-assistant",
       className
     )}
+    data-slot="message"
     {...props}
   />
 );
@@ -60,6 +61,7 @@ export const MessageContent = ({
       "group-[.is-assistant]:text-foreground",
       className
     )}
+    data-slot="message-content"
     {...props}
   >
     {children}

@@ -59,8 +59,8 @@ export function ComponentIndex() {
 }
 
 export function ComponentDocs({ slug }: { slug: string }) {
-  const { resolvedMode } = useTheme();
-  const previewStyle = slug === "button" ? {
+  const { resolvedMode, theme } = useTheme();
+  const previewStyle = slug === "button" && theme.recipe !== "ledger" ? {
     ...themeVariables(defaultTheme, resolvedMode),
     fontFamily: "var(--app-font)",
     color: "var(--foreground)",
