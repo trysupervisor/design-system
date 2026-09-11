@@ -54,6 +54,16 @@ Then run `bunx shadcn@latest add @supervisor/supervisor`.
 
 Theme Studio includes brand inspired presets and controls for both color modes, fonts, corners, borders, spacing, type size, control height, and shadows. Changes apply across the preview and persist in the browser. Saved themes stay on that device. Choose Download for shadcn to export an installable registry file, including fonts and both color modes. Move the download into your app and run the command shown in Theme Studio, such as `bunx shadcn@latest add ./my-theme.registry.json`. Export JSON saves a Theme Studio document. Copy CSS provides a manual export for Tailwind 4.
 
+### Ledger
+
+Ledger is a compact theme and runtime kit for tables, search, selection, animated detail panels, and an interactive chart. Install the palette, provider, components, tokens, and styles with one command:
+
+```sh
+bunx shadcn@latest add https://ui.trysupervisor.com/r/theme-ledger.json
+```
+
+The [Ledger guide](https://ui.trysupervisor.com/themes/ledger) has a working example, token rules, keyboard controls, reduced motion behavior, and copyable Next.js code. Copy CSS and Export JSON in Theme Studio contain palette settings only. Use the registry command for the components and chart behavior.
+
 The thirteen bundled font families have open licenses and are served by this application. A separate System Sans option uses the device font with Inter as a fallback. Theme files accept only approved font identifiers, hexadecimal colors, and bounded numeric values. They cannot contain CSS expressions, external assets, or executable code.
 
 Named brand presets include source links in Theme Studio, with font substitutions and numeric adaptations identified beside the preview. GitHub uses Mona Sans and Primer colors, Figma uses Inter and blue interface tokens, and OpenAI uses a neutral palette. The original preset identifiers remain stable for saved documents and registry URLs. Button roundness and weight can be adjusted separately from panel corners. Older theme documents keep their previous button shape and medium weight.
@@ -113,7 +123,7 @@ bun run test:installation
 bun run build
 ```
 
-Registry JSON is generated from validated theme presets, the original foundation styles, and reusable compositions. Standard component entries delegate to the official shadcn registry so consumer configuration controls their implementation. All 36 presets are available as `theme-{preset.id}.json`. GitHub Actions runs registry generation, lint, type checks, unit tests, and the production build. Run the installation matrix locally before a registry release; it creates temporary consumer apps and retains their logs for inspection. Vercel builds the Next.js application from the `main` branch in `trysupervisor/design-system`.
+Registry JSON is generated from validated theme presets, the original foundation styles, and reusable compositions. Standard component entries delegate to the official shadcn registry so consumer configuration controls their implementation. All 37 presets are available as `theme-{preset.id}.json`. GitHub Actions runs registry generation, lint, type checks, unit tests, and the production build. Run the installation matrix locally before a registry release; it creates temporary consumer apps and retains their logs for inspection. Vercel builds the Next.js application from the `main` branch in `trysupervisor/design-system`.
 
 ## Licenses
 

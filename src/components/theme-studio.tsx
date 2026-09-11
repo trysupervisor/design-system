@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import {
   Check,
   Copy,
@@ -19,6 +20,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { LedgerStudioPreview } from "@/components/ledger-theme-docs"
 import { useTheme } from "@/components/theme-provider"
 import {
   FONT_OPTIONS,
@@ -117,7 +119,7 @@ function PresetCard({
       onClick={onSelect}
       aria-label={`Preview ${preset.name}`}
       aria-pressed={selected}
-      className="group rounded-xl border bg-card p-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-foreground/25 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-pressed:border-foreground/40 aria-pressed:ring-2 aria-pressed:ring-ring/30"
+      className="group w-full rounded-xl border bg-card p-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-foreground/25 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-pressed:border-foreground/40 aria-pressed:ring-2 aria-pressed:ring-ring/30"
     >
       <span aria-hidden="true" className="mb-3 flex h-24 overflow-hidden border" style={{ background: palette.background, borderColor: palette.border, borderWidth: preset.borderWidth, borderRadius: `${preset.radius}rem`, fontFamily: font.cssFamily }}>
         <span className="w-[27%] border-r p-2" style={{ background: palette.sidebar, borderColor: palette.sidebarBorder }}>
@@ -294,8 +296,10 @@ export function ThemeStudio() {
   }, [category, search])
   const fontSetup = getThemeFontSetup(draft)
   const brandReference = brandThemeReferences[draft.id]
+  const isLedgerRecipe = draft.recipe === "ledger"
   const referencePreset = themePresets.find((preset) => preset.id === draft.id)
   const referenceModified = referencePreset && JSON.stringify(parseTheme(draft)) !== JSON.stringify(parseTheme(referencePreset))
+  const ledgerDraftModified = isLedgerRecipe && (draft.id !== "ledger" || Boolean(referenceModified))
 
   const patchDraft = (patch: Parameters<typeof mergeTheme>[1]) => {
     try {
@@ -417,6 +421,18 @@ export function ThemeStudio() {
               <ModeButtons value={previewMode} onChange={(next) => next !== "system" && setPreviewMode(next)} />
             </div>
             <ThemePreview theme={draft} mode={previewMode} />
+            {isLedgerRecipe && (
+              <div className="mt-5 border-t pt-5">
+                <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-sm font-semibold">Ledger runtime preview</h3>
+                    <p className="mt-1 max-w-xl text-xs leading-5 text-muted-foreground">This isolated preview uses the installed Ledger components and keeps the site theme unchanged.</p>
+                  </div>
+                  <Button variant="outline" size="sm" asChild><Link href="/themes/ledger">Open guide <ExternalLink /></Link></Button>
+                </div>
+                <LedgerStudioPreview style={themeVariables(draft, previewMode) as React.CSSProperties} />
+              </div>
+            )}
             {brandReference && (
               <div className="mt-4 border-t pt-4 text-xs leading-5" data-brand-reference={draft.id}>
                 <div className="flex flex-wrap items-center justify-between gap-2">
@@ -454,7 +470,10 @@ export function ThemeStudio() {
             <div className="max-h-[480px] overflow-y-auto pr-1">
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
                 {presets.map((preset) => (
-                  <PresetCard key={preset.id} preset={preset} selected={draft.id === preset.id} onSelect={() => { setDraft(preset); setPreviewMode(brandThemeReferences[preset.id]?.mode ?? previewMode); setError("") }} />
+                  <div key={preset.id} className="min-w-0">
+                    <PresetCard preset={preset} selected={draft.id === preset.id} onSelect={() => { setDraft(preset); setPreviewMode(brandThemeReferences[preset.id]?.mode ?? previewMode); setError("") }} />
+                    {(preset.id === "ledger" || preset.recipe === "ledger") && <Link href="/themes/ledger" className="mt-2 flex items-center justify-between px-1 text-[10px] text-muted-foreground hover:text-foreground">Ledger guide <ExternalLink className="size-3" /></Link>}
+                  </div>
                 ))}
               </div>
               {presets.length === 0 && <div className="py-12 text-center text-sm text-muted-foreground">No themes match that search.</div>}
@@ -507,17 +526,34 @@ export function ThemeStudio() {
               <Button variant="outline" onClick={copyCss}>{copied ? <Check /> : <Copy />} {copied ? "Copied" : "Copy CSS"}</Button>
               <Button variant="outline" onClick={() => downloadFile(`${draft.id}.json`, themeToJson(draft), "application/json")}><Download /> Export JSON</Button>
               <Button className="col-span-2" variant="outline" onClick={() => downloadFile(`${draft.id}.registry.json`, `${JSON.stringify(themeToRegistry(draft), null, 2)}\n`, "application/json")}><Download /> Download for shadcn</Button>
-              <div className="col-span-2 rounded-lg bg-muted/50 p-2.5 text-[10px] leading-4 text-muted-foreground">
-                <span className="font-medium text-foreground">Install in an existing app</span>
-                <code className="mt-1 block break-all">bunx shadcn@latest add ./{draft.id}.registry.json</code>
-                <span className="mt-1 block">Move the downloaded file into your app and run this command. It installs the theme and fonts through shadcn. Your components stay in place.</span>
-              </div>
-              <div className="col-span-2 mt-1 rounded-lg bg-muted/50 p-2.5 text-[10px] leading-4 text-muted-foreground">
-                <span className="font-medium text-foreground">Font setup for CSS exports</span>
-                <code className="mt-1 block break-all">bun add {fontSetup.packageName}</code>
-                <code className="block break-all">{fontSetup.cssImport}</code>
-                <span className="mt-1 block">{fontSetup.usage}</span>
-              </div>
+              {isLedgerRecipe ? (
+                <div className="col-span-2 rounded-lg bg-muted/50 p-2.5 text-[10px] leading-4 text-muted-foreground">
+                  <span className="font-medium text-foreground">{ledgerDraftModified ? "Install this Ledger draft" : "Install the Ledger preset"}</span>
+                  <code className="mt-1 block break-all">{ledgerDraftModified ? `bunx shadcn@latest add ./${draft.id}.registry.json` : "bunx shadcn@latest add https://ui.trysupervisor.com/r/theme-ledger.json"}</code>
+                  <span className="mt-1 block">{ledgerDraftModified ? "Choose Download for shadcn, move the file into your app, and run this command. The file preserves your edits and installs the Ledger runtime." : "This registry item installs the palette, provider, components, chart, tokens, and styles. Copy CSS and Export JSON save palette settings only."}</span>
+                  {ledgerDraftModified && <span className="mt-1 block">The published preset remains at <code className="break-all">https://ui.trysupervisor.com/r/theme-ledger.json</code>.</span>}
+                  <Link href="/themes/ledger" className="mt-2 inline-flex items-center gap-1 text-foreground underline underline-offset-4">Read the Ledger guide <ExternalLink className="size-3" /></Link>
+                </div>
+              ) : (
+                <div className="col-span-2 rounded-lg bg-muted/50 p-2.5 text-[10px] leading-4 text-muted-foreground">
+                  <span className="font-medium text-foreground">Install in an existing app</span>
+                  <code className="mt-1 block break-all">bunx shadcn@latest add ./{draft.id}.registry.json</code>
+                  <span className="mt-1 block">Move the downloaded file into your app and run this command. It installs the theme and fonts through shadcn. Your components stay in place.</span>
+                </div>
+              )}
+              {isLedgerRecipe && draft.font === "system-sans" ? (
+                <div className="col-span-2 mt-1 rounded-lg bg-muted/50 p-2.5 text-[10px] leading-4 text-muted-foreground">
+                  <span className="font-medium text-foreground">Native font setup</span>
+                  <span className="mt-1 block">Ledger uses San Francisco on Apple devices, then system sans fallbacks. Its data face uses the native monospace stack. No font package is required.</span>
+                </div>
+              ) : (
+                <div className="col-span-2 mt-1 rounded-lg bg-muted/50 p-2.5 text-[10px] leading-4 text-muted-foreground">
+                  <span className="font-medium text-foreground">Font setup for CSS exports</span>
+                  <code className="mt-1 block break-all">bun add {fontSetup.packageName}</code>
+                  <code className="block break-all">{fontSetup.cssImport}</code>
+                  <span className="mt-1 block">{fontSetup.usage}</span>
+                </div>
+              )}
             </div>
 
             <div className="space-y-6 p-4 sm:p-5">
