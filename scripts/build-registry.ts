@@ -145,6 +145,19 @@ async function main() {
     ...nativeItems,
     ...await Promise.all(compositions.map(buildComposition)),
     {
+      name: "device",
+      type: "registry:component" as const,
+      title: "Device",
+      description: "Photographic PNG frames for iPhone, iPad, MacBook, and Android.",
+      files: [
+        await sourceFile(join(projectRoot, "src/components/examples/registry/device.tsx"), "registry:ui", "@ui/device.tsx"),
+        await sourceFile(join(projectRoot, "src/components/examples/registry/device-frames.ts"), "registry:ui", "@ui/device-frames.ts"),
+        await sourceFile(join(projectRoot, "src/components/examples/registry/device.css"), "registry:ui", "@ui/device.css"),
+        await sourceFile(join(projectRoot, "licenses/device-frames.txt"), "registry:file", "~/licenses/device-frames.txt"),
+        await sourceFile(join(projectRoot, "LICENSE"), "registry:file", "~/licenses/supervisor-ui.txt"),
+      ],
+    },
+    {
       name: "supervisor-brand-button",
       type: "registry:component" as const,
       title: "Supervisor brand button",
