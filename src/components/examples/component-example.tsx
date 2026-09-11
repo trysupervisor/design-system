@@ -73,7 +73,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Toggle } from "@/components/ui/toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { ChartGallery } from "@/components/chart-gallery";
+import { ComparisonLineChart } from "@/components/examples/registry/chart-cartesian";
 import { DeviceExample } from "./device-example";
 
 const companies = ["Aperture Labs", "Northstar Works", "Pine Research"];
@@ -154,7 +154,7 @@ export function ComponentExample({ slug }: { slug: string }) {
     case "calendar": return <div><Calendar mode="single" selected={date} onSelect={setDate} defaultMonth={date} className="mx-auto" /><p className="mt-3 text-center text-sm text-muted-foreground">{date?.toLocaleDateString("en", { dateStyle: "long" })}</p></div>;
     case "card": return <Card className="w-full max-w-sm"><CardHeader><CardTitle>Weekly review</CardTitle><CardDescription>Eight completed runs across three workspaces.</CardDescription><CardAction><Badge variant="secondary">Current</Badge></CardAction></CardHeader><CardContent><p className="text-3xl font-medium tabular-nums">18.4 hours</p></CardContent><CardFooter><Button variant="outline" className="w-full">Open report</Button></CardFooter></Card>;
     case "carousel": return <Carousel className="mx-auto w-full max-w-sm"><CarouselContent>{["First", "Second", "Third"].map((label, index) => <CarouselItem key={label}><div className="grid aspect-[4/3] place-items-center rounded-lg border bg-muted/40"><span className="text-2xl font-medium">{index + 1}</span><span className="sr-only">{label} slide</span></div></CarouselItem>)}</CarouselContent><CarouselPrevious /><CarouselNext /></Carousel>;
-    case "chart": return <div className="w-full"><ChartGallery /></div>;
+    case "chart": return <div className="w-full max-w-2xl"><ComparisonLineChart /></div>;
     case "checkbox": return <div className="grid gap-3"><div className="flex items-center gap-2"><Checkbox id="terms" defaultChecked /><Label htmlFor="terms">Accept the workspace terms</Label></div><div className="flex items-center gap-2"><Checkbox id="archive" disabled /><Label htmlFor="archive">Archive after completion</Label></div></div>;
     case "collapsible": return <Collapsible className="w-full max-w-md"><div className="flex items-center justify-between"><div><p className="font-medium">Advanced settings</p><p className="text-sm text-muted-foreground">Three optional controls</p></div><CollapsibleTrigger asChild><Button variant="ghost" size="icon" aria-label="Toggle advanced settings"><ChevronDownIcon /></Button></CollapsibleTrigger></div><CollapsibleContent className="mt-3 rounded-lg border p-4 text-sm">Timeout is 45 seconds. Retries are disabled.</CollapsibleContent></Collapsible>;
     case "combobox": return <ComboboxDemo />;

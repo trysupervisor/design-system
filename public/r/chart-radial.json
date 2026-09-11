@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-radial",
+  "type": "registry:component",
+  "title": "Radial chart",
+  "description": "One completion value shown against its remaining track.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

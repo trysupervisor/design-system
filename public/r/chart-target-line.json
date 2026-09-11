@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-target-line",
+  "type": "registry:component",
+  "title": "Target line",
+  "description": "Service level measured against a labeled operating target.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

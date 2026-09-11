@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-funnel",
+  "type": "registry:component",
+  "title": "Funnel chart",
+  "description": "Account volume through each measured sales stage.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

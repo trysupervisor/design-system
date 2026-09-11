@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-heatmap",
+  "type": "registry:component",
+  "title": "Heatmap",
+  "description": "Queue intensity by weekday and hour in an inspectable grid.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

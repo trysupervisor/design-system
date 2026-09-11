@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-treemap",
+  "type": "registry:component",
+  "title": "Treemap",
+  "description": "Issue volume sized by value and grouped by operating area.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

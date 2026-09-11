@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-multi-ring",
+  "type": "registry:component",
+  "title": "Progress rings",
+  "description": "Three journey measures shown on complete concentric tracks.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

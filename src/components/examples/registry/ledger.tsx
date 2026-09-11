@@ -4,6 +4,7 @@ import { getSvgPath } from "figma-squircle";
 import { AnimatePresence, MotionConfig, motion, useIsPresent, useReducedMotion } from "motion/react";
 import { useId, useLayoutEffect, useRef, useState, type ComponentProps, type CSSProperties, type ReactNode } from "react";
 import { ledgerMotion, ledgerVariables } from "./ledger-tokens";
+import { mountLedgerTheme } from "./ledger-runtime";
 import "./ledger.css";
 
 export { ledgerMotion, ledgerVariables } from "./ledger-tokens";
@@ -133,6 +134,7 @@ function useLedgerCorners(root: React.RefObject<HTMLDivElement | null>) {
 export function LedgerProvider({ children, className, style }: { children: ReactNode; className?: string; style?: CSSProperties }) {
   const root = useRef<HTMLDivElement>(null);
   useLedgerCorners(root);
+  useLayoutEffect(() => root.current ? mountLedgerTheme(root.current) : undefined, []);
   return <MotionConfig reducedMotion="user"><div ref={root} data-ledger-theme="" className={className} style={{ ...ledgerDefaults, ...style } as CSSProperties}>{children}</div></MotionConfig>;
 }
 

@@ -61,6 +61,29 @@ const chartData = {
 
 const rangeOptions = ["1D", "1W", "1M"] as const
 
+const ledgerApplicationSource = `"use client"
+
+import { useEffect } from "react"
+import { mountLedgerTheme } from "@/components/ui/ledger-runtime"
+import "@/components/ui/ledger.css"
+
+export function AppTheme({ children }: { children: React.ReactNode }) {
+  useEffect(() => mountLedgerTheme(document.documentElement), [])
+  return <>{children}</>
+}`
+
+const ledgerChartUsageSource = `import { ComparisonLineChart } from "@/components/ui/chart-cartesian"
+
+const daily = [
+  { label: "Monday", current: 42, prior: 37 },
+  { label: "Tuesday", current: 47, prior: 41 },
+  { label: "Wednesday", current: 54, prior: 46 },
+]
+
+export function ActivityChart() {
+  return <ComparisonLineChart data={daily} label="Resolved conversations" />
+}`
+
 const ledgerTokenGroups = [
   {
     name: "Type",
@@ -395,6 +418,18 @@ export function LedgerThemeDocs() {
         </div>
       </section>
 
+      <section aria-labelledby="ledger-catalog" className="mb-12 border-t pt-9">
+        <h2 id="ledger-catalog" className="text-lg font-semibold tracking-tight">Use Ledger across your app</h2>
+        <p className="mt-2 mb-5 max-w-2xl text-sm leading-6 text-muted-foreground">Your existing shadcn components and AI Elements share Ledger typography, control spacing, continuous corners, focus states, shadows, and enter and exit timing. Wrap your layout in this client component after installing the theme. Keep your existing dark mode switch.</p>
+        <div className="panel overflow-hidden"><CodeDisclosure title="Application theme" code={ledgerApplicationSource} /></div>
+        <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">For a light Ledger section inside another theme, use LedgerProvider. Dialogs and menus opened from that section inherit its tokens. Mount a toaster inside the same provider, or use the application wrapper for global toasts.</p>
+        <h3 className="mt-7 text-base font-medium">Add the chart collection</h3>
+        <p className="mt-2 mb-5 max-w-2xl text-sm leading-6 text-muted-foreground">Install the <Link className="underline underline-offset-4" href="/charts">chart collection</Link> for comparisons, distributions, ranges, targets, heatmaps, and more. The examples use the same portable components that this command installs.</p>
+        <CopyCommand command="bunx shadcn@latest add https://ui.trysupervisor.com/r/supervisor-charts.json" />
+        <div className="panel mt-5 overflow-hidden"><CodeDisclosure title="Chart with application data" code={ledgerChartUsageSource} /></div>
+        <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">Pass data for a single series window, or data and expandedData to enable both range controls. Omitted data shows illustrative examples. Chart colors, labels, values, tooltips, and legends follow the active theme.</p>
+      </section>
+
       <section aria-labelledby="ledger-tokens" className="mb-12 border-t pt-9">
         <div className="mb-5 max-w-2xl">
           <h2 id="ledger-tokens" className="text-lg font-semibold tracking-tight">Token reference</h2>
@@ -441,7 +476,7 @@ export function LedgerThemeDocs() {
         <h2 id="ledger-exports" className="text-lg font-semibold tracking-tight">Exports and limits</h2>
         <div className="mt-4 max-w-3xl space-y-4 text-sm leading-6 text-muted-foreground">
           <p>Copy CSS and Export JSON in Theme Studio save the editable palette, type choice, spacing, radius, border, and shadow values. Those exports do not include the Ledger components or chart behavior. Use the registry command above when the app needs the full kit.</p>
-          <p>Ledger scopes its styles to LedgerProvider. Wrap each separately portalled menu, dialog, or tooltip in another LedgerProvider so it receives the same tokens and continuous corner handling.</p>
+          <p>LedgerProvider creates a light section. The application wrapper applies the selected Ledger palette across both color modes. Nested theme boundaries keep other themes independent.</p>
           <p>The included data is deterministic and illustrative. Connect your own data source, formatting, loading state, and error state in the consuming app.</p>
         </div>
       </section>

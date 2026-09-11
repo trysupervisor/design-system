@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { LedgerStudioPreview } from "@/components/ledger-theme-docs"
+import { mountLedgerTheme } from "@/components/examples/registry/ledger-runtime"
 import { useTheme } from "@/components/theme-provider"
 import {
   FONT_OPTIONS,
@@ -206,13 +207,18 @@ function ModeButtons({ value, onChange, includeSystem = false }: { value: ThemeM
 }
 
 function ThemePreview({ theme, mode }: { theme: ThemeDefinition; mode: PreviewMode }) {
+  const preview = React.useRef<HTMLDivElement>(null)
+  React.useEffect(() => {
+    if (theme.recipe !== "ledger" || !preview.current) return
+    return mountLedgerTheme(preview.current)
+  }, [theme.recipe])
   const variables = {
     ...themeVariables(theme, mode),
     fontFamily: "var(--app-font)",
     fontSize: "calc(1rem * var(--text-scale))",
   } as React.CSSProperties
   return (
-    <div data-theme-preview={theme.id} className={`${mode === "dark" ? "dark" : ""} [&_.preview-border]:border-[length:var(--border-width)]`} style={variables}>
+    <div ref={preview} data-theme-preview={theme.id} data-theme-recipe={theme.recipe ?? "none"} className={`${mode === "dark" ? "dark" : ""} [&_.preview-border]:border-[length:var(--border-width)]`} style={variables}>
       <div className="preview-border overflow-hidden rounded-[calc(var(--radius)*1.8)] border bg-background text-foreground shadow-[var(--theme-shadow)]">
         <div className="preview-border flex h-10 items-center justify-between border-b px-4">
           <div className="flex items-center gap-2">

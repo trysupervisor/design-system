@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-gauge",
+  "type": "registry:component",
+  "title": "Gauge chart",
+  "description": "Renewal readiness placed between explicit bounds with a target marker.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

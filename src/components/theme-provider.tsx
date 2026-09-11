@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { ledgerVariables } from "@/components/examples/registry/ledger-tokens"
+import { mountLedgerTheme } from "@/components/examples/registry/ledger-runtime"
 
 import {
   CUSTOM_THEMES_STORAGE_KEY,
@@ -91,6 +92,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   React.useEffect(() => {
     const root = document.documentElement
     root.dataset.theme = theme.id
+    if (theme.recipe) root.dataset.themeRecipe = theme.recipe
+    else delete root.dataset.themeRecipe
     root.classList.toggle("dark", resolvedMode === "dark")
     root.style.colorScheme = resolvedMode
     if (theme.recipe !== "ledger") {
@@ -99,6 +102,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const variables = themeVariables(theme, resolvedMode)
     for (const [name, value] of Object.entries(variables)) root.style.setProperty(name, value)
   }, [resolvedMode, theme])
+
+  React.useEffect(() => {
+    if (theme.recipe !== "ledger") return
+    return mountLedgerTheme(document.documentElement)
+  }, [theme.recipe])
 
   const setMode = React.useCallback((nextMode: ThemeMode) => {
     setModeState(nextMode)

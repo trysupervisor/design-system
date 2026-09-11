@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-donut",
+  "type": "registry:component",
+  "title": "Donut chart",
+  "description": "Acquisition share with the total shown at the center.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

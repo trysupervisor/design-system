@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-calendar-heatmap",
+  "type": "registry:component",
+  "title": "Calendar heatmap",
+  "description": "Daily activity arranged by week with every date available to inspect.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

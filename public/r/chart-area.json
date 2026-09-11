@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-area",
+  "type": "registry:component",
+  "title": "Area chart",
+  "description": "Visit volume split by source, with each source adding to the total.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

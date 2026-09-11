@@ -6,6 +6,7 @@ import { COMPONENTS, getComponent } from "../src/lib/component-catalog";
 import { defaultTheme, themePresets } from "../src/lib/theme-presets";
 import { REGISTRY_URL, themeToRegistry } from "../src/lib/theme-registry";
 import { AI_ELEMENTS } from "../src/lib/ai-elements-catalog";
+import { CHART_DEFINITIONS } from "../src/lib/chart-metadata";
 import ts from "typescript";
 import { streamdownRegistryCss } from "./streamdown-css";
 
@@ -108,7 +109,7 @@ async function buildComposition(name: string): Promise<RegistryItem> {
 
 async function buildLedgerRuntime(): Promise<RegistryItem> {
   const sourceRoot = join(projectRoot, "src/components/examples/registry");
-  const names = ["ledger.tsx", "ledger-chart.tsx", "ledger-tokens.ts", "ledger.css"];
+  const names = ["ledger.tsx", "ledger-chart.tsx", "ledger-tokens.ts", "ledger-runtime.ts", "ledger.css"];
   const paths = names.map((name) => join(sourceRoot, name));
   const sources = await Promise.all(paths.map((path) => readFile(path, "utf8")));
   const registryDependencies = new Set<string>();
@@ -144,6 +145,43 @@ async function buildLedgerRuntime(): Promise<RegistryItem> {
     dependencies: [...dependencies].sort(),
     files: [
       ...await Promise.all(paths.map((path, index) => sourceFile(path, "registry:ui", `@ui/${names[index]}`))),
+      await sourceFile(join(projectRoot, "LICENSE"), "registry:file", "~/licenses/supervisor-ui.txt"),
+    ],
+  };
+}
+
+async function buildChartKit(): Promise<RegistryItem> {
+  const sourceRoot = join(projectRoot, "src/components/examples/registry");
+  const names = ["chart-types.ts", "chart-frame.tsx", "chart-cartesian.tsx", "chart-specialty.tsx", "chart.css"];
+  const files = await Promise.all(names.map((name) => sourceFile(join(sourceRoot, name), "registry:ui", `@ui/${name}`)));
+  const helper = await sourceFile(join(projectRoot, "src/components/ui/chart.tsx"), "registry:ui", "@ui/supervisor-chart.tsx");
+  const portableFiles = [...files, helper].map((file) => ({ ...file, content: file.content.replaceAll('"@/components/ui/chart"', '"./supervisor-chart"') }));
+  const dependencies = new Set<string>();
+  for (const file of portableFiles) {
+    if (file.path.endsWith(".css")) continue;
+    for (const specifier of moduleSpecifiers(file.path, file.content)) {
+      if (specifier.startsWith(".")) {
+        const target = join(dirname(file.target), specifier);
+        if (!portableFiles.some((candidate) => candidate.target === target || candidate.target.replace(/\.(?:tsx?|css)$/, "") === target)) throw new Error(`Missing chart file for ${specifier}`);
+      } else if (specifier.startsWith("@/")) {
+        throw new Error(`Chart kit cannot import application module ${specifier}`);
+      } else {
+        const name = packageName(specifier);
+        if (["react", "react-dom"].includes(name)) continue;
+        const version = packageManifest.dependencies[name];
+        if (!version) throw new Error(`Unlisted chart package ${name}`);
+        dependencies.add(`${name}@${version}`);
+      }
+    }
+  }
+  return {
+    name: "supervisor-charts",
+    type: "registry:component",
+    title: "Supervisor charts",
+    description: "Reusable charts adapted from the Supervisor widget library with range controls and accessible data.",
+    dependencies: [...dependencies].sort(),
+    files: [...portableFiles,
+      await sourceFile(join(projectRoot, "licenses/shadcn-ui.txt"), "registry:file", "~/licenses/shadcn-ui.txt"),
       await sourceFile(join(projectRoot, "LICENSE"), "registry:file", "~/licenses/supervisor-ui.txt"),
     ],
   };
@@ -193,6 +231,14 @@ async function main() {
   const items: RegistryItem[] = [
     await buildFoundation(),
     await buildLedgerRuntime(),
+    await buildChartKit(),
+    ...CHART_DEFINITIONS.map((chart) => ({
+      name: `chart-${chart.slug}`,
+      type: "registry:component" as const,
+      title: chart.name,
+      description: chart.description,
+      registryDependencies: [`${registryBaseUrl}/supervisor-charts.json`],
+    })),
     themeToRegistry(defaultTheme, registryBaseUrl, "supervisor"),
     ...themePresets.map((theme) => themeToRegistry(theme, registryBaseUrl)),
     ...nativeItems,
