@@ -5,6 +5,7 @@ import {
   Check,
   Copy,
   Download,
+  ExternalLink,
   Monitor,
   Moon,
   Save,
@@ -35,6 +36,7 @@ import {
   type ThemePalette,
 } from "@/lib/theme"
 import { themePresets } from "@/lib/theme-presets"
+import { brandThemeReferences } from "@/lib/brand-theme-references"
 import { themeToRegistry } from "@/lib/theme-registry"
 
 type PreviewMode = "light" | "dark"
@@ -106,30 +108,34 @@ function PresetCard({
   selected: boolean
   onSelect: () => void
 }) {
+  const reference = brandThemeReferences[preset.id]
+  const palette = preset[reference?.mode ?? "light"]
+  const font = getThemeFontSetup(preset)
   return (
     <button
       type="button"
       onClick={onSelect}
+      aria-label={`Preview ${preset.name}`}
       aria-pressed={selected}
       className="group rounded-xl border bg-card p-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-foreground/25 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-pressed:border-foreground/40 aria-pressed:ring-2 aria-pressed:ring-ring/30"
     >
-      <span className="mb-3 flex h-16 overflow-hidden rounded-lg border" style={{ background: preset.light.background }}>
-        <span className="w-[30%] border-r p-2" style={{ background: preset.light.sidebar, borderColor: preset.light.sidebarBorder }}>
-          <span className="block h-1.5 w-7 rounded-full" style={{ background: preset.light.sidebarPrimary }} />
-          <span className="mt-2 block h-1 w-8 rounded-full opacity-40" style={{ background: preset.light.sidebarForeground }} />
-          <span className="mt-1.5 block h-1 w-5 rounded-full opacity-30" style={{ background: preset.light.sidebarForeground }} />
+      <span aria-hidden="true" className="mb-3 flex h-24 overflow-hidden border" style={{ background: palette.background, borderColor: palette.border, borderWidth: preset.borderWidth, borderRadius: `${preset.radius}rem`, fontFamily: font.cssFamily }}>
+        <span className="w-[27%] border-r p-2" style={{ background: palette.sidebar, borderColor: palette.sidebarBorder }}>
+          <span className="block h-1.5 w-full rounded-sm" style={{ background: palette.sidebarPrimary }} />
+          <span className="mt-2 block h-1 w-full rounded-sm opacity-40" style={{ background: palette.sidebarForeground }} />
+          <span className="mt-1.5 block h-1 w-3/4 rounded-sm opacity-30" style={{ background: palette.sidebarForeground }} />
         </span>
-        <span className="flex-1 p-2.5">
-          <span className="block h-1.5 w-12 rounded-full opacity-80" style={{ background: preset.light.foreground }} />
-          <span className="mt-2 block h-5 rounded border" style={{ background: preset.light.card, borderColor: preset.light.border }} />
-          <span className="mt-2 block h-2.5 w-8 rounded" style={{ background: preset.light.primary }} />
+        <span className="min-w-0 flex-1" style={{ padding: `${preset.spacing * 8}px` }}>
+          <span className="block text-[11px] font-semibold" style={{ color: palette.foreground }}>Overview</span>
+          <span className="mt-1 block border px-1.5 py-1 text-[12px]" style={{ color: palette.foreground, background: palette.card, borderColor: palette.border, borderWidth: preset.borderWidth, borderRadius: `${preset.radius * 0.5}rem` }}>Aa 123</span>
+          <span className="mt-1.5 block w-12 text-center text-[8px] leading-none" style={{ background: palette.primary, color: palette.primaryForeground, paddingBlock: `${preset.controlHeight * 1.5}px`, borderRadius: `${preset.buttonRadius ?? preset.radius}rem`, fontWeight: preset.buttonWeight ?? 500 }}>Continue</span>
         </span>
       </span>
       <span className="flex items-center justify-between gap-2">
         <span className="truncate text-xs font-medium">{preset.name}</span>
-        <span className="size-2.5 shrink-0 rounded-full ring-1 ring-black/10" style={{ background: preset.light.primary }} />
+        <span className="size-2.5 shrink-0 rounded-full ring-1 ring-black/10" style={{ background: palette.primary }} />
       </span>
-      <span className="mt-1 block text-[10px] text-muted-foreground">{categoryLabels[preset.category]}</span>
+      <span className="mt-1 block truncate text-[10px] text-muted-foreground">{font.label}{reference ? ` · ${reference.mode === "dark" ? "Dark" : "Light"} reference` : ` · ${categoryLabels[preset.category]}`}</span>
     </button>
   )
 }
@@ -204,7 +210,7 @@ function ThemePreview({ theme, mode }: { theme: ThemeDefinition; mode: PreviewMo
     fontSize: "calc(1rem * var(--text-scale))",
   } as React.CSSProperties
   return (
-    <div className={`${mode === "dark" ? "dark" : ""} [&_.preview-border]:border-[length:var(--border-width)]`} style={variables}>
+    <div data-theme-preview={theme.id} className={`${mode === "dark" ? "dark" : ""} [&_.preview-border]:border-[length:var(--border-width)]`} style={variables}>
       <div className="preview-border overflow-hidden rounded-[calc(var(--radius)*1.8)] border bg-background text-foreground shadow-[var(--theme-shadow)]">
         <div className="preview-border flex h-10 items-center justify-between border-b px-4">
           <div className="flex items-center gap-2">
@@ -228,7 +234,7 @@ function ThemePreview({ theme, mode }: { theme: ThemeDefinition; mode: PreviewMo
                 <p className="text-[0.875em] font-semibold">Good morning, Alex</p>
                 <p className="mt-1 text-[0.625em] text-muted-foreground">Your team completed 84 tasks this month.</p>
               </div>
-              <button className="h-[var(--control-height)] rounded-[var(--radius)] bg-primary px-3 text-[0.625em] font-medium text-primary-foreground">New report</button>
+              <button className="h-[var(--control-height)] shrink-0 rounded-[var(--button-radius)] bg-primary px-3 text-[0.625em] font-[number:var(--button-weight)] text-primary-foreground">New report</button>
             </div>
             <div className="grid gap-3 sm:grid-cols-3">
               {["Active projects", "Tasks closed", "On time"].map((label, index) => (
@@ -282,11 +288,14 @@ export function ThemeStudio() {
     const query = search.trim().toLowerCase()
     return themePresets.filter((preset) => {
       const categoryMatch = category === "all" || preset.category === category
-      const searchMatch = !query || `${preset.name} ${categoryLabels[preset.category]}`.toLowerCase().includes(query)
+      const searchMatch = !query || `${preset.name} ${preset.id} ${categoryLabels[preset.category]}`.toLowerCase().includes(query)
       return categoryMatch && searchMatch
     })
   }, [category, search])
   const fontSetup = getThemeFontSetup(draft)
+  const brandReference = brandThemeReferences[draft.id]
+  const referencePreset = themePresets.find((preset) => preset.id === draft.id)
+  const referenceModified = referencePreset && JSON.stringify(parseTheme(draft)) !== JSON.stringify(parseTheme(referencePreset))
 
   const patchDraft = (patch: Parameters<typeof mergeTheme>[1]) => {
     try {
@@ -408,13 +417,28 @@ export function ThemeStudio() {
               <ModeButtons value={previewMode} onChange={(next) => next !== "system" && setPreviewMode(next)} />
             </div>
             <ThemePreview theme={draft} mode={previewMode} />
+            {brandReference && (
+              <div className="mt-4 border-t pt-4 text-xs leading-5" data-brand-reference={draft.id}>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <h3 className="font-semibold">{referenceModified ? `Starting reference: ${brandReference.reference}` : brandReference.reference}</h3>
+                  <span className="text-[10px] text-muted-foreground">Researched September 10, 2026</span>
+                </div>
+                {referenceModified && <p className="mt-2">These references describe the preset before your edits.</p>}
+                <p className="mt-2 text-muted-foreground">{brandReference.typography}</p>
+                <p className="mt-2 text-muted-foreground">{brandReference.geometry}</p>
+                <p className="mt-2 text-muted-foreground">{brandReference.adaptation}</p>
+                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
+                  {brandReference.sources.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-muted-foreground">{source.label}<ExternalLink className="size-3" /></a>)}
+                </div>
+              </div>
+            )}
           </section>
 
           <section className="rounded-2xl border bg-card p-4 shadow-sm sm:p-5">
             <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="text-sm font-semibold">Presets</h2>
-                <p className="mt-1 text-xs text-muted-foreground">{themePresets.length} original themes with light and dark palettes.</p>
+                <p className="mt-1 text-xs text-muted-foreground">{themePresets.length} themes. Brand presets include researched references and free font alternatives.</p>
               </div>
               <div className="flex gap-2">
                 <label className="relative min-w-0 flex-1 sm:w-52">
@@ -430,7 +454,7 @@ export function ThemeStudio() {
             <div className="max-h-[480px] overflow-y-auto pr-1">
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
                 {presets.map((preset) => (
-                  <PresetCard key={preset.id} preset={preset} selected={draft.id === preset.id} onSelect={() => { setDraft(preset); setError("") }} />
+                  <PresetCard key={preset.id} preset={preset} selected={draft.id === preset.id} onSelect={() => { setDraft(preset); setPreviewMode(brandThemeReferences[preset.id]?.mode ?? previewMode); setError("") }} />
                 ))}
               </div>
               {presets.length === 0 && <div className="py-12 text-center text-sm text-muted-foreground">No themes match that search.</div>}
@@ -504,7 +528,9 @@ export function ThemeStudio() {
                     {FONT_OPTIONS.map((font) => <option key={font.id} value={font.id}>{font.label}</option>)}
                   </select>
                 </label>
-                <RangeControl label="Roundness" value={draft.radius} min={0} max={2} step={0.01} suffix="rem" onChange={(radius) => patchDraft({ radius })} />
+                <RangeControl label="Panel roundness" value={draft.radius} min={0} max={2} step={0.01} suffix="rem" onChange={(radius) => patchDraft({ radius })} />
+                <RangeControl label="Button roundness" value={draft.buttonRadius ?? draft.radius} min={0} max={3.5} step={0.01} suffix="rem" onChange={(buttonRadius) => patchDraft({ buttonRadius })} />
+                <RangeControl label="Button weight" value={draft.buttonWeight ?? 500} min={400} max={800} step={100} onChange={(buttonWeight) => patchDraft({ buttonWeight })} />
                 <RangeControl label="Border" value={draft.borderWidth} min={0} max={3} step={0.25} suffix="px" onChange={(borderWidth) => patchDraft({ borderWidth })} />
                 <RangeControl label="Spacing" value={draft.spacing} min={0.75} max={1.5} step={0.01} suffix="×" onChange={(spacing) => patchDraft({ spacing })} />
                 <RangeControl label="Control height" value={draft.controlHeight} min={1.75} max={3.5} step={0.05} suffix="rem" onChange={(controlHeight) => patchDraft({ controlHeight })} />
