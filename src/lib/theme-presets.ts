@@ -1,3 +1,4 @@
+import { brandThemePresets } from "./brand-theme-presets"
 import {
   parseTheme,
   type ThemeDefinition,
@@ -144,15 +145,15 @@ const geistDefault = parseTheme({
     popoverForeground: "#171717",
     primary: "#171717",
     primaryForeground: "#FFFFFF",
-    secondary: "#F1F1F1",
+    secondary: "#F2F2F2",
     secondaryForeground: "#171717",
     muted: "#F5F5F5",
-    mutedForeground: "#686868",
-    accent: "#EEEEEE",
+    mutedForeground: "#4D4D4D",
+    accent: "#EBEBEB",
     accentForeground: "#171717",
     destructive: "#C92B2B",
     destructiveForeground: "#FFFFFF",
-    border: "#E5E5E5",
+    border: "#EAEAEA",
     input: "#D9D9D9",
     ring: "#737373",
     chart1: "#0070F3",
@@ -164,9 +165,9 @@ const geistDefault = parseTheme({
     sidebarForeground: "#171717",
     sidebarPrimary: "#171717",
     sidebarPrimaryForeground: "#FFFFFF",
-    sidebarAccent: "#EEEEEE",
+    sidebarAccent: "#EBEBEB",
     sidebarAccentForeground: "#171717",
-    sidebarBorder: "#E5E5E5",
+    sidebarBorder: "#EAEAEA",
     sidebarRing: "#737373",
   },
   dark: {
@@ -181,14 +182,14 @@ const geistDefault = parseTheme({
     secondary: "#1A1A1A",
     secondaryForeground: "#EDEDED",
     muted: "#171717",
-    mutedForeground: "#A1A1A1",
+    mutedForeground: "#A0A0A0",
     accent: "#242424",
     accentForeground: "#EDEDED",
     destructive: "#FF6666",
     destructiveForeground: "#171717",
-    border: "#292929",
+    border: "#2E2E2E",
     input: "#363636",
-    ring: "#A1A1A1",
+    ring: "#A0A0A0",
     chart1: "#0070F3",
     chart2: "#38A169",
     chart3: "#EA7D20",
@@ -200,23 +201,12 @@ const geistDefault = parseTheme({
     sidebarPrimaryForeground: "#171717",
     sidebarAccent: "#1F1F1F",
     sidebarAccentForeground: "#EDEDED",
-    sidebarBorder: "#292929",
-    sidebarRing: "#A1A1A1",
+    sidebarBorder: "#2E2E2E",
+    sidebarRing: "#A0A0A0",
   },
 })
 
 const presetSeeds: PresetSeed[] = [
-  { id: "geist", name: "Geist", category: "neutral", accent: "#171717", darkAccent: "#FFFFFF", radius: 0.5 },
-  { id: "supervisor", name: "Supervisor", category: "brand", accent: "#FF5125", darkAccent: "#FF6B45", radius: 0.38 },
-  { id: "spotify-green", name: "Spotify Green", category: "brand", accent: "#1DB954", darkAccent: "#1ED760", darkBackground: "#080C09", radius: 0.75 },
-  { id: "netflix-red", name: "Netflix Red", category: "brand", accent: "#C91520", darkAccent: "#E50914", darkBackground: "#090909", radius: 0.22 },
-  { id: "apple-clean", name: "Apple Clean", category: "brand", accent: "#006EDB", darkAccent: "#2997FF", lightBackground: "#FBFBFD", darkBackground: "#000000", radius: 0.75 },
-  { id: "openai-forest", name: "OpenAI Forest", category: "brand", accent: "#087F5B", darkAccent: "#45B89C", lightBackground: "#F7F7F4", darkBackground: "#101312", radius: 0.4 },
-  { id: "notion-paper", name: "Notion Paper", category: "brand", accent: "#2F3437", darkAccent: "#FFFFFF", lightBackground: "#FFFFFF", darkBackground: "#191919", font: "inter", radius: 0.2 },
-  { id: "linear-purple", name: "Linear Purple", category: "brand", accent: "#5E5CE6", darkAccent: "#8B87FF", darkBackground: "#0D0D12", radius: 0.55 },
-  { id: "github-ink", name: "GitHub Ink", category: "brand", accent: "#0969DA", darkAccent: "#58A6FF", lightBackground: "#F6F8FA", darkBackground: "#0D1117", font: "ibm-plex-sans", radius: 0.38 },
-  { id: "figma-coral", name: "Figma Coral", category: "brand", accent: "#F24E1E", darkAccent: "#FF7262", radius: 0.62 },
-  { id: "vercel-mono", name: "Vercel Mono", category: "technical", accent: "#000000", darkAccent: "#FFFFFF", radius: 0.36, shadow: { opacity: 0.08, blur: 8, y: 2 } },
   { id: "terminal-green", name: "Terminal Green", category: "technical", accent: "#087F23", darkAccent: "#56D364", lightBackground: "#F5F8F5", darkBackground: "#080D09", font: "ibm-plex-sans", radius: 0.14, borderWidth: 1.25 },
   { id: "syntax-blue", name: "Syntax Blue", category: "technical", accent: "#005FCC", darkAccent: "#6CB6FF", lightBackground: "#F7FAFC", darkBackground: "#08111D", font: "space-grotesk", radius: 0.3 },
   { id: "graphite", name: "Graphite", category: "neutral", accent: "#44474C", darkAccent: "#C9CDD2", lightBackground: "#F4F5F6", darkBackground: "#111315", font: "public-sans", radius: 0.4 },
@@ -244,7 +234,7 @@ const presetSeeds: PresetSeed[] = [
   { id: "mint-studio", name: "Mint Studio", category: "colorful", accent: "#087A5B", darkAccent: "#4ADEA7", lightBackground: "#F2FBF7", darkBackground: "#081511", font: "plus-jakarta-sans", radius: 0.72 },
 ]
 
-export const themePresets = [geistDefault, ...presetSeeds.slice(1).map(createPreset)]
+export const themePresets = [geistDefault, ...brandThemePresets, ...presetSeeds.map(createPreset)]
 
 export const defaultTheme = themePresets[0]
 
