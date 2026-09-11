@@ -11,7 +11,7 @@ const labels = { iphone: "iPhone", ipad: "iPad", macbook: "MacBook", android: "A
 const sources = {
   iphone: "https://www.webmobilefirst.com/en/mockups/apple-iphone-17-2025/",
   ipad: "https://www.webmobilefirst.com/en/mockups/apple-ipad-pro-11-2018/",
-  macbook: "https://www.webmobilefirst.com/en/mockups/apple-macbook-pro-16-2021/",
+  macbook: "https://commons.wikimedia.org/wiki/File:MacBook_Pro_(14-inch,_M5,_Space_Black).jpg",
   android: "https://www.webmobilefirst.com/en/mockups/samsung-galaxy-s26-ultra-2026/",
 };
 
@@ -61,7 +61,7 @@ export function DeviceExample() {
         <span className="text-xs text-muted-foreground" role="status">{deviceFrames[model].name}</span>
       </div>
       <div className="flex min-h-[580px] items-center justify-center overflow-hidden rounded-lg bg-muted/40 px-4 py-7 sm:px-8">
-        <Device key={model} model={model} className={compact ? "max-w-[260px]" : model === "ipad" ? "max-w-[390px]" : "max-w-[740px]"} aria-label={`${deviceFrames[model].name} preview`}>
+        <Device key={model} model={model} frameSrc={model === "macbook" ? "/devices/macbook-pro-14-space-black.png" : undefined} className={compact ? "max-w-[260px]" : model === "ipad" ? "max-w-[390px]" : "max-w-[740px]"} aria-label={`${deviceFrames[model].name} preview`}>
           <DemoScreen compact={compact} />
         </Device>
       </div>
@@ -114,8 +114,9 @@ export function DeviceDetails() {
       </section>
       <section className="component-docs-section">
         <h2>Image sources</h2>
-        <p>The presets load photographic PNGs directly from Mobile FIRST. Its image terms permit personal and commercial presentations but prohibit distributing the frame files alone. The registry contains our component and frame coordinates; the images retain their provider&apos;s terms.</p>
-        <p>For control over availability, download your chosen PNG from its source page and host it with your app, then set <code>frameSrc</code> to its local path. Device does not require a Next.js remote image configuration.</p>
+        <p>The iPhone, iPad, and Android presets load PNGs from Mobile FIRST. Its image terms permit personal and commercial presentations but prohibit distributing the frame files alone.</p>
+        <p>The MacBook frame is a retouched adaptation of AzureSaturn&apos;s CC0 photograph of the M5 MacBook Pro. We reconstructed a front view and removed the background and screen. This PNG is hosted by Supervisor and released under CC0. The registry includes source links and image notices.</p>
+        <p>For control over availability, host an authorized frame PNG with your app and set <code>frameSrc</code> to its local path. You can <a href="/devices/macbook-pro-14-space-black.png" download className="underline underline-offset-4">download the MacBook PNG</a> here. Device does not require a Next.js remote image configuration.</p>
         <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">{models.map((model) => <a key={model} href={sources[model]} target="_blank" rel="noreferrer" className="underline underline-offset-4">{deviceFrames[model].name}</a>)}</div>
       </section>
     </>

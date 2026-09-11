@@ -1,18 +1,40 @@
 Device frame image sources
 
 The Device component and its measured frame coordinates are distributed
-under the Supervisor MIT license. The preset PNG images are hosted by
-Mobile FIRST and are not included in this package or covered by that license.
+under the Supervisor MIT license. Image licenses are listed separately below.
 
+MacBook Pro 14 inch
+
+public/devices/macbook-pro-14-space-black.png is a retouched adaptation of
+AzureSaturn's photograph of a 14 inch M5 MacBook Pro in Space Black.
+The source photograph was published under CC0. Supervisor releases this
+adaptation under CC0 as well, to the extent it holds rights in the image.
+
+Source photograph:
+https://commons.wikimedia.org/wiki/File:MacBook_Pro_(14-inch,_M5,_Space_Black).jpg
+License:
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Changes: reconstructed a centered front view with an image editing tool,
+removed the surroundings and screen content, and added an alpha channel.
+This is a retouched illustration based on a photograph, not an unaltered
+product photograph or an official Apple asset.
+
+Editing brief: preserve the slim bezel, camera notch, dark aluminum body,
+and metallic edges; use a straight front view with a narrow base; remove
+all surrounding objects and screen content; create a transparent PNG frame.
+
+The PNG is served from:
+https://ui.trysupervisor.com/devices/macbook-pro-14-space-black.png
+
+Mobile FIRST presets
+
+The iPhone, iPad, and Android PNG images are hosted by Mobile FIRST and
+are not included in this package or covered by the Supervisor MIT license.
 Mobile FIRST permits personal and commercial use, modification, and cropping
 of these mockups. Its model pages prohibit resale or redistribution of the
 frame file alone. Refer to the source pages for the image terms before
 downloading, hosting, or otherwise using the files.
-
-The component requests the original image URLs directly. It does not proxy,
-cache, or optimize them. Their availability depends on the provider. Set
-frameSrc to a local path to use your own authorized copy of a preset PNG,
-or supply a custom frame with its own image and screen coordinates.
 
 iPhone 17
 https://www.webmobilefirst.com/en/mockups/apple-iphone-17-2025/
@@ -20,12 +42,14 @@ https://www.webmobilefirst.com/en/mockups/apple-iphone-17-2025/
 iPad Pro, source listing 2018
 https://www.webmobilefirst.com/en/mockups/apple-ipad-pro-11-2018/
 
-MacBook Pro, source listing 2021
-https://www.webmobilefirst.com/en/mockups/apple-macbook-pro-16-2021/
-
 Samsung Galaxy S26 Ultra, source listing 2026
 https://www.webmobilefirst.com/en/mockups/samsung-galaxy-s26-ultra-2026/
 
 https://www.webmobilefirst.com/en/license-agreement/
+
+The component requests original image URLs directly without a proxy or
+image optimization. Their availability depends on the host. Set frameSrc
+to a local path to use your own authorized copy of a preset PNG, or supply
+a custom frame with its own image and screen coordinates.
 
 Source pages checked September 11, 2026.

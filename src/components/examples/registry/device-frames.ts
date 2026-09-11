@@ -24,11 +24,11 @@ export const deviceFrames: Record<DeviceModel, DeviceFrame> = {
     screen: { x: 29, y: 31, width: 518, height: 740, radius: 12 },
   },
   macbook: {
-    name: "MacBook Pro",
-    src: "https://www.webmobilefirst.com/img/mockups/mockup-apple-macbook-pro-16-2021-transparent.png",
-    width: 800,
-    height: 489,
-    screen: { x: 74, y: 18, width: 652, height: 422, radius: 3 },
+    name: "MacBook Pro 14 inch",
+    src: "https://ui.trysupervisor.com/devices/macbook-pro-14-space-black.png",
+    width: 1536,
+    height: 1024,
+    screen: { x: 140, y: 69, width: 1256, height: 799, radius: 18 },
   },
   android: {
     name: "Galaxy S26 Ultra",

@@ -68,7 +68,7 @@ The [Device component](https://ui.trysupervisor.com/components/device) puts scre
 
 Install it with `bunx shadcn@latest add https://ui.trysupervisor.com/r/device.json`. It works in Next.js with either shadcn component base. Use `model` to choose a device, `frameSrc` for a local copy with the same geometry, or `frame` for a custom PNG and screen coordinates.
 
-Default images load directly from Mobile FIRST with image optimization disabled. The PNGs have separate provider terms and are not redistributed in this repository or registry. Source links and local hosting instructions are included on the component page and in `licenses/device-frames.txt`.
+The MacBook PNG is a retouched adaptation of a CC0 photograph, hosted by Supervisor and released under CC0. Other default images load directly from Mobile FIRST with image optimization disabled and retain separate provider terms. Source links and local hosting instructions are included on the component page and in `licenses/device-frames.txt`.
 
 ## Vercel AI Elements
 

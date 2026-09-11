@@ -21,7 +21,7 @@ describe("PNG device frames", () => {
       expect(html).toContain('alt=""');
       expect(html).toContain('aria-hidden="true"');
       expect(html).toContain('data-slot="device-frame"');
-      expect(frame.src).toEndWith("-transparent.png");
+      expect(frame.src).toEndWith(".png");
     }
   });
 
