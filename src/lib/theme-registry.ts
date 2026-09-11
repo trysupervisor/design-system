@@ -24,6 +24,10 @@ export function themeToRegistry(themeInput: ThemeDefinition, baseUrl = REGISTRY_
   const font = FONT_OPTIONS.find((option) => option.id === theme.font)!;
   const family = theme.font === "geist" ? '"Geist Variable", ui-sans-serif, system-ui, sans-serif' : font.cssFamily;
   const fontPackage = theme.font === "geist" ? "@fontsource-variable/geist" : font.packageName;
+  const headingFont = FONT_OPTIONS.find((option) => option.id === (theme.headingFont ?? theme.font))!;
+  const headingFamily = headingFont.id === "geist" ? '"Geist Variable", ui-sans-serif, system-ui, sans-serif' : headingFont.cssFamily;
+  const headingPackage = headingFont.id === "geist" ? "@fontsource-variable/geist" : headingFont.packageName;
+  const fontPackages = [...new Set([fontPackage, headingPackage, "@fontsource-variable/geist-mono"])];
   const palette = (mode: "light" | "dark") => {
     const variables: Record<string, string> = {};
     const rules: Record<string, string> = {};
@@ -39,6 +43,8 @@ export function themeToRegistry(themeInput: ThemeDefinition, baseUrl = REGISTRY_
       }
     }
     rules["--app-font"] = family;
+    rules["--heading-font"] = headingFamily;
+    rules["--button-font"] = theme.buttonFont === "mono" ? '"Geist Mono Variable", ui-monospace, monospace' : family;
     variables["sidebar-background"] = variables.sidebar;
     rules["--theme-shadow"] = shadowToCss(theme.shadow);
     return { variables, rules };
@@ -52,18 +58,18 @@ export function themeToRegistry(themeInput: ThemeDefinition, baseUrl = REGISTRY_
     title: theme.name,
     description: `${theme.name} colors, typography, spacing, borders, and shadows for shadcn.`,
     registryDependencies: [`${baseUrl}/supervisor-foundation.json`],
-    dependencies: [fontPackage, "@fontsource-variable/geist-mono"],
+    dependencies: fontPackages,
     cssVars: {
-      theme: { "font-sans": family, "font-mono": '"Geist Mono Variable", ui-monospace, monospace', "shadow-sm": "var(--theme-shadow)" },
+      theme: { "font-sans": family, "font-heading": headingFamily, "font-mono": '"Geist Mono Variable", ui-monospace, monospace', "shadow-sm": "var(--theme-shadow)" },
       light: light.variables,
       dark: dark.variables,
     },
-    css: { [`@import "${fontPackage}"`]: {}, '@import "@fontsource-variable/geist-mono"': {}, ":root": light.rules, ".dark": dark.rules },
+    css: { ...Object.fromEntries(fontPackages.map((name) => [`@import "${name}"`, {}])), ":root": light.rules, ".dark": dark.rules },
     tailwind: {
       config: {
         theme: {
           extend: {
-            fontFamily: { sans: ["var(--app-font)"], mono: ["Geist Mono Variable", "monospace"] },
+            fontFamily: { sans: ["var(--app-font)"], heading: ["var(--heading-font)"], mono: ["Geist Mono Variable", "monospace"] },
             borderRadius: { sm: "calc(var(--radius) * .6)", md: "calc(var(--radius) * .8)", lg: "var(--radius)", xl: "calc(var(--radius) * 1.4)" },
             spacing: Object.fromEntries([0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96].map((size) => [String(size), `calc(var(--spacing) * ${size})`])),
             boxShadow: { sm: "var(--theme-shadow)" },
