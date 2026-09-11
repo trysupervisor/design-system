@@ -6,6 +6,7 @@ import { ArrowLeftIcon, ArrowRightIcon, SearchIcon } from "lucide-react";
 import { CodeDisclosure } from "@/components/code-disclosure";
 import { ComponentExample } from "@/components/examples/component-example";
 import { COMPONENT_SNIPPETS } from "@/components/examples/component-snippets";
+import { SupervisorBrandButtonExample } from "@/components/examples/supervisor-brand-button-example";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -76,6 +77,8 @@ export function ComponentDocs({ slug }: { slug: string }) {
           <CodeDisclosure title={component.name} code={code} />
         </div>
       </section>
+
+      {slug === "button" ? <SupervisorBrandButtonExample /> : null}
 
       <section className="component-docs-section">
         <h2>Install</h2>
