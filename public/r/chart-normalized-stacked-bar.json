@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-normalized-stacked-bar",
+  "type": "registry:component",
+  "title": "Normalized stacked bar",
+  "description": "Work distribution converted to a consistent one hundred percent scale.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

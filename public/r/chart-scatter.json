@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-scatter",
+  "type": "registry:component",
+  "title": "Scatter plot",
+  "description": "Response time plotted against satisfaction for each topic.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

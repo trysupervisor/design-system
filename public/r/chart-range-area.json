@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-range-area",
+  "type": "registry:component",
+  "title": "Range area",
+  "description": "Observed bounds shown behind the median handling time.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

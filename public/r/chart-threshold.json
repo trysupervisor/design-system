@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-threshold",
+  "type": "registry:component",
+  "title": "Threshold chart",
+  "description": "Queue saturation shown across healthy, watch, and critical zones.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

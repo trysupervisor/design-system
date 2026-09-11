@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-diverging-bar",
+  "type": "registry:component",
+  "title": "Diverging bar",
+  "description": "Account gains and losses measured from one shared baseline.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-waterfall",
+  "type": "registry:component",
+  "title": "Waterfall chart",
+  "description": "Revenue additions and deductions connected through a running balance.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

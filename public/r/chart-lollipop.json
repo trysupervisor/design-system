@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-lollipop",
+  "type": "registry:component",
+  "title": "Lollipop chart",
+  "description": "Workflow health ranked with compact inspectable markers.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

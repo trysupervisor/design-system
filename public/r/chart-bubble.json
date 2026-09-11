@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-bubble",
+  "type": "registry:component",
+  "title": "Bubble chart",
+  "description": "Response and satisfaction with issue volume encoded by area.",
+  "registryDependencies": [
+    "https://ui.trysupervisor.com/r/supervisor-charts.json"
+  ]
+}

@@ -4,6 +4,7 @@ import { defaultTheme, themePresets } from "../src/lib/theme-presets";
 import { hexToHslChannels, themeToRegistry } from "../src/lib/theme-registry";
 import { AI_ELEMENTS } from "../src/lib/ai-elements-catalog";
 import { ledgerVariables } from "../src/components/examples/registry/ledger-tokens";
+import { CHART_DEFINITIONS } from "../src/lib/chart-metadata";
 
 const projectRoot = new URL("../", import.meta.url);
 const compositions = ["combobox", "data-table", "date-picker", "toast", "typography"];
@@ -16,7 +17,7 @@ async function jsonFile<T>(path: string): Promise<T> {
 describe("registry output", () => {
   test("publishes schema valid items for every manifest entry", async () => {
     const manifest = await jsonFile<{ items: RegistryItem[] }>("registry.json");
-    expect(manifest.items).toHaveLength(73 + themePresets.length + AI_ELEMENTS.length);
+    expect(manifest.items).toHaveLength(74 + themePresets.length + AI_ELEMENTS.length + CHART_DEFINITIONS.length);
     for (const item of manifest.items) {
       const output = await jsonFile<RegistryItem>(`public/r/${item.name}.json`);
       expect(registryItemSchema.safeParse(output).success).toBe(true);
@@ -143,12 +144,13 @@ describe("registry output", () => {
       "@ui/ledger.tsx",
       "@ui/ledger-chart.tsx",
       "@ui/ledger-tokens.ts",
+      "@ui/ledger-runtime.ts",
       "@ui/ledger.css",
       "~/licenses/supervisor-ui.txt",
     ]);
     expect(item.dependencies).toContain("figma-squircle@1.1.0");
     expect(item.dependencies).toContain("motion@^12.26.2");
-    expect(item.files?.[4].content).toContain("MIT License");
+    expect(item.files?.[5].content).toContain("MIT License");
 
     const sourceFiles = item.files?.filter((file) => file.target?.startsWith("@ui/")) ?? [];
     const targetStems = new Set(sourceFiles.map((file) => file.target!.replace(/^@ui\//, "").replace(/\.(?:tsx?|css)$/, "")));
@@ -187,6 +189,29 @@ describe("registry output", () => {
     expect(item.cssVars.light.radius).toBe("0.9rem");
     expect(item.css[":root"]["--spacing"]).toBe("0.3rem");
     expect(() => themeToRegistry({ ...custom, font: "url(evil)" as typeof custom.font })).toThrow();
+  });
+
+  test("ships each chart family through one portable kit with resolved imports", async () => {
+    const kit = registryItemSchema.parse(await jsonFile<unknown>("public/r/supervisor-charts.json"));
+    const sourceFiles = kit.files?.filter((file) => file.target?.startsWith("@ui/")) ?? [];
+    expect(sourceFiles).toHaveLength(6);
+    expect(kit.dependencies).toContain("recharts@3.8.0");
+    expect(kit.dependencies).toContain("motion@^12.26.2");
+    const stems = new Set(sourceFiles.map((file) => file.target!.replace(/^@ui\//, "").replace(/\.(?:tsx?|css)$/, "")));
+    for (const file of sourceFiles) {
+      expect(file.content).not.toContain("@/components/examples/");
+      expect(file.content).not.toContain("@/components/ui/chart");
+      const original = await Bun.file(new URL(file.path, projectRoot)).text();
+      expect(file.content).toBe(original.replaceAll('"@/components/ui/chart"', '"./supervisor-chart"'));
+      for (const match of (file.content ?? "").matchAll(/(?:from\s+|import\s*)["']\.\/([^"']+)["']/g)) {
+        expect(stems).toContain(match[1].replace(/\.(?:tsx?|css)$/, ""));
+      }
+    }
+    for (const chart of CHART_DEFINITIONS) {
+      const item = registryItemSchema.parse(await jsonFile<unknown>(`public/r/chart-${chart.slug}.json`));
+      expect(item.registryDependencies).toEqual(["https://ui.trysupervisor.com/r/supervisor-charts.json"]);
+      expect(sourceFiles.some((file) => file.content?.includes(`export function ${chart.exportName}(`))).toBe(true);
+    }
   });
 
   test("uses adaptive HSL channels for legacy and current Tailwind", () => {
