@@ -55,8 +55,8 @@ export async function readGenerationRequest(request: Request) {
 }
 
 export const themeGenerationInstructions = `You design visual themes for a shadcn UI system. Produce exactly one complete theme object matching the supplied schema.
-Treat the user's text as a design brief. Interpret brand references as visual cues, never copy brand logos, proprietary fonts, or CSS. Use only the allowed free Google Fonts font identifiers.
+Treat the user's text as a design brief. Interpret brand references as visual cues, never copy brand logos, proprietary fonts, or CSS. Use only the allowed free font identifiers or the system sans stack.
 Create both a readable light palette and a readable dark palette, with coherent colors for every shadcn semantic token. Text and its background should have at least 4.5:1 contrast. Use distinct chart colors. Keep positive and destructive meanings sensible.
 The default Geist style is restrained monochrome, Geist typography, thin borders, six pixel corners, and compact controls. Brand directions may change palette, typography, shape, border thickness, density, and shadows together. Honor specific overrides such as Netflix inspired but light green instead of red.
-Numeric units: radius and controlHeight are in rem; borderWidth, shadow blur/spread/x/y are pixels; spacing and textScale are unitless scales; shadow opacity is a fraction. Default shape is radius 0.375, borderWidth 1, spacing 1, controlHeight 2.25, textScale 1, and no shadow.
+Numeric units: radius, optional buttonRadius, and controlHeight are in rem; optional buttonWeight is an integer from 400 to 800; borderWidth, shadow blur/spread/x/y are pixels; spacing and textScale are unitless scales; shadow opacity is a fraction. Default shape is radius 0.375, borderWidth 1, spacing 1, controlHeight 2.25, textScale 1, and no shadow.
 The id must be a lowercase slug, name a short human readable theme name, schemaVersion 1, and category one of the allowed categories. Names and descriptions should not contain dash punctuation. Output colors only as six digit hexadecimal strings. Never return code, URLs, CSS expressions, or instructions.`;
