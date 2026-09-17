@@ -110,6 +110,49 @@
     "[data-slot=\"table-cell\"]": {
       "font-size": ".8125rem"
     },
+    "@layer components": {
+      "[data-slot=\"button-group\"]:not(:has(> [data-slot=\"button-group\"])) > :not([hidden], [aria-hidden=\"true\"], [data-slot=\"button-group-separator\"])": {
+        "border-radius": "var(--button-radius, var(--radius)) !important"
+      },
+      "[data-slot=\"button-group\"]:not([data-orientation=\"vertical\"]):not(:has(> [data-slot=\"button-group\"])) > :not(:nth-child(1 of :not([hidden], [aria-hidden=\"true\"])))": {
+        "border-top-left-radius": "0 !important",
+        "border-bottom-left-radius": "0 !important"
+      },
+      "[data-slot=\"button-group\"]:not([data-orientation=\"vertical\"]):not(:has(> [data-slot=\"button-group\"])) > :not(:nth-last-child(1 of :not([hidden], [aria-hidden=\"true\"])))": {
+        "border-top-right-radius": "0 !important",
+        "border-bottom-right-radius": "0 !important"
+      },
+      "[data-slot=\"button-group\"][data-orientation=\"vertical\"]:not(:has(> [data-slot=\"button-group\"])) > :not(:nth-child(1 of :not([hidden], [aria-hidden=\"true\"])))": {
+        "border-top-left-radius": "0 !important",
+        "border-top-right-radius": "0 !important"
+      },
+      "[data-slot=\"button-group\"][data-orientation=\"vertical\"]:not(:has(> [data-slot=\"button-group\"])) > :not(:nth-last-child(1 of :not([hidden], [aria-hidden=\"true\"])))": {
+        "border-bottom-left-radius": "0 !important",
+        "border-bottom-right-radius": "0 !important"
+      }
+    },
+    "[data-slot=\"button-group\"]:not([data-orientation=\"vertical\"]):not(:has(> [data-slot=\"button-group\"])) > :not(:nth-child(1 of :not([hidden], [aria-hidden=\"true\"])))": {
+      "border-left-width": "0"
+    },
+    "[data-slot=\"button-group\"]:not([data-orientation=\"vertical\"]) > :has(+ [data-slot=\"button-group-separator\"])": {
+      "border-right-width": "0"
+    },
+    "[data-slot=\"button-group\"][data-orientation=\"vertical\"]:not(:has(> [data-slot=\"button-group\"])) > :not(:nth-child(1 of :not([hidden], [aria-hidden=\"true\"])))": {
+      "border-top-width": "0"
+    },
+    "[data-slot=\"button-group\"][data-orientation=\"vertical\"] > :has(+ [data-slot=\"button-group-separator\"])": {
+      "border-bottom-width": "0"
+    },
+    "[data-slot=\"button-group\"] > [data-slot=\"button-group-separator\"]": {
+      "margin": "0"
+    },
+    "[data-slot=\"button-group\"] > [data-slot=\"button\"]:active": {
+      "translate": "none"
+    },
+    "[data-slot=\"button-group\"] > :focus-visible": {
+      "outline": "2px solid currentColor",
+      "outline-offset": "2px"
+    },
     ":is([data-slot=\"button\"], [data-slot=\"combobox-trigger\"], [data-slot=\"pagination-link\"], [data-slot=\"navigation-menu-trigger\"], [data-slot=\"navigation-menu-link\"])": {
       "transition-duration": "var(--motion-control-duration, 150ms)",
       "transition-timing-function": "var(--motion-control-ease, cubic-bezier(.4, 0, .2, 1))"
