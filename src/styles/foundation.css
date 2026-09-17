@@ -143,6 +143,13 @@
 :is([data-slot="button"], [data-slot="combobox-trigger"])[data-variant="outline"]:hover { background: var(--muted); }
 [data-slot="input"], [data-slot="select-trigger"], [data-slot="native-select"] { height: var(--control-height); border-radius: var(--input-radius, var(--radius)); border-width: var(--border-width); background: var(--card); font-size: .8125rem; }
 [data-slot="textarea"], [data-slot="card"], [data-slot="dialog-content"], [data-slot="popover-content"], [data-slot="combobox-content"], [data-slot="dropdown-menu-content"], [data-slot="select-content"] { border-width: var(--border-width); border-radius: var(--radius); }
+:is([data-slot="popover-content"], [data-slot="combobox-content"], [data-slot="dropdown-menu-content"], [data-slot="dropdown-menu-sub-content"], [data-slot="context-menu-content"], [data-slot="context-menu-sub-content"], [data-slot="select-content"], [data-slot="hover-card-content"], [data-slot="menubar-content"], [data-slot="menubar-sub-content"], [data-slot="navigation-menu-viewport"]),
+[data-slot="navigation-menu"][data-viewport="false"] [data-slot="navigation-menu-content"] {
+  border-width: 1px;
+  border-style: solid;
+  box-shadow: none;
+  outline: none;
+}
 :is([data-slot="input"], [data-slot="textarea"], [data-slot="input-group"]) { border-width: max(1px, var(--border-width)); border-radius: var(--input-radius, var(--radius)); }
 :is([data-slot="input"], [data-slot="textarea"], [data-slot="input-group"], [data-slot="select-trigger"], [data-slot="native-select"], select):focus-within { outline: none; box-shadow: none; }
 :is([data-slot="input"], [data-slot="textarea"], [data-slot="input-group"], [data-slot="select-trigger"], [data-slot="native-select"], select):not([aria-invalid]:not([aria-invalid="false"])):not(:has([aria-invalid]:not([aria-invalid="false"]))):not([data-invalid]):not(:has([data-invalid])):focus-within { border-color: currentColor; box-shadow: inset 0 0 0 1px currentColor; }

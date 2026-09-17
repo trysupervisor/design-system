@@ -24,7 +24,7 @@ export function DatePicker(props: { value?: Date; onValueChange?: (date: Date | 
         <CalendarIcon />
         {date ? date.toLocaleDateString(undefined, { dateStyle: "long" }) : placeholder}
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start" sideOffset={1}>
+      <PopoverContent className="w-auto p-0" align="start" sideOffset={8}>
         <Calendar mode="single" selected={date} onSelect={select} defaultMonth={date} />
       </PopoverContent>
     </Popover>
