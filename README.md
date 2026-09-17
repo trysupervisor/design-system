@@ -2,6 +2,8 @@
 
 Reusable shadcn components, charts, and a Next.js preview at [ui.trysupervisor.com](https://ui.trysupervisor.com). The default theme follows Geist's visual conventions through original styles. It does not include Vercel's private component library or extracted stylesheets.
 
+The [Geist motion audit](docs/geist-motion-audit.md) covers all 72 reference catalog entries, measured timings and geometry, Supervisor mappings, and verification results. Shared motion ships through `supervisor-foundation`. Combobox, Data Table, Spinner, and the affected AI Elements also include source changes. Existing consumers can reinstall the foundation to update shared styles and review source changes before replacing customized components.
+
 ## Run locally
 
 ```sh

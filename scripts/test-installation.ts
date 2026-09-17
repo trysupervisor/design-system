@@ -271,6 +271,7 @@ function applicationSource(uiAlias: string, includeCompositions: boolean, tailwi
 
 import { Bar, BarChart, XAxis } from "recharts"
 import { Button } from "${uiAlias}/button"
+import { Spinner } from "${uiAlias}/spinner"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "${uiAlias}/chart"
 ${compositionImports}
 
@@ -285,6 +286,7 @@ export default function Home() {
   return (
     <main className="mx-auto grid min-h-dvh max-w-2xl content-center gap-8 p-8">
       <Button data-testid="preserved-button">Run report</Button>
+      <Spinner aria-label="Loading report" />
 ${compositionMarkup}      <ChartContainer config={config} className="min-h-[260px] w-full">
         <BarChart accessibilityLayer data={data}>
           <XAxis dataKey="month" />
@@ -360,6 +362,7 @@ try {
     if (!(await exists(buttonPath))) {
       await run(["bun", shadcnCli, "add", "button", "--yes"], directory);
     }
+    await run(["bun", shadcnCli, "add", `${registryBase}/spinner.json`, "--yes"], directory);
     if (entry.tailwindVersion !== 3) {
       await run(["bun", shadcnCli, "add", `${registryBase}/date-picker.json`, `${registryBase}/combobox.json`, "--yes"], directory);
     }

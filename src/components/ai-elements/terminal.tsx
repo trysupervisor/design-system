@@ -139,8 +139,6 @@ export const TerminalCopyButton = ({
     []
   );
 
-  const Icon = isCopied ? CheckIcon : CopyIcon;
-
   return (
     <Button
       className={cn(
@@ -152,7 +150,12 @@ export const TerminalCopyButton = ({
       variant="ghost"
       {...props}
     >
-      {children ?? <Icon size={14} />}
+      {children ?? (
+        <span aria-hidden="true" data-copied={isCopied} className="group/copy-icon relative size-3.5">
+          <CopyIcon className="absolute inset-0 size-full transition-[opacity,scale] duration-150 ease-in-out motion-reduce:transition-none group-data-[copied=true]/copy-icon:scale-50 group-data-[copied=true]/copy-icon:opacity-0" />
+          <CheckIcon className="absolute inset-0 size-full scale-50 opacity-0 transition-[opacity,scale] duration-150 ease-in-out motion-reduce:transition-none group-data-[copied=true]/copy-icon:scale-100 group-data-[copied=true]/copy-icon:opacity-100" />
+        </span>
+      )}
     </Button>
   );
 };

@@ -74,33 +74,12 @@ import { Toggle } from "@/components/ui/toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ComparisonLineChart } from "@/components/examples/registry/chart-cartesian";
+import { Combobox } from "@/components/examples/registry/combobox";
+import { DataTable } from "@/components/examples/registry/data-table";
 import { DeviceExample } from "./device-example";
 
 const companies = ["Aperture Labs", "Northstar Works", "Pine Research"];
 const questionnaireItems = [{ name: "priority", required: true, choices: [{ value: "clarity" }, { value: "speed" }, { value: "control" }] }] as const;
-
-function DataRows() {
-  return (
-    <Table>
-      <TableHeader><TableRow><TableHead>Workspace</TableHead><TableHead>Status</TableHead><TableHead className="text-right">Runs</TableHead></TableRow></TableHeader>
-      <TableBody>
-        <TableRow><TableCell>Aperture</TableCell><TableCell><Badge variant="secondary">Active</Badge></TableCell><TableCell className="text-right font-mono">184</TableCell></TableRow>
-        <TableRow><TableCell>Field notes</TableCell><TableCell><Badge variant="outline">Paused</Badge></TableCell><TableCell className="text-right font-mono">73</TableCell></TableRow>
-      </TableBody>
-    </Table>
-  );
-}
-
-function ComboboxDemo() {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("Aperture Labs");
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild><Button variant="outline" role="combobox" aria-expanded={open} className="w-64 justify-between">{value}<ChevronDownIcon /></Button></PopoverTrigger>
-      <PopoverContent className="w-64 p-0"><Command><CommandInput placeholder="Search workspaces" /><CommandList><CommandEmpty>No workspace found.</CommandEmpty><CommandGroup>{companies.map((company) => <CommandItem key={company} value={company} onSelect={() => { setValue(company); setOpen(false); }}>{company}{value === company && <CheckIcon className="ml-auto" />}</CommandItem>)}</CommandGroup></CommandList></Command></PopoverContent>
-    </Popover>
-  );
-}
 
 function DatePickerDemo() {
   const [date, setDate] = useState<Date | undefined>(new Date(2026, 8, 10));
@@ -156,11 +135,11 @@ export function ComponentExample({ slug }: { slug: string }) {
     case "carousel": return <Carousel className="mx-auto w-full max-w-sm"><CarouselContent>{["First", "Second", "Third"].map((label, index) => <CarouselItem key={label}><div className="grid aspect-[4/3] place-items-center rounded-lg border bg-muted/40"><span className="text-2xl font-medium">{index + 1}</span><span className="sr-only">{label} slide</span></div></CarouselItem>)}</CarouselContent><CarouselPrevious /><CarouselNext /></Carousel>;
     case "chart": return <div className="w-full max-w-2xl"><ComparisonLineChart /></div>;
     case "checkbox": return <div className="grid gap-3"><div className="flex items-center gap-2"><Checkbox id="terms" defaultChecked /><Label htmlFor="terms">Accept the workspace terms</Label></div><div className="flex items-center gap-2"><Checkbox id="archive" disabled /><Label htmlFor="archive">Archive after completion</Label></div></div>;
-    case "collapsible": return <Collapsible className="w-full max-w-md"><div className="flex items-center justify-between"><div><p className="font-medium">Advanced settings</p><p className="text-sm text-muted-foreground">Three optional controls</p></div><CollapsibleTrigger asChild><Button variant="ghost" size="icon" aria-label="Toggle advanced settings"><ChevronDownIcon /></Button></CollapsibleTrigger></div><CollapsibleContent className="mt-3 rounded-lg border p-4 text-sm">Timeout is 45 seconds. Retries are disabled.</CollapsibleContent></Collapsible>;
-    case "combobox": return <ComboboxDemo />;
+    case "collapsible": return <Collapsible className="w-full max-w-md"><div className="flex items-center justify-between"><div><p className="font-medium">Advanced settings</p><p className="text-sm text-muted-foreground">Three optional controls</p></div><CollapsibleTrigger asChild><Button variant="ghost" size="icon" aria-label="Toggle advanced settings"><ChevronDownIcon data-slot="collapsible-trigger-icon" /></Button></CollapsibleTrigger></div><CollapsibleContent className="mt-3 rounded-lg border p-4 text-sm">Timeout is 45 seconds. Retries are disabled.</CollapsibleContent></Collapsible>;
+    case "combobox": return <Combobox label="Workspace" defaultValue="aperture-labs" searchPlaceholder="Search workspaces" emptyMessage="No workspace found." options={companies.map((label) => ({ value: label.toLowerCase().replaceAll(" ", "-"), label }))} />;
     case "command": return <Command className="w-full max-w-md rounded-lg border"><CommandInput placeholder="Search actions" /><CommandList><CommandEmpty>No action found.</CommandEmpty><CommandGroup heading="Workspace"><CommandItem><SearchIcon />Search files<CommandShortcut>⌘ K</CommandShortcut></CommandItem><CommandItem><SettingsIcon />Open settings<CommandShortcut>⌘ ,</CommandShortcut></CommandItem></CommandGroup></CommandList></Command>;
     case "context-menu": return <ContextMenu><ContextMenuTrigger className="grid h-36 w-full max-w-md place-items-center rounded-lg border border-dashed text-sm text-muted-foreground">Use a secondary click here</ContextMenuTrigger><ContextMenuContent><ContextMenuItem>Open</ContextMenuItem><ContextMenuItem>Duplicate</ContextMenuItem><ContextMenuSeparator /><ContextMenuItem variant="destructive">Remove</ContextMenuItem></ContextMenuContent></ContextMenu>;
-    case "data-table": return <div className="w-full"><div className="mb-3 flex justify-end"><Button variant="outline" size="sm">Columns <ChevronDownIcon /></Button></div><DataRows /></div>;
+    case "data-table": return <div className="w-full"><DataTable rows={[{ id: "aperture", workspace: "Aperture", runs: 184 }, { id: "field-notes", workspace: "Field notes", runs: 73 }]} columns={[{ key: "workspace", label: "Workspace", sortable: true }, { key: "runs", label: "Runs", align: "right", sortable: true }]} getRowId={(row) => row.id} /></div>;
     case "date-picker": return <DatePickerDemo />;
     case "device": return <DeviceExample />;
     case "dialog": return <Dialog><DialogTrigger asChild><Button variant="outline">Edit profile</Button></DialogTrigger><DialogContent><DialogHeader><DialogTitle>Edit profile</DialogTitle><DialogDescription>Update the name shown to workspace members.</DialogDescription></DialogHeader><Field><FieldLabel htmlFor="display-name">Display name</FieldLabel><Input id="display-name" defaultValue="Mara Ortega" /></Field><DialogFooter><DialogClose asChild><Button>Save</Button></DialogClose></DialogFooter></DialogContent></Dialog>;

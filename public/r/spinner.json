@@ -5,6 +5,17 @@
   "title": "Spinner",
   "description": "A small animated indicator for an active task.",
   "registryDependencies": [
-    "spinner"
+    "https://ui.trysupervisor.com/r/supervisor-foundation.json"
+  ],
+  "dependencies": [
+    "cn@^0.2.6"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/spinner.tsx",
+      "type": "registry:ui",
+      "target": "@ui/spinner.tsx",
+      "content": "import { cn } from \"cn\"\n\nfunction Spinner({ className, ...props }: React.ComponentProps<\"svg\">) {\n  return (\n    <svg\n      viewBox=\"0 0 16 16\"\n      fill=\"none\"\n      data-slot=\"spinner\"\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(\"size-4\", className)}\n      {...props}\n    >\n      {Array.from({ length: 12 }, (_, index) => (\n        <rect\n          key={index}\n          data-slot=\"spinner-segment\"\n          x=\"7.25\"\n          y=\"1\"\n          width=\"1.5\"\n          height=\"4\"\n          rx=\"0.75\"\n          fill=\"currentColor\"\n          transform={`rotate(${index * 30} 8 8)`}\n          style={{ \"--spinner-delay\": `${index * -83.333}ms` } as React.CSSProperties}\n        />\n      ))}\n    </svg>\n  )\n}\n\nexport { Spinner }\n"
+    }
   ]
 }
