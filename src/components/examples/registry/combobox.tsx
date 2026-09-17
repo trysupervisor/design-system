@@ -117,7 +117,7 @@ export function Combobox(props: ComboboxProps) {
         </PopoverTrigger>
         <PopoverContent
           align="start"
-          sideOffset={8}
+          sideOffset={1}
           data-slot="combobox-content"
           className={cn("w-[var(--radix-popover-trigger-width,var(--anchor-width))] max-w-[calc(100vw-1rem)] p-1.5", contentClassName)}
         >
