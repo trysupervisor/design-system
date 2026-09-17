@@ -339,7 +339,7 @@
       "animation": "supervisor-skeleton-shimmer 1.5s ease-in-out infinite"
     },
     "[data-slot=\"spinner\"] [data-slot=\"spinner-segment\"]": {
-      "transform-origin": "8px 8px",
+      "transform-origin": "0 0",
       "animation": "supervisor-spinner-opacity 1s linear infinite",
       "animation-delay": "var(--spinner-delay)"
     },

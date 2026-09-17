@@ -159,7 +159,7 @@ The following checks use the running Supervisor implementation. Reference measur
 | Switch thumb | Translation interpolates over 150 ms. The transition includes both `translate` and `transform` so the installed Tailwind 4 utility keeps moving smoothly. |
 | Data Table sorting | Sorting changes row order and `aria-sort`. One persistent arrow rotates to show descending order. |
 | Installed Base UI Combobox | The trigger measured 462.22 px and the popup 462 px after layout rounding. Popup entrance has no animation. The chevron uses `aria-expanded`, rotates to 180 degrees immediately on opening, and restores a 150 ms transition on closing. Keyboard selection updates the value. |
-| Installed Base UI Spinner | Twelve segments retain staggered 1 s opacity animations. The outer SVG does not rotate. |
+| Installed Base UI Spinner | Twelve segments retain staggered 1 s opacity animations. Every segment stays inside the SVG bounds. CSS uses origin zero because the SVG rotation already supplies its center. The outer SVG does not rotate. |
 
 The browser session ran at 1280 by 720. The available viewport override did not change the rendered viewport, so the narrow combobox checks use real constrained containers. They are not a completed phone viewport test. Reduced motion must also be verified in compiled registry CSS; this browser connection does not expose preference emulation.
 
@@ -173,11 +173,11 @@ The CSS exporter merges repeated selectors and media blocks so later motion decl
 | --- | --- |
 | Lint | Passed. |
 | Type checking | Passed. |
-| Tests | 116 passed, zero failed, 3578 assertions across 16 files. |
+| Tests | 116 passed, zero failed, 3579 assertions across 16 files. |
 | Registry generation | 182 items generated. Affected component source matches the published JSON content, and both registry indexes match. |
 | Production build | Passed, generating 125 pages. |
 | Installation matrix | All five cases passed: root Radix TypeScript, source directory Base UI TypeScript, custom aliases, Radix JavaScript, and Tailwind 3 Radix. |
-| Final Base UI correction | The Base UI installation case passed again after changing the chevron to the shared `aria-expanded` state. The installed production build passed the browser checks above. |
+| Final Base UI corrections | The Base UI installation case passed again after changing the chevron to the shared `aria-expanded` state and correcting the Spinner origin. The installed production build passed the browser checks above. |
 | Reduced motion | Compiled CSS and exported rules retain duration limits and one animation iteration. Copy icons also carry explicit reduced motion classes. Browser preference emulation was unavailable. |
 
 The port preserves Ledger recipe motion, the 21 chart families, existing theme settings, and third party license notices. Vaul drawer gestures and Sonner toast stacking remain library adaptations. Context Menu and Combobox exit timing uses the documented token interpretation where a live reference exit could not be established. No proprietary source, stylesheets, icons, or logos are included.

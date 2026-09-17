@@ -158,6 +158,7 @@ describe("registry output", () => {
     expect(sheet.translate).toBe("40px 0");
     expect(contextMenu.animation).toContain("supervisor-popover-out var(--motion-popover-duration, 200ms)");
     expect(spinner.animation).toBe("supervisor-spinner-opacity 1s linear infinite");
+    expect(spinner["transform-origin"]).toBe("0 0");
     expect((css['[data-slot="tabs-trigger"]::after'] as CssRules).transition).toBe("none");
     expect(css["@keyframes supervisor-accordion-down"]).toBeDefined();
     expect(css["@keyframes supervisor-skeleton-shimmer"]).toBeDefined();
