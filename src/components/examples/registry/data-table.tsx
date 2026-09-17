@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { ArrowDownIcon, ArrowUpDownIcon, ArrowUpIcon } from "lucide-react";
+import { ArrowUpIcon } from "lucide-react";
+import { cn } from "cn";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
@@ -32,7 +33,7 @@ export function DataTable<Row extends Record<string, unknown>>({ rows, columns, 
   return (
     <Table>
       <TableHeader>
-        <TableRow>{columns.map((column) => <TableHead key={column.key} className={column.align === "right" ? "text-right" : undefined}>{column.sortable ? <Button variant="ghost" size="sm" onClick={() => changeSort(column.key)} aria-label={`Sort by ${column.label}`}>{column.label}{sort?.key !== column.key ? <ArrowUpDownIcon /> : sort.direction === "ascending" ? <ArrowUpIcon /> : <ArrowDownIcon />}</Button> : column.label}</TableHead>)}</TableRow>
+        <TableRow>{columns.map((column) => <TableHead key={column.key} aria-sort={sort?.key === column.key ? sort.direction : undefined} className={column.align === "right" ? "text-right" : undefined}>{column.sortable ? <Button variant="ghost" size="sm" onClick={() => changeSort(column.key)} aria-label={`Sort by ${column.label}`}>{column.label}<ArrowUpIcon data-slot="data-table-sort-icon" className={cn("opacity-40 transition-transform duration-200 ease-in-out", sort?.key === column.key && "opacity-100", sort?.key === column.key && sort.direction === "descending" && "rotate-180")} /></Button> : column.label}</TableHead>)}</TableRow>
       </TableHeader>
       <TableBody>
         {sortedRows.length ? sortedRows.map((row) => <TableRow key={getRowId(row)}>{columns.map((column) => <TableCell key={column.key} className={column.align === "right" ? "text-right" : undefined}>{column.render ? column.render(row[column.key], row) : String(row[column.key] ?? "")}</TableCell>)}</TableRow>) : <TableRow><TableCell colSpan={columns.length} className="h-24 text-center text-muted-foreground">{emptyMessage}</TableCell></TableRow>}

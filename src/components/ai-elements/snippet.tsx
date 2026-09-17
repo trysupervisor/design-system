@@ -129,8 +129,6 @@ export const SnippetCopyButton = ({
     []
   );
 
-  const Icon = isCopied ? CheckIcon : CopyIcon;
-
   return (
     <InputGroupButton
       aria-label="Copy"
@@ -140,7 +138,12 @@ export const SnippetCopyButton = ({
       title="Copy"
       {...props}
     >
-      {children ?? <Icon className="size-3.5" size={14} />}
+      {children ?? (
+        <span aria-hidden="true" data-copied={isCopied} className="group/copy-icon relative size-3.5">
+          <CopyIcon className="absolute inset-0 size-full transition-[opacity,scale] duration-150 ease-in-out motion-reduce:transition-none group-data-[copied=true]/copy-icon:scale-50 group-data-[copied=true]/copy-icon:opacity-0" />
+          <CheckIcon className="absolute inset-0 size-full scale-50 opacity-0 transition-[opacity,scale] duration-150 ease-in-out motion-reduce:transition-none group-data-[copied=true]/copy-icon:scale-100 group-data-[copied=true]/copy-icon:opacity-100" />
+        </span>
+      )}
     </InputGroupButton>
   );
 };

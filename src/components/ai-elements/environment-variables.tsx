@@ -296,8 +296,6 @@ export const EnvironmentVariableCopyButton = ({
     []
   );
 
-  const Icon = isCopied ? CheckIcon : CopyIcon;
-
   return (
     <Button
       className={cn("size-6 shrink-0", className)}
@@ -306,7 +304,12 @@ export const EnvironmentVariableCopyButton = ({
       variant="ghost"
       {...props}
     >
-      {children ?? <Icon size={12} />}
+      {children ?? (
+        <span aria-hidden="true" data-copied={isCopied} className="group/copy-icon relative size-3">
+          <CopyIcon className="absolute inset-0 size-full transition-[opacity,scale] duration-150 ease-in-out motion-reduce:transition-none group-data-[copied=true]/copy-icon:scale-50 group-data-[copied=true]/copy-icon:opacity-0" />
+          <CheckIcon className="absolute inset-0 size-full scale-50 opacity-0 transition-[opacity,scale] duration-150 ease-in-out motion-reduce:transition-none group-data-[copied=true]/copy-icon:scale-100 group-data-[copied=true]/copy-icon:opacity-100" />
+        </span>
+      )}
     </Button>
   );
 };
