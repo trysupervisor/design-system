@@ -1,6 +1,5 @@
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { basename, dirname, join, relative } from "node:path";
-import postcss, { type Container, type Rule, type AtRule } from "postcss";
 import { registryItemSchema } from "shadcn/schema";
 import { COMPONENTS, getComponent } from "../src/lib/component-catalog";
 import { defaultTheme, themePresets } from "../src/lib/theme-presets";
@@ -9,6 +8,7 @@ import { AI_ELEMENTS } from "../src/lib/ai-elements-catalog";
 import { CHART_DEFINITIONS } from "../src/lib/chart-metadata";
 import ts from "typescript";
 import { streamdownRegistryCss } from "./streamdown-css";
+import { registryCssRules, type CssRules } from "./registry-css";
 
 const projectRoot = join(import.meta.dir, "..");
 const outputRoot = join(projectRoot, "public/r");
@@ -21,7 +21,6 @@ const aiElementSupport = [{ slug: "hover-card-timing", name: "Hover card timing"
 const streamdownCss = await streamdownRegistryCss();
 
 type RegistryFile = { path: string; type: "registry:ui" | "registry:file"; target: string; content: string };
-type CssRules = { [key: string]: string | CssRules };
 type RegistryItem = {
   name: string;
   type: "registry:ui" | "registry:style" | "registry:component" | "registry:theme";
@@ -32,25 +31,6 @@ type RegistryItem = {
   files?: RegistryFile[];
   css?: CssRules;
 };
-
-function cssRules(container: Container): CssRules {
-  const rules: CssRules = {};
-  for (const node of container.nodes ?? []) {
-    if (node.type === "decl") {
-      const variables = [...node.value.matchAll(/var\(--([a-z0-9-]+)/g)];
-      if (variables.some((match) => semanticColors.has(match[1]))) continue;
-      rules[node.prop] = node.value + (node.important ? " !important" : "");
-    } else if (node.type === "rule" || node.type === "atrule") {
-      const child = node as Rule | AtRule;
-      if (child.type === "atrule" && ["theme", "custom-variant"].includes(child.name)) continue;
-      if (child.type === "rule" && [":root", ".dark"].includes(child.selector)) continue;
-      const key = child.type === "rule" ? child.selector : `@${child.name}${child.params ? ` ${child.params}` : ""}`;
-      const contents = cssRules(child);
-      if (Object.keys(contents).length) rules[key] = contents;
-    }
-  }
-  return rules;
-}
 
 function moduleSpecifiers(path: string, source: string) {
   const imports: string[] = [];
@@ -81,7 +61,7 @@ async function buildFoundation(): Promise<RegistryItem> {
     type: "registry:style",
     title: "Supervisor foundation",
     description: "Shared component rules for Supervisor themes.",
-    css: cssRules(postcss.parse(await readFile(join(projectRoot, "src/styles/foundation.css"), "utf8"))),
+    css: registryCssRules(await readFile(join(projectRoot, "src/styles/foundation.css"), "utf8"), semanticColors),
     files: [
       await sourceFile(join(projectRoot, "licenses/shadcn-ui.txt"), "registry:file", "~/licenses/shadcn-ui.txt"),
       await sourceFile(join(projectRoot, "LICENSE"), "registry:file", "~/licenses/supervisor-ui.txt"),
@@ -95,6 +75,7 @@ async function buildComposition(name: string): Promise<RegistryItem> {
   const source = await readFile(filePath, "utf8");
   const imports = [...source.matchAll(/from\s+["']([^"']+)["']/g)].map((match) => match[1]);
   const registryDependencies = [...new Set(imports.filter((path) => path.startsWith("@/components/ui/")).map((path) => basename(path)))].sort();
+  if (name === "combobox") registryDependencies.push(`${registryBaseUrl}/supervisor-foundation.json`);
   const dependencies = [...new Set(imports.filter((path) => !path.startsWith(".") && !path.startsWith("@/") && path !== "react").map((path) => path.startsWith("@") ? path.split("/").slice(0, 2).join("/") : path.split("/")[0]))].sort();
   return {
     name,
@@ -223,11 +204,22 @@ async function buildAIElement(element: { slug: string; name: string; description
 async function main() {
   const compositions = ["combobox", "data-table", "date-picker", "toast", "typography"];
   const uiFiles = (await readdir(join(projectRoot, "src/components/ui"))).filter((file) => file.endsWith(".tsx")).sort();
-  const nativeItems: RegistryItem[] = uiFiles.map((file) => {
+  const nativeItems: RegistryItem[] = await Promise.all(uiFiles.map(async (file) => {
     const name = basename(file, ".tsx");
     const component = getComponent(name);
+    if (name === "spinner") {
+      return {
+        name,
+        type: "registry:ui",
+        title: component?.name ?? name,
+        description: component?.description ?? `The shadcn ${name} component.`,
+        registryDependencies: [`${registryBaseUrl}/supervisor-foundation.json`],
+        dependencies: [`cn@${packageManifest.dependencies.cn}`],
+        files: [await sourceFile(join(projectRoot, "src/components/ui/spinner.tsx"), "registry:ui", "@ui/spinner.tsx")],
+      };
+    }
     return { name, type: "registry:ui", title: component?.name ?? name, description: component?.description ?? `The shadcn ${name} component.`, registryDependencies: [name] };
-  });
+  }));
   const items: RegistryItem[] = [
     await buildFoundation(),
     await buildLedgerRuntime(),
