@@ -9,6 +9,7 @@ import { CHART_DEFINITIONS } from "../src/lib/chart-metadata";
 const projectRoot = new URL("../", import.meta.url);
 const compositions = ["combobox", "data-table", "date-picker", "toast", "typography"];
 type RegistryFile = { path: string; target: string; content?: string };
+type CssRules = { [key: string]: string | CssRules };
 type RegistryItem = ReturnType<typeof themeToRegistry> & { files?: RegistryFile[] };
 async function jsonFile<T>(path: string): Promise<T> {
   return Bun.file(new URL(path, projectRoot)).json() as Promise<T>;
@@ -63,8 +64,32 @@ describe("registry output", () => {
       expect(item.files?.[0].target).toBe(`@ui/${name}.tsx`);
       expect(item.files?.[0].content?.length).toBeGreaterThan(40);
       expect(item.files?.[0].content).not.toContain("asChild");
-      expect(item.registryDependencies.every((dependency) => !dependency.includes("http"))).toBe(true);
+      const remoteDependencies = item.registryDependencies.filter((dependency) => dependency.includes("http"));
+      expect(remoteDependencies).toEqual(name === "combobox" ? ["https://ui.trysupervisor.com/r/supervisor-foundation.json"] : []);
     }
+  });
+
+  test("publishes the portable Combobox source and uses it in the preview", async () => {
+    const item = await jsonFile<RegistryItem>("public/r/combobox.json");
+    const source = await Bun.file(new URL("src/components/examples/registry/combobox.tsx", projectRoot)).text();
+    const preview = await Bun.file(new URL("src/components/examples/component-example.tsx", projectRoot)).text();
+    expect(item.registryDependencies).toContain("https://ui.trysupervisor.com/r/supervisor-foundation.json");
+    expect(item.files?.[0].content).toBe(source);
+    expect(source).toContain('data-slot="combobox-trigger"');
+    expect(source).toContain('type="hidden"');
+    expect(source).toContain("disabled={disabled}");
+    expect(preview).toContain('import { Combobox } from "@/components/examples/registry/combobox"');
+  });
+
+  test("publishes the segmented Spinner source with its foundation dependency", async () => {
+    const item = await jsonFile<RegistryItem>("public/r/spinner.json");
+    const source = await Bun.file(new URL("src/components/ui/spinner.tsx", projectRoot)).text();
+    expect(item.registryDependencies).toEqual(["https://ui.trysupervisor.com/r/supervisor-foundation.json"]);
+    expect(item.dependencies).toEqual(["cn@^0.2.6"]);
+    expect(item.files?.[0].target).toBe("@ui/spinner.tsx");
+    expect(item.files?.[0].content).toBe(source);
+    expect(source).toContain("length: 12");
+    expect(source).toContain('data-slot="spinner-segment"');
   });
 
   test("publishes the complete AI Elements catalog with the verified source", async () => {
@@ -106,11 +131,50 @@ describe("registry output", () => {
     expect(theme.cssVars.light.background).toBe(hexToHslChannels(defaultTheme.light.background));
     expect(theme.cssVars.dark.background).toBe(hexToHslChannels(defaultTheme.dark.background));
     expect(JSON.stringify(foundation.css)).not.toContain("--supervisor-");
-    expect(JSON.stringify(foundation.css)).not.toContain("background");
+    expect(JSON.stringify(foundation.css)).not.toContain('"background":"var(--background)"');
+    expect(JSON.stringify(foundation.css)).not.toContain('"background-color":"var(--background)"');
     for (const token of Object.keys(theme.cssVars.light).filter((key) => key !== "radius")) {
       expect(JSON.stringify(foundation.css)).not.toContain(`var(--${token})`);
     }
     expect(theme.dependencies).toContain("@fontsource-variable/geist");
+  });
+
+  test("exports motion tokens, component selectors, keyframes, and reduced motion", async () => {
+    const foundation = await jsonFile<RegistryItem>("public/r/supervisor-foundation.json");
+    const css = foundation.css as CssRules;
+    const base = css["@layer base"] as CssRules;
+    const html = base.html as CssRules;
+    expect(html["--motion-control-duration"]).toBe("150ms");
+    expect(html["--motion-disclosure-duration"]).toBe("200ms");
+    expect(html["--motion-popover-duration"]).toBe("200ms");
+    expect(html["--motion-overlay-duration"]).toBe("300ms");
+    expect(html["--motion-swift-ease"]).toBe("cubic-bezier(.175, .885, .32, 1.1)");
+
+    const dialog = css[':where([data-slot="dialog-content"], [data-slot="alert-dialog-content"]):is([data-state="open"], [data-open])'] as CssRules;
+    const sheet = css['[data-slot="sheet-content"][data-ending-style][data-side="right"]'] as CssRules;
+    const contextMenu = css[':where([data-slot="context-menu-content"], [data-slot="context-menu-sub-content"]):is([data-state="closed"], [data-closed])'] as CssRules;
+    const spinner = css['[data-slot="spinner"] [data-slot="spinner-segment"]'] as CssRules;
+    expect(dialog.animation).toContain("supervisor-dialog-in var(--motion-overlay-duration, 300ms)");
+    expect(sheet.translate).toBe("40px 0");
+    expect(contextMenu.animation).toContain("supervisor-popover-out var(--motion-popover-duration, 200ms)");
+    expect(spinner.animation).toBe("supervisor-spinner-opacity 1s linear infinite");
+    expect((css['[data-slot="tabs-trigger"]::after'] as CssRules).transition).toBe("none");
+    expect(css["@keyframes supervisor-accordion-down"]).toBeDefined();
+    expect(css["@keyframes supervisor-skeleton-shimmer"]).toBeDefined();
+    expect(css["@keyframes supervisor-spinner-opacity"]).toBeDefined();
+
+    const reducedMotion = css["@media (prefers-reduced-motion: reduce)"] as CssRules;
+    const reducedMotionElements = reducedMotion["*, *::before, *::after"] as CssRules;
+    expect(reducedMotionElements["animation-duration"]).toBe(".01ms !important");
+    expect(reducedMotionElements["animation-iteration-count"]).toBe("1 !important");
+    expect(reducedMotionElements["transition-duration"]).toBe(".01ms !important");
+  });
+
+  test("publishes reduced motion copy feedback in every affected AI Element", async () => {
+    for (const slug of ["code-block", "commit", "environment-variables", "snippet", "stack-trace", "terminal"]) {
+      const item = await jsonFile<RegistryItem>(`public/r/ai-elements-${slug}.json`);
+      expect(item.files?.[0].content?.match(/motion-reduce:transition-none/g)).toHaveLength(2);
+    }
   });
 
   test("publishes every preset through the native theme schema", async () => {
